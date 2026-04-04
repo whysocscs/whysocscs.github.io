@@ -17,3 +17,9 @@
   name: Projects
   tpl: projects.html
   css: project
+
+- id: blog-overview
+  i18n: nav.blog
+  name: Blog
+  tpl: blog_overview.html
+  css: gray-section
