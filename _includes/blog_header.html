@@ -36,16 +36,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    {% for tag in site.data.blog %}
-                        {% if tag.name != 'Donate' or site.donation %}
-                        {% if page.title == tag.name %}
-                        <li class="active">
-                        {% else %}
-                        <li>
-                        {% endif %}
-                        <a class="page-scroll" href="{{ tag.href | prepend: site.baseurl }}" style="{% if page.title == tag.name %}color: #0f172a; background: rgba(226, 232, 240, 0.75);{% else %}color: #334155;{% endif %}">{{ tag.name }}</a></li>
-                        {% endif %}
-                    {% endfor %}
+                    <li><a class="page-scroll" href="{{ '/' | prepend: site.baseurl }}" style="color: #334155;">Home</a></li>
+                    <li><a class="page-scroll" href="{{ '/blog/' | prepend: site.baseurl }}" style="{% if page.url == '/blog/' %}color: #0f172a; background: rgba(226, 232, 240, 0.75);{% else %}color: #334155;{% endif %}">Blog</a></li>
                 </ul>
             </div>
         </div>

@@ -1,0 +1,70 @@
+<style>
+    .blog-sidebar {
+        padding-top: 18px;
+    }
+
+    .blog-sidebar .ibox {
+        margin-bottom: 20px;
+    }
+
+    .blog-sidebar-title {
+        margin: 0;
+        color: #2f4050;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .blog-sidebar-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .blog-sidebar-list li + li {
+        margin-top: 8px;
+    }
+
+    .blog-sidebar-link {
+        display: block;
+        padding: 10px 12px;
+        border-radius: 6px;
+        color: #676a6c;
+        text-decoration: none !important;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .blog-sidebar-link:hover,
+    .blog-sidebar-link:focus {
+        background: #f3f3f4;
+        color: #2f4050;
+        text-decoration: none !important;
+    }
+
+    .blog-sidebar-link.active {
+        background: #1ab394;
+        color: #ffffff !important;
+    }
+</style>
+
+{% assign current_path = page.url %}
+<div class="blog-sidebar">
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3 class="blog-sidebar-title">Blog Menu</h3>
+            <ul class="blog-sidebar-list" style="margin-top: 16px;">
+                <li>
+                    <a class="blog-sidebar-link {% if current_path == '/blog/' %}active{% endif %}" href="{{ '/blog/' | prepend: site.baseurl }}">All Posts</a>
+                </li>
+                {% for item in site.data.blog %}
+                    {% if item.name != 'Blog' and item.name != 'Donate' %}
+                <li>
+                    <a class="blog-sidebar-link {% if current_path == item.href %}active{% endif %}" href="{{ item.href | prepend: site.baseurl }}">{{ item.name }}</a>
+                </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
