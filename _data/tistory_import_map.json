@@ -1,0 +1,38 @@
+{
+  "default_tags": [
+    "Tistory"
+  ],
+  "posts": {
+    "1": { "category": "Etc", "tags": ["BoB"] },
+    "2": { "category": "Etc", "tags": ["BoB"] },
+    "3": { "category": "Etc", "tags": ["BoB"] },
+    "4": { "category": "Etc", "tags": ["BoB"] },
+    "5": { "category": "Etc", "tags": ["카테고리 없음"] },
+    "6": { "category": "Etc", "tags": ["카테고리 없음"] },
+    "7": { "category": "Etc", "tags": ["BoB"] },
+    "8": { "category": "Etc", "tags": ["BoB"] },
+    "9": { "category": "Etc", "tags": ["BoB"] },
+    "10": { "category": "Development", "tags": ["백준"] },
+    "11": { "category": "Etc", "tags": ["BoB"] },
+    "12": { "category": "Development", "tags": ["백준"] },
+    "13": { "category": "TechnicalDocument", "tags": ["퍼징"] },
+    "14": { "category": "Paper-Conference", "tags": ["AI 보안", "security for ai"] },
+    "15": { "category": "Development", "tags": ["바이브코딩"] },
+    "16": { "category": "Paper-Conference", "tags": ["AI 보안", "security for ai"] },
+    "17": { "category": "Development", "tags": ["바이브코딩"] },
+    "18": { "category": "Development", "tags": ["바이브코딩"] },
+    "19": { "category": "Development", "tags": ["백준"] },
+    "20": { "category": "Paper-Conference", "tags": ["퍼징"] },
+    "21": { "category": "TechnicalDocument", "tags": ["AI 보안", "AI Background"] },
+    "22": { "category": "TechnicalDocument", "tags": ["AI 보안", "AI Background"] },
+    "23": { "category": "Paper-Conference", "tags": ["AI 보안", "security for ai"] },
+    "24": { "category": "Development", "tags": ["뉴스 기사"] },
+    "25": { "category": "Etc", "tags": ["회고록"] },
+    "26": { "category": "Paper-Conference", "tags": ["퍼징"] },
+    "27": { "category": "CTF-Wargame", "tags": ["CTF"] },
+    "28": { "category": "Development", "tags": ["뉴스 기사"] },
+    "29": { "category": "TechnicalDocument", "tags": ["AI 보안", "AI Background"] },
+    "30": { "category": "TechnicalDocument", "tags": ["AI 보안", "security for ai"] },
+    "31": { "category": "TechnicalDocument", "tags": ["AI 보안", "security for ai"] }
+  }
+}
