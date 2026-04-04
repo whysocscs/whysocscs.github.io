@@ -1,44 +1,164 @@
 <div class="container" id="i18_projects">
-    <div class="row m-b-lg">
+    {% assign total_posts = site.posts | size %}
+    {% assign development_count = site.categories['Development'] | size %}
+    {% assign ctf_wargame_count = site.categories['CTF-Wargame'] | size %}
+    {% assign bugbounty_count = site.categories['BugBounty'] | size %}
+    {% assign technical_document_count = site.categories['TechnicalDocument'] | size %}
+    {% assign paper_conference_count = site.categories['Paper-Conference'] | size %}
+    {% assign contest_certification_count = site.categories['Contest-Certification'] | size %}
+
+    <style>
+        .blog-overview-header {
+            margin-bottom: 18px;
+        }
+
+        .blog-overview-subtitle {
+            color: #64748b;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .blog-overview-card {
+            display: block;
+            min-height: 190px;
+            margin-bottom: 30px;
+            padding: 28px 26px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #f8fafc 0%, #eef2ff 100%);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+            color: #0f172a;
+            text-decoration: none !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .blog-overview-card:hover,
+        .blog-overview-card:focus {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+            color: #0f172a;
+            text-decoration: none !important;
+        }
+
+        .blog-overview-label {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.12);
+            color: #1d4ed8;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .blog-overview-count {
+            margin: 0;
+            font-size: 46px;
+            font-weight: 700;
+            line-height: 1;
+            color: #0f172a;
+        }
+
+        .blog-overview-title {
+            margin: 14px 0 10px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .blog-overview-desc {
+            margin: 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .blog-overview-summary {
+            margin-bottom: 24px;
+            padding: 24px 28px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+        }
+
+        .blog-overview-summary h3 {
+            margin: 0 0 8px;
+            color: #f8fafc;
+        }
+
+        .blog-overview-summary p {
+            margin: 0;
+            color: #cbd5e1;
+        }
+    </style>
+
+    <div class="row m-b-lg blog-overview-header">
         <div class="col-lg-12 text-center">
             <div class="navy-line"></div>
-            <h1><span data-i18n="projects.my_projects">My Projects</span></h1>
+            <h1>Blog Overview</h1>
+            <p class="blog-overview-subtitle">Current post counts across your blog categories.</p>
         </div>
     </div>
+
     <div class="row">
-        {% for project in site.data.index.projects %}
-            {% assign loopindex = forloop.index | modulo: 2 %}
-            {% if forloop.last %}
-                {% if forloop.last == forloop.first %}
-            <div class="col-sm-6 wow col-sm-offset-3 zoomIn">
-                {% else %}
-            <div class="col-sm-6 wow {% if loopindex == 1 %} fadeInLeft col-sm-offset-3 {% else %} fadeInRight {% endif %}">
-                {% endif %}
-            {% else %}
-            <div class="col-sm-6 wow {% if loopindex == 1 %} fadeInLeft {% else %} fadeInRight {% endif %}">
-            {% endif %}
-              <div class="team-member">
-                  <img src="{{ project.img | prepend: site.baseurl }}" class="img-responsive img-circle img-small" alt="">
-                  <h4>
-                  {% if project.url %}
-                  <a href="{{ project.url }}" target="_blank"><span class="navy">{{ project.name }}</span></a>
-                  {% elsif project.repo %}
-                  <a href="https://github.com/{{ project.gh_user }}/{{ project.repo }}" target="_blank"><span class="navy">{{ project.name }}</span></a>
-                  {% else %}
-                  <span class="navy">{{ project.name }}</span>
-                  {% endif %}
-                  </h4>
-                  <p><span data-i18n="projects.{{ project.i18n }}">{{ project.desc }}</span></p>
-                  {% if project.repo %}
-                  <div user="{{ project.gh_user }}" repo="{{ project.repo }}" class="ghbtn">
-                      <a target="_blank" style="width: 65px;" href="https://github.com/{{ project.gh_user }}/{{ project.repo }}/stargazers" class="btn btn-white btn-xs star"><i class="fa fa-star"></i> ...</a>&emsp;&emsp;
-                      <a target="_blank" style="width: 65px;" href="https://github.com/{{ project.gh_user }}/{{ project.repo }}/network" class="btn btn-white btn-xs fork"><i class="fa fa-code-fork"></i> ...</a>
-                      <div style="height: 10px;"></div>
-                  </div>
-                  {% endif %}
-              </div>
-          </div>
-      {% endfor %}
+        <div class="col-lg-12">
+            <div class="blog-overview-summary wow fadeInUp">
+                <h3>Total Posts: {{ total_posts }}</h3>
+                <p>Track how many writeups, notes, and records are currently published in each category.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-lg-4 wow fadeInLeft">
+            <a class="blog-overview-card" href="{{ '/development/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ development_count }}</p>
+                <h3 class="blog-overview-title">Development</h3>
+                <p class="blog-overview-desc">Development notes, implementation logs, and technical problem-solving posts.</p>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4 wow fadeInUp">
+            <a class="blog-overview-card" href="{{ '/ctf-wargame/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ ctf_wargame_count }}</p>
+                <h3 class="blog-overview-title">CTF-Wargame</h3>
+                <p class="blog-overview-desc">Challenge writeups, attack flow notes, and step-by-step training records.</p>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4 wow fadeInRight">
+            <a class="blog-overview-card" href="{{ '/bugbounty/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ bugbounty_count }}</p>
+                <h3 class="blog-overview-title">BugBounty</h3>
+                <p class="blog-overview-desc">Web vulnerability analysis, disclosure notes, and bounty-focused case studies.</p>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4 wow fadeInLeft">
+            <a class="blog-overview-card" href="{{ '/technical-document/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ technical_document_count }}</p>
+                <h3 class="blog-overview-title">TechnicalDocument</h3>
+                <p class="blog-overview-desc">Documentation, organized references, and practical technical writeups.</p>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4 wow fadeInUp">
+            <a class="blog-overview-card" href="{{ '/paper-conference/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ paper_conference_count }}</p>
+                <h3 class="blog-overview-title">Paper-Conference</h3>
+                <p class="blog-overview-desc">Paper reviews, conference notes, and research-oriented summaries.</p>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4 wow fadeInRight">
+            <a class="blog-overview-card" href="{{ '/contest-certification/' | prepend: site.baseurl }}">
+                <span class="blog-overview-label">Category</span>
+                <p class="blog-overview-count">{{ contest_certification_count }}</p>
+                <h3 class="blog-overview-title">Contest-Certification</h3>
+                <p class="blog-overview-desc">Competition records, exam preparation notes, and certification experiences.</p>
+            </a>
+        </div>
     </div>
 </div>
 <br>
