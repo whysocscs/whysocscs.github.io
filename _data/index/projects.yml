@@ -3,5 +3,5 @@
 # Suggest projects' img be located at '/static/assets/img/landing', and edit following img items.
 - name: SLM-based OT Solution
   i18n: slm_based_ot_solution
-  img: /static/assets/img/landing/bob.png
+  img: /static/assets/img/landing/bob.jpg
   desc: An OT security solution based on SLM, focused on practical defense and applied security architecture.
