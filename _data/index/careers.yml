@@ -1,30 +1,44 @@
 # careers section data
 # if you don't have language feature(language.yml is empty), ignore "i18n" items
 - name:
-    detail: Company A
-    i18n: company_a
+    detail: Sangmyung University
+    i18n: sangmyung_university
   desc:
-    detail: I worked at Company A ...
-    i18n: company_a_desc
+    detail: Entered the Department of Information Security Engineering at Sangmyung University.
+    i18n: sangmyung_university_desc
   date:
-    detail: Apr. 2016
-    i18n: company_a_date
+    detail: 2021 - Present
+    i18n: sangmyung_university_date
   job:
-    detail: CTO
-    i18n: company_a_job
-  icon: fa-plus-square
+    detail: Undergraduate Student
+    i18n: sangmyung_university_job
+  icon: fa-graduation-cap
   present: true
 
 - name:
-    detail: Company B
-    i18n: company_b
+    detail: BoB (Best of the Best)
+    i18n: bob
   desc:
-    detail: I worked at Company B ...
-    i18n: company_b_desc
+    detail: Completed the BoB program with focused training in practical security and offensive research.
+    i18n: bob_desc
   date:
-    detail: Jun. 2015
-    i18n: company_b_date
+    detail: Jun. 2025 - Feb. 2026
+    i18n: bob_date
   job:
-    detail: Full Stack Developer
-    i18n: company_b_job
-  icon: fa-plus-square
+    detail: Program Graduate
+    i18n: bob_job
+  icon: fa-shield
+
+- name:
+    detail: Undergraduate Research Intern
+    i18n: undergraduate_research_intern
+  desc:
+    detail: Studied AI guardrails and jailbreak techniques as part of an undergraduate research program.
+    i18n: undergraduate_research_intern_desc
+  date:
+    detail: Jan. 2026 - Feb. 2026
+    i18n: undergraduate_research_intern_date
+  job:
+    detail: Research Student
+    i18n: undergraduate_research_intern_job
+  icon: fa-flask
