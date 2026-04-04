@@ -9,7 +9,12 @@ layout: default
                 <div class="ibox-content">
                     <div class="pull-right">
                     	{% for category in page.categories %}
-                        	<a class="btn btn-white btn-xs" href="{{ category | downcase | prepend: '/' | prepend: site.baseurl }}">{{ category }}</a>
+                            {% assign category_path = category | downcase %}
+                            {% case category %}
+                            {% when 'TechnicalDocument' %}
+                            {% assign category_path = 'technical-document' %}
+                            {% endcase %}
+                        	<a class="btn btn-white btn-xs" href="{{ category_path | prepend: '/' | append: '/' | prepend: site.baseurl }}">{{ category }}</a>
                         {% endfor %}
                     </div>
                     <div class="text-center article-title">
