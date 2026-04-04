@@ -11,8 +11,35 @@
     <img src="{{ "/static/assets/img/search/cb-search.png" | prepend : site.baseurl }}"  id="search-btn"  title="Double click Ctrl"/>
 </div>
 
+<style>
+    .blog-header-minimal {
+        background: rgba(248, 250, 252, 0.97);
+        border-color: transparent;
+    }
+
+    .blog-header-minimal .navbar-brand,
+    .blog-header-minimal .nav > li > a {
+        color: #334155 !important;
+    }
+
+    .blog-header-minimal .nav > li > a:hover,
+    .blog-header-minimal .nav > li > a:focus,
+    .blog-header-minimal .navbar-brand:hover,
+    .blog-header-minimal .navbar-brand:focus,
+    .blog-header-minimal .navbar-nav > .active > a,
+    .blog-header-minimal .navbar-nav > .active > a:hover,
+    .blog-header-minimal .navbar-nav > .active > a:focus {
+        color: #0f172a !important;
+        background: rgba(226, 232, 240, 0.75) !important;
+    }
+    
+    .blog-header-minimal .navbar-toggle .icon-bar {
+        background-color: #334155;
+    }
+</style>
+
 <div class="navbar-wrapper">
-    <nav class="navbar navbar-default navbar-fixed-top blog-nav" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top blog-header-minimal" role="navigation">
         <div class="container">
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
