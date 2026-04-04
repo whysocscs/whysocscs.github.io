@@ -17,22 +17,6 @@
         border-color: transparent;
     }
 
-    .blog-header-minimal .navbar-brand,
-    .blog-header-minimal .nav > li > a {
-        color: #334155 !important;
-    }
-
-    .blog-header-minimal .nav > li > a:hover,
-    .blog-header-minimal .nav > li > a:focus,
-    .blog-header-minimal .navbar-brand:hover,
-    .blog-header-minimal .navbar-brand:focus,
-    .blog-header-minimal .navbar-nav > .active > a,
-    .blog-header-minimal .navbar-nav > .active > a:hover,
-    .blog-header-minimal .navbar-nav > .active > a:focus {
-        color: #0f172a !important;
-        background: rgba(226, 232, 240, 0.75) !important;
-    }
-    
     .blog-header-minimal .navbar-toggle .icon-bar {
         background-color: #334155;
     }
@@ -48,11 +32,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ "/" | prepend: site.baseurl }}">{{ site.title }}</a>
+                <a class="navbar-brand" href="{{ "/" | prepend: site.baseurl }}" style="color: #334155;">{{ site.title }}</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="page-scroll" href="{{ "blog/" | prepend: site.baseurl }}">{{ site.index.home }}</a></li>
                     {% for tag in site.data.blog %}
                         {% if tag.name != 'Donate' or site.donation %}
                         {% if page.title == tag.name %}
@@ -60,7 +43,7 @@
                         {% else %}
                         <li>
                         {% endif %}
-                        <a class="page-scroll" href="{{ tag.href | prepend: site.baseurl }}">{{ tag.name }}</a></li>
+                        <a class="page-scroll" href="{{ tag.href | prepend: site.baseurl }}" style="{% if page.title == tag.name %}color: #0f172a; background: rgba(226, 232, 240, 0.75);{% else %}color: #334155;{% endif %}">{{ tag.name }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
