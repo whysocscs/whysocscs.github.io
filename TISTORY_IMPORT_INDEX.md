@@ -72,7 +72,7 @@
 - [BoB 회고록](https://sanghole.tistory.com/11) => Etc | tags: BoB
 - [BoB 3차 발표와 후기](https://sanghole.tistory.com/9) => Etc | tags: BoB
 - [BoB 1차 발표](https://sanghole.tistory.com/8) => Etc | tags: BoB
-- [공모전 발표](https://sanghole.tistory.com/7) => Etc | tags: BoB
+- [공모전 발표](https://sanghole.tistory.com/7) => Contest-Certification | tags: BoB
 - [BoB 팀빌딩](https://sanghole.tistory.com/4) => Etc | tags: BoB
 - [BoB 면접](https://sanghole.tistory.com/3) => Etc | tags: BoB
 - [BoB 2차 발표](https://sanghole.tistory.com/2) => Etc | tags: BoB

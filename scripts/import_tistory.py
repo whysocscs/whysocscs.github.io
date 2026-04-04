@@ -34,6 +34,7 @@ ICON_MAP = {
     "CTF-Wargame": "fa-flag",
     "TechnicalDocument": "fa-file-text-o",
     "Paper-Conference": "fa-book",
+    "Contest-Certification": "fa-trophy",
     "Etc": "fa-sticky-note-o",
 }
 
