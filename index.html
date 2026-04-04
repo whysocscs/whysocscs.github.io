@@ -18,6 +18,9 @@ permalink: /
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right" id="i18_navbar">
+          <li>
+            <a class="page-scroll" href="{{ "/blog/" | prepend: site.baseurl }}">Blog</a>
+          </li>
           {% for section in site.data.landing %}
           <li>
             {% if section.page %}
