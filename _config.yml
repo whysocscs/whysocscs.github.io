@@ -31,8 +31,8 @@ author:  # change following line to your infomation.
   desc: Introduce myself will be here.  # Describe yourself.
 
 # comment
-# disqus:
-#   name:
+disqus:
+  name: jalpc
 
 # analytics
 ## google analytics
