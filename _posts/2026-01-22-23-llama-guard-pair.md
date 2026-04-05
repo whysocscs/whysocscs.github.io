@@ -3,9 +3,9 @@ layout: post
 title: "Llama Guard, PAIR"
 date: 2026-01-22 16:07:00
 desc: "Llama Guard, PAIR"
-keywords: "Llama Guard, PAIR,Paper-Conference,AI 보안,security for ai,Tistory"
+keywords: "Llama Guard, PAIR,Paper-Conference,AI 보안,security for ai"
 categories: [Paper-Conference]
-tags: ["AI 보안", "security for ai", "Tistory"]
+tags: ["AI 보안", "security for ai"]
 icon: fa-book
 ---
 

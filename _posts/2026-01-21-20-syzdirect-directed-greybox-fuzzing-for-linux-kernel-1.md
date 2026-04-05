@@ -3,9 +3,9 @@ layout: post
 title: "SyzDirect: Directed Greybox Fuzzing for Linux Kernel(1)"
 date: 2026-01-21 01:40:00
 desc: "SyzDirect: Directed Greybox Fuzzing for Linux Kernel(1)"
-keywords: "SyzDirect: Directed Greybox Fuzzing for Linux Kernel(1),Paper-Conference,퍼징,Tistory"
+keywords: "SyzDirect: Directed Greybox Fuzzing for Linux Kernel(1),Paper-Conference,퍼징"
 categories: [Paper-Conference]
-tags: ["퍼징", "Tistory"]
+tags: ["퍼징"]
 icon: fa-book
 ---
 

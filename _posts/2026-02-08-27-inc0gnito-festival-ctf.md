@@ -3,9 +3,9 @@ layout: post
 title: "INC0GNITO FESTIVAL CTF"
 date: 2026-02-08 18:27:00
 desc: "INC0GNITO FESTIVAL CTF"
-keywords: "INC0GNITO FESTIVAL CTF,CTF-Wargame,CTF,Tistory"
+keywords: "INC0GNITO FESTIVAL CTF,CTF-Wargame,CTF"
 categories: [CTF-Wargame]
-tags: ["CTF", "Tistory"]
+tags: ["CTF"]
 icon: fa-flag
 ---
 

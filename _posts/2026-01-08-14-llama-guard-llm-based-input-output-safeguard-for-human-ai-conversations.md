@@ -3,9 +3,9 @@ layout: post
 title: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations"
 date: 2026-01-08 16:31:00
 desc: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations"
-keywords: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations,Paper-Conference,AI 보안,security for ai,Tistory"
+keywords: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations,Paper-Conference,AI 보안,security for ai"
 categories: [Paper-Conference]
-tags: ["AI 보안", "security for ai", "Tistory"]
+tags: ["AI 보안", "security for ai"]
 icon: fa-book
 ---
 

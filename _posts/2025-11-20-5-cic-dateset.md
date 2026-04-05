@@ -3,9 +3,9 @@ layout: post
 title: "패킷 분석(CIC DateSet)"
 date: 2025-11-20 18:27:00
 desc: "패킷 분석(CIC DateSet)"
-keywords: "패킷 분석(CIC DateSet),Etc,카테고리 없음,Tistory"
+keywords: "패킷 분석(CIC DateSet),Etc,카테고리 없음"
 categories: [Etc]
-tags: ["카테고리 없음", "Tistory"]
+tags: ["카테고리 없음"]
 icon: fa-sticky-note-o
 ---
 

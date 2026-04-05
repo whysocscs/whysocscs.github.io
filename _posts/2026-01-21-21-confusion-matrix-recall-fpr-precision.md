@@ -3,9 +3,9 @@ layout: post
 title: "Confusion Matrix로 Recall, FPR, Precision 공부하기"
 date: 2026-01-21 13:58:00
 desc: "Confusion Matrix로 Recall, FPR, Precision 공부하기"
-keywords: "Confusion Matrix로 Recall, FPR, Precision 공부하기,TechnicalDocument,AI 보안,AI Background,Tistory"
+keywords: "Confusion Matrix로 Recall, FPR, Precision 공부하기,TechnicalDocument,AI 보안,AI Background"
 categories: [TechnicalDocument]
-tags: ["AI 보안", "AI Background", "Tistory"]
+tags: ["AI 보안", "AI Background"]
 icon: fa-file-text-o
 ---
 

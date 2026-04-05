@@ -1,7 +1,5 @@
 {
-  "default_tags": [
-    "Tistory"
-  ],
+  "default_tags": [],
   "posts": {
     "1": { "category": "Etc", "tags": ["BoB"] },
     "2": { "category": "Etc", "tags": ["BoB"] },
