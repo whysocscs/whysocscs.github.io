@@ -2,7 +2,7 @@
 
 - Source: https://sanghole.tistory.com/
 - Collected on: 2026-04-05
-- Total posts found: 31
+- Total posts found: 32
 
 ## Categories
 
@@ -15,10 +15,15 @@
 - BoB (8)
 - 백준 (3)
 - 퍼징 (3)
-- 회고록 (1)
+- 회고록 (2)
 - 카테고리 없음 (3)
 
 ## Posts By Category
+
+### 회고록
+
+- [지금까지의 회고록.](https://sanghole.tistory.com/32) => Etc | tags: 회고록
+- [2026_01](https://sanghole.tistory.com/25) => Etc | tags: 회고록
 
 ### AI 보안/security for ai
 
@@ -50,10 +55,6 @@
 - [SyzDirect: Directed Greybox Fuzzing for Linux Kernel(2)](https://sanghole.tistory.com/26) => Paper-Conference | tags: 퍼징
 - [SyzDirect: Directed Greybox Fuzzing for Linux Kernel(1)](https://sanghole.tistory.com/20) => Paper-Conference | tags: 퍼징
 - [퍼ㅍ ㅓ퍼징](https://sanghole.tistory.com/13) => TechnicalDocument | tags: 퍼징
-
-### 회고록
-
-- [2026_01](https://sanghole.tistory.com/25) => Etc | tags: 회고록
 
 ### 백준
 
