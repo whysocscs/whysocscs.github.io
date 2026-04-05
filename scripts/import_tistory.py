@@ -166,7 +166,7 @@ def build_front_matter(meta: dict[str, object], category: str, tags: list[str]) 
         "---\n"
         "layout: post\n"
         f"title: {quote_yaml_string(title)}\n"
-        f"date: {meta['date'].strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"date: {meta['date'].strftime('%Y-%m-%d %H:%M:%S')} +0900\n"
         f"desc: {quote_yaml_string(title)}\n"
         f"keywords: {quote_yaml_string(keywords)}\n"
         f"categories: [{category}]\n"
