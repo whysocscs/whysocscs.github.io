@@ -22,6 +22,7 @@
 
 ### 회고록
 
+- [내가 원하는 직무.](https://sanghole.tistory.com/33) => Etc | tags: 회고록
 - [지금까지의 회고록.](https://sanghole.tistory.com/32) => Etc | tags: 회고록
 - [2026_01](https://sanghole.tistory.com/25) => Etc | tags: 회고록
 

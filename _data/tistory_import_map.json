@@ -32,6 +32,7 @@
     "29": { "category": "TechnicalDocument", "tags": ["AI 보안", "AI Background"] },
     "30": { "category": "TechnicalDocument", "tags": ["AI 보안", "security for ai"] },
     "31": { "category": "TechnicalDocument", "tags": ["AI 보안", "security for ai"] },
-    "32": { "category": "Etc", "tags": ["회고록"] }
+    "32": { "category": "Etc", "tags": ["회고록"] },
+    "33": { "category": "Etc", "tags": ["회고록"] }
   }
 }
