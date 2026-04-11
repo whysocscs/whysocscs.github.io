@@ -25,8 +25,16 @@
 }
 
 .article .ibox-content figure {
+  max-width: 88%;
   margin-left: 0;
   margin-right: 0;
+  margin-inline: auto;
+}
+
+.article .ibox-content img {
+  display: block;
+  max-width: 88%;
+  margin-inline: auto;
 }
 
 .article .ibox-content a,
@@ -44,6 +52,11 @@
   word-break: break-word;
 }
 
+.article .ibox-content a {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
 @media (max-width: 767px) {
   .article h1 {
     font-size: 32px;
@@ -55,5 +68,10 @@
 
   .article-title {
     margin: 24px 0 48px;
+  }
+
+  .article .ibox-content figure,
+  .article .ibox-content img {
+    max-width: 100%;
   }
 }
