@@ -7,3 +7,53 @@
 @import "open_sans";
 @import "roboto";
 @import "style";
+
+.article .ibox-content {
+  overflow-x: hidden;
+}
+
+.article .ibox-content img,
+.article .ibox-content figure,
+.article .ibox-content iframe,
+.article .ibox-content table {
+  max-width: 100%;
+}
+
+.article .ibox-content img,
+.article .ibox-content iframe {
+  height: auto;
+}
+
+.article .ibox-content figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.article .ibox-content a,
+.article .ibox-content p,
+.article .ibox-content li,
+.article .ibox-content span,
+.article .ibox-content div,
+.article .ibox-content h1,
+.article .ibox-content h2,
+.article .ibox-content h3,
+.article .ibox-content h4,
+.article .ibox-content h5,
+.article .ibox-content h6 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 767px) {
+  .article h1 {
+    font-size: 32px;
+  }
+
+  .article .ibox-content {
+    padding: 20px 16px;
+  }
+
+  .article-title {
+    margin: 24px 0 48px;
+  }
+}
