@@ -55,10 +55,10 @@ permalink: /
     <path id="w2" fill="#11758a" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave wash-wave wash-wave-mid" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 210px; z-index: 3; bottom: 0;">
-    <path id="w3" fill="rgba(42,153,167,0.78)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
+    <path id="w3" fill="rgba(42,153,167,0.42)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave wash-wave wash-wave-shallow" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 198px; z-index: 4; bottom: 0;">
-    <path id="w4" fill="rgba(174,216,202,0.62)" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
+    <path id="w4" fill="rgba(73,142,130,0.28)" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 32px; z-index: 5; bottom: 178px;">
     <path id="w5" fill="rgba(255,255,255,0.72)" d="M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z"/>
@@ -236,7 +236,7 @@ body.landing-page button {
     radial-gradient(ellipse 120% 70% at 50% 118%, rgba(42, 153, 167, 0.32) 0%, rgba(172, 141, 88, 0.26) 34%, transparent 66%),
     linear-gradient(180deg, #f0ddbd 0%, #e8cfa5 46%, #d9b47c 76%, #b9955d 91%, #8f8b6d 100%);
   display: flex;
-  min-height: 100vh;
+  min-height: 104vh;
   overflow: hidden;
   position: relative;
 }
@@ -277,7 +277,7 @@ body.landing-page button {
 }
 
 .ocean-hero-content {
-  padding: 0 44px 56px;
+  padding: 0 44px 178px;
   position: relative;
   z-index: 20;
 }
@@ -291,10 +291,10 @@ body.landing-page button {
   text-transform: uppercase;
 }
 
-.ocean-name {
+.ocean-hero .ocean-name {
   color: #146f74;
   font-family: "Syne", system-ui, sans-serif;
-  font-size: clamp(60px, 11vw, 120px);
+  font-size: clamp(78px, 13vw, 154px);
   font-weight: 800;
   letter-spacing: 0;
   line-height: 0.9;
@@ -338,11 +338,15 @@ body.landing-page button {
 
 .wave-bridge {
   background:
-    radial-gradient(ellipse 100% 42% at 50% 10%, rgba(255, 247, 225, 0.28) 0%, rgba(255, 247, 225, 0.08) 42%, transparent 72%),
-    linear-gradient(180deg, #8f8b6d 0%, #a39469 16%, #c2a16a 34%, #d7b77e 46%, #b8a77d 58%, #7aa28e 70%, #2d8791 84%, #075b72 100%);
-  height: 340px;
+    radial-gradient(ellipse 140% 46% at 50% 8%, rgba(245, 226, 187, 0.42) 0%, rgba(211, 170, 105, 0.24) 38%, transparent 72%),
+    radial-gradient(ellipse 90% 28% at 50% 36%, rgba(99, 130, 105, 0.44) 0%, rgba(99, 130, 105, 0.16) 42%, transparent 75%),
+    linear-gradient(180deg, rgba(143, 139, 109, 0) 0%, #9a8f68 18%, #b69a68 34%, #c9a970 47%, #958f6f 60%, #5c988b 73%, #1c7888 87%, #075b72 100%);
+  height: 420px;
+  margin-top: -150px;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.26) 14%, #000 34%, #000 100%);
   overflow: hidden;
   position: relative;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.26) 14%, #000 34%, #000 100%);
 }
 
 .wave-bridge::before,
@@ -355,17 +359,18 @@ body.landing-page button {
 
 .wave-bridge::before {
   background:
-    radial-gradient(ellipse 70% 16% at 50% 42%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.14) 38%, transparent 72%),
-    linear-gradient(180deg, rgba(255, 239, 205, 0.28) 0%, transparent 34%, rgba(43, 142, 151, 0.18) 72%, transparent 100%);
-  mix-blend-mode: screen;
+    radial-gradient(ellipse 110% 18% at 50% 33%, rgba(96, 111, 91, 0.22) 0%, rgba(96, 111, 91, 0.1) 44%, transparent 76%),
+    radial-gradient(ellipse 120% 22% at 50% 47%, rgba(44, 133, 134, 0.22) 0%, rgba(44, 133, 134, 0.09) 48%, transparent 82%),
+    linear-gradient(180deg, rgba(217, 188, 130, 0.08) 0%, rgba(81, 126, 111, 0.18) 48%, rgba(43, 142, 151, 0.2) 76%, transparent 100%);
+  mix-blend-mode: soft-light;
   z-index: 6;
 }
 
 .wave-bridge::after {
   background:
-    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 34px),
-    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.12) 58%, transparent 100%);
-  opacity: 0.28;
+    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 34px),
+    linear-gradient(180deg, transparent 0%, rgba(56, 126, 118, 0.1) 58%, transparent 100%);
+  opacity: 0.18;
   z-index: 7;
 }
 
@@ -389,12 +394,14 @@ body.landing-page button {
 
 .wash-wave-mid {
   filter: blur(14px);
-  opacity: 0.26;
+  opacity: 0.2;
 }
 
 .wash-wave-shallow {
+  display: none !important;
   filter: blur(18px);
-  opacity: 0.2;
+  mix-blend-mode: soft-light;
+  opacity: 0.28;
 }
 
 .foam-field {
@@ -411,6 +418,11 @@ body.landing-page button {
   filter: blur(0.4px);
   pointer-events: none;
   position: absolute;
+}
+
+.wave-bridge svg.foam-wave,
+.wave-bridge .foam-field {
+  display: none;
 }
 
 @keyframes foam-drift {
@@ -701,11 +713,11 @@ body.landing-page button {
   }
 
   .ocean-hero-content {
-    padding: 0 24px 44px;
+    padding: 0 24px 150px;
   }
 
-  .ocean-name {
-    font-size: 58px;
+  .ocean-hero .ocean-name {
+    font-size: 72px;
   }
 
   .ocean-sub {
@@ -713,7 +725,8 @@ body.landing-page button {
   }
 
   .wave-bridge {
-    height: 260px;
+    height: 340px;
+    margin-top: -128px;
   }
 
   .ocean-section {
