@@ -80,15 +80,6 @@ permalink: /
     </svg>
   </div>
 
-  <div class="light-rays" aria-hidden="true">
-    <div class="ray" style="left: 12%; animation-delay: 0s;"></div>
-    <div class="ray" style="left: 28%; animation-delay: -3s; width: 80px;"></div>
-    <div class="ray" style="left: 45%; animation-delay: -6s; width: 140px;"></div>
-    <div class="ray" style="left: 62%; animation-delay: -1.5s; width: 100px;"></div>
-    <div class="ray" style="left: 78%; animation-delay: -4.5s;"></div>
-    <div class="ray" style="left: 90%; animation-delay: -2s; width: 70px;"></div>
-  </div>
-
   <div class="mouse-glow" id="mouse-glow" aria-hidden="true"></div>
   <div class="bubble-field" id="bubble-field" aria-hidden="true"></div>
 
@@ -161,8 +152,6 @@ permalink: /
 <div class="whale-cursor" id="whale" aria-hidden="true">🐋</div>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap");
-
 html,
 body.landing-page {
   background: #000;
@@ -232,8 +221,8 @@ body.landing-page button {
 .ocean-hero {
   align-items: flex-end;
   background:
-    radial-gradient(ellipse 120% 70% at 50% 118%, rgba(42, 153, 167, 0.32) 0%, rgba(172, 141, 88, 0.26) 34%, transparent 66%),
-    linear-gradient(180deg, #f0ddbd 0%, #e8cfa5 46%, #d9b47c 76%, #b9955d 91%, #8f8b6d 100%);
+    radial-gradient(ellipse 120% 70% at 50% 118%, rgba(111, 199, 200, 0.28) 0%, rgba(177, 149, 104, 0.28) 34%, transparent 66%),
+    linear-gradient(180deg, #c9af93 0%, #c9af93 46%, #ca9a63 76%, #b19568 92%, #b19568 100%);
   display: flex;
   min-height: 104vh;
   overflow: hidden;
@@ -253,7 +242,7 @@ body.landing-page button {
 .ocean-hero::before {
   background:
     linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 18%, transparent 34%, rgba(255, 255, 255, 0.18) 58%, transparent 78%),
-    linear-gradient(180deg, transparent 0%, rgba(111, 102, 78, 0.18) 44%, rgba(67, 134, 150, 0.22) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(177, 149, 104, 0.2) 44%, rgba(111, 199, 200, 0.2) 100%);
   height: 30vh;
   mix-blend-mode: soft-light;
 }
@@ -261,15 +250,15 @@ body.landing-page button {
 .ocean-hero::after {
   background:
     radial-gradient(ellipse 65% 20% at 50% 96%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.1) 35%, transparent 72%),
-    linear-gradient(180deg, transparent 0%, rgba(93, 151, 152, 0.18) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(111, 199, 200, 0.18) 100%);
   height: 18vh;
   opacity: 0.92;
 }
 
 .ocean-hero-vignette {
   background:
-    radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(166, 119, 64, 0.22) 100%),
-    linear-gradient(180deg, rgba(255, 245, 224, 0.18) 0%, transparent 38%, rgba(93, 151, 152, 0.14) 100%);
+    radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(177, 149, 104, 0.2) 100%),
+    linear-gradient(180deg, rgba(244, 247, 245, 0.16) 0%, transparent 38%, rgba(111, 199, 200, 0.12) 100%);
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -291,15 +280,16 @@ body.landing-page button {
 }
 
 .ocean-hero .ocean-name {
-  color: #0b6f73;
-  font-family: "Syne", system-ui, sans-serif;
-  font-size: clamp(72px, 12vw, 142px);
-  font-weight: 800;
+  color: #096ea8;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(70px, 10.6vw, 128px);
+  font-weight: 900;
   letter-spacing: 0;
-  line-height: 1;
+  line-height: 1.08;
   margin: 0 0 20px;
   overflow: visible;
-  text-shadow: 0 2px 0 rgba(255, 245, 224, 0.18);
+  padding: 0 0 0.12em;
+  text-shadow: 0 2px 0 rgba(244, 247, 245, 0.16);
 }
 
 .ocean-sub {
@@ -340,9 +330,9 @@ body.landing-page button {
 
 .wave-bridge {
   background:
-    radial-gradient(ellipse 140% 46% at 50% 8%, rgba(245, 226, 187, 0.42) 0%, rgba(211, 170, 105, 0.24) 38%, transparent 72%),
-    radial-gradient(ellipse 90% 28% at 50% 36%, rgba(134, 122, 106, 0.42) 0%, rgba(134, 122, 106, 0.14) 42%, transparent 75%),
-    linear-gradient(180deg, rgba(143, 139, 109, 0) 0%, #a79a70 18%, #c3b87c 34%, #c2a873 47%, #867a6a 60%, #6f8f86 73%, #438696 87%, #315f72 100%);
+    radial-gradient(ellipse 140% 46% at 50% 8%, rgba(244, 247, 245, 0.22) 0%, rgba(202, 154, 99, 0.24) 38%, transparent 72%),
+    radial-gradient(ellipse 90% 28% at 50% 36%, rgba(177, 149, 104, 0.44) 0%, rgba(177, 149, 104, 0.14) 42%, transparent 75%),
+    linear-gradient(180deg, rgba(177, 149, 104, 0) 0%, #c9af93 18%, #ca9a63 34%, #b19568 50%, #6fc7c8 72%, #1a93a5 86%, #096ea8 100%);
   height: 420px;
   margin-top: -150px;
   mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.26) 14%, #000 34%, #000 100%);
@@ -361,9 +351,9 @@ body.landing-page button {
 
 .wave-bridge::before {
   background:
-    radial-gradient(ellipse 110% 18% at 50% 33%, rgba(134, 122, 106, 0.22) 0%, rgba(134, 122, 106, 0.1) 44%, transparent 76%),
-    radial-gradient(ellipse 120% 22% at 50% 47%, rgba(93, 151, 152, 0.18) 0%, rgba(93, 151, 152, 0.08) 48%, transparent 82%),
-    linear-gradient(180deg, rgba(217, 188, 130, 0.08) 0%, rgba(134, 122, 106, 0.16) 48%, rgba(67, 134, 150, 0.18) 76%, transparent 100%);
+    radial-gradient(ellipse 110% 18% at 50% 33%, rgba(177, 149, 104, 0.22) 0%, rgba(177, 149, 104, 0.1) 44%, transparent 76%),
+    radial-gradient(ellipse 120% 22% at 50% 47%, rgba(111, 199, 200, 0.2) 0%, rgba(111, 199, 200, 0.08) 48%, transparent 82%),
+    linear-gradient(180deg, rgba(202, 154, 99, 0.08) 0%, rgba(177, 149, 104, 0.16) 48%, rgba(26, 147, 165, 0.18) 76%, transparent 100%);
   mix-blend-mode: soft-light;
   z-index: 6;
 }
@@ -435,7 +425,7 @@ body.landing-page button {
 }
 
 .underwater {
-  background: linear-gradient(180deg, #315f72 0%, #254b61 16%, #18354d 36%, #071d2f 68%, #000000 100%);
+  background: linear-gradient(180deg, #096ea8 0%, #096ea8 12%, #075986 30%, #05365a 62%, #000000 100%);
   min-height: 100vh;
   position: relative;
 }
@@ -498,36 +488,6 @@ body.landing-page button {
   100% { opacity: 0; transform: translate(var(--sway, 20px), -110vh) scale(1); }
 }
 
-.light-rays {
-  height: 100vh;
-  left: 0;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 2;
-  mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
-}
-
-.ray {
-  animation: ray-sway 9s ease-in-out infinite;
-  background: linear-gradient(180deg, rgba(180, 230, 255, 0.12) 0%, rgba(180, 230, 255, 0.04) 50%, transparent 100%);
-  filter: blur(8px);
-  height: 110%;
-  mix-blend-mode: screen;
-  position: absolute;
-  top: -10%;
-  transform-origin: top center;
-  width: 120px;
-}
-
-@keyframes ray-sway {
-  0%, 100% { opacity: 0.6; transform: skewX(-8deg); }
-  50% { opacity: 1; transform: skewX(-12deg); }
-}
-
 .ocean-section {
   margin: 0 auto;
   max-width: 940px;
@@ -550,7 +510,7 @@ body.landing-page button {
 
 .section-head {
   color: #c4ddf0;
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(34px, 5vw, 58px);
   font-weight: 700;
   letter-spacing: 0;
@@ -583,7 +543,7 @@ body.landing-page button {
 
 .timeline-name {
   color: #dceaf7;
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 19px;
   font-weight: 700;
   margin: 0 0 4px;
@@ -635,7 +595,7 @@ body.landing-page button {
 
 .project-card h3 {
   color: #dceaf7;
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   margin: 0 0 10px;
 }
@@ -654,7 +614,7 @@ body.landing-page button {
 
 .blog-total {
   color: #dceaf7;
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 22px;
   margin: -24px 0 24px;
 }
@@ -678,7 +638,7 @@ body.landing-page button {
 
 .blog-stat strong {
   color: #dceaf7;
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 42px;
   line-height: 1;
 }
@@ -719,7 +679,7 @@ body.landing-page button {
   }
 
   .ocean-hero .ocean-name {
-    font-size: 72px;
+    font-size: 64px;
   }
 
   .ocean-sub {
