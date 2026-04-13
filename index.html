@@ -48,20 +48,20 @@ permalink: /
 <div class="wave-bridge" aria-hidden="true">
   <div id="foam-field" class="foam-field"></div>
 
-  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 200px; z-index: 1;">
-    <path id="w1" fill="#024a73" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 220px; z-index: 1; bottom: 0;">
+    <path id="w1" fill="#075b72" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 175px; z-index: 2;">
-    <path id="w2" fill="#0a5a87" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 194px; z-index: 2; bottom: 18px;">
+    <path id="w2" fill="#11758a" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 150px; z-index: 3;">
-    <path id="w3" fill="#0d7db0" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 150px; z-index: 3; bottom: 58px;">
+    <path id="w3" fill="rgba(42,153,167,0.78)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 125px; z-index: 4;">
-    <path id="w4" fill="#3d9dc4" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 112px; z-index: 4; bottom: 116px;">
+    <path id="w4" fill="rgba(174,216,202,0.62)" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 30px; z-index: 5; bottom: 78px;">
-    <path id="w5" fill="rgba(255,255,255,0.85)" d="M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z"/>
+  <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 32px; z-index: 5; bottom: 190px;">
+    <path id="w5" fill="rgba(255,255,255,0.72)" d="M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z"/>
   </svg>
 </div>
 
@@ -171,9 +171,18 @@ body.landing-page {
   overflow-x: hidden;
 }
 
+html {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
+}
+
 body.landing-page {
   cursor: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
 }
 
 body.landing-page a,
@@ -223,15 +232,45 @@ body.landing-page button {
 
 .ocean-hero {
   align-items: flex-end;
-  background: linear-gradient(180deg, #e6d5b8 0%, #cba276 100%);
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 118%, rgba(42, 153, 167, 0.32) 0%, rgba(172, 141, 88, 0.26) 34%, transparent 66%),
+    linear-gradient(180deg, #f0ddbd 0%, #e8cfa5 44%, #d9b47c 72%, #b78b54 88%, #6f7e66 100%);
   display: flex;
   min-height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
+.ocean-hero::before,
+.ocean-hero::after {
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+.ocean-hero::before {
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 18%, transparent 34%, rgba(255, 255, 255, 0.18) 58%, transparent 78%),
+    linear-gradient(180deg, transparent 0%, rgba(63, 123, 111, 0.18) 44%, rgba(32, 100, 107, 0.32) 100%);
+  height: 30vh;
+  mix-blend-mode: soft-light;
+}
+
+.ocean-hero::after {
+  background:
+    radial-gradient(ellipse 65% 20% at 50% 96%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.1) 35%, transparent 72%),
+    linear-gradient(180deg, transparent 0%, rgba(36, 117, 125, 0.24) 100%);
+  height: 18vh;
+  opacity: 0.92;
+}
+
 .ocean-hero-vignette {
-  background: radial-gradient(ellipse 75% 85% at 50% 50%, transparent 25%, rgba(203, 162, 118, 0.3) 100%);
+  background:
+    radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(166, 119, 64, 0.22) 100%),
+    linear-gradient(180deg, rgba(255, 245, 224, 0.18) 0%, transparent 38%, rgba(49, 116, 111, 0.2) 100%);
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -244,7 +283,7 @@ body.landing-page button {
 }
 
 .ocean-kicker {
-  color: #013a5a;
+  color: #194b48;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.42em;
@@ -253,7 +292,7 @@ body.landing-page button {
 }
 
 .ocean-name {
-  color: #0273a5;
+  color: #146f74;
   font-family: "Syne", system-ui, sans-serif;
   font-size: clamp(60px, 11vw, 120px);
   font-weight: 800;
@@ -263,7 +302,7 @@ body.landing-page button {
 }
 
 .ocean-sub {
-  color: #01476d;
+  color: #265f58;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.24em;
@@ -279,8 +318,9 @@ body.landing-page button {
 }
 
 .ocean-links a {
-  border: 1px solid rgba(1, 58, 90, 0.2);
-  color: #013a5a;
+  background: rgba(255, 245, 224, 0.18);
+  border: 1px solid rgba(25, 75, 72, 0.24);
+  color: #194b48;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -291,20 +331,45 @@ body.landing-page button {
 
 .ocean-links a:hover,
 .ocean-links a:focus {
-  background: rgba(255, 255, 255, 0.18);
-  color: #012f4a;
+  background: rgba(255, 255, 255, 0.28);
+  color: #113a37;
   text-decoration: none;
 }
 
 .wave-bridge {
-  background: linear-gradient(180deg, #cba276 0%, #8a7050 8%, #0a5a87 18%, #024a73 50%, #024a73 100%);
-  height: 240px;
+  background:
+    radial-gradient(ellipse 100% 38% at 50% 8%, rgba(255, 247, 225, 0.34) 0%, transparent 62%),
+    linear-gradient(180deg, #6f7e66 0%, #92895f 10%, #b58e58 22%, #d8b579 36%, #b8a474 48%, #5b968b 60%, #1c7888 76%, #075b72 100%);
+  height: 340px;
   overflow: hidden;
   position: relative;
 }
 
+.wave-bridge::before,
+.wave-bridge::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.wave-bridge::before {
+  background:
+    radial-gradient(ellipse 70% 16% at 50% 42%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.14) 38%, transparent 72%),
+    linear-gradient(180deg, rgba(255, 239, 205, 0.28) 0%, transparent 34%, rgba(43, 142, 151, 0.18) 72%, transparent 100%);
+  mix-blend-mode: screen;
+  z-index: 6;
+}
+
+.wave-bridge::after {
+  background:
+    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 34px),
+    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.12) 58%, transparent 100%);
+  opacity: 0.28;
+  z-index: 7;
+}
+
 .wave-bridge svg.wave {
-  bottom: 0;
   display: block;
   left: 0;
   position: absolute;
@@ -335,7 +400,7 @@ body.landing-page button {
 }
 
 .underwater {
-  background: linear-gradient(180deg, #024a73 0%, #01476d 10%, #002238 38%, #000b14 78%, #000000 100%);
+  background: linear-gradient(180deg, #075b72 0%, #06465e 16%, #02314b 36%, #001b2c 68%, #000000 100%);
   min-height: 100vh;
   position: relative;
 }
@@ -431,9 +496,13 @@ body.landing-page button {
 .ocean-section {
   margin: 0 auto;
   max-width: 940px;
-  padding: 80px 44px 128px;
+  padding: 112px 44px 128px;
   position: relative;
   z-index: 10;
+}
+
+.ocean-section:first-of-type {
+  padding-top: 190px;
 }
 
 .section-num {
@@ -623,7 +692,7 @@ body.landing-page button {
   }
 
   .wave-bridge {
-    height: 200px;
+    height: 260px;
   }
 
   .ocean-section {
