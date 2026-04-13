@@ -4,105 +4,768 @@ title: index
 permalink: /
 ---
 
-<div class="navbar-wrapper">
-  <nav class="navbar navbar-default navbar-fixed-top landing-nav" role="navigation">
-    <div class="container">
-      <div class="navbar-header page-scroll">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#page-top" id="i18_title"><span data-i18n="website.title">{{ site.title }}</span></a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right" id="i18_navbar">
-          {% for section in site.data.landing %}
-          <li>
-            {% if section.page %}
-              <a class="page-scroll" href="{{ section.page}} ">
-            {% else %}
-              <a class="page-scroll" href="{{ section.id | prepend: '#'}} ">
-            {% endif %}
-              <span data-i18n="{{ section.i18n }}">{{ section.name }}</span>
-            </a>
-          </li>
-          {% endfor %}
-          {% for language in site.data.index.language %}
-          <li>
-            <a id="set_lang_{{ language.locale }}" class="btn btn-sm set_{{ language.locale }}" data-locale="{{ language.locale }}">
-              <img src="{{ language.flag | prepend: site.baseurl }}" height="16" width="16">
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-{% if site.index_carousel %}
-{% include carousel.html %}
+{% assign linkedin_url = site.author.linkedin_id %}
+{% if linkedin_url and linkedin_url != '' and linkedin_url contains 'http' %}
+  {% assign linkedin_href = linkedin_url %}
+{% elsif linkedin_url and linkedin_url != '' %}
+  {% assign linkedin_href = 'https://www.linkedin.com/in/' | append: linkedin_url %}
 {% endif %}
 
-{% for section in site.data.landing %}
-{% assign loopindex = forloop.index | modulo: 2 %}
-<section id="{{ section.id }}" class="features {% if loopindex != 1 %} gray-section {% endif %} {{ section.css }}" style="margin-top: 0;">
-  {% include sections/{{section.tpl}} %}
+<nav class="ocean-nav" aria-label="Primary">
+  <a class="ocean-brand page-scroll" href="#page-top">{{ site.title }}</a>
+  <div class="ocean-nav-links">
+    {% for section in site.data.landing %}
+      {% if section.page %}
+        <a class="page-scroll" href="{{ section.page }}">{{ section.name }}</a>
+      {% else %}
+        <a class="page-scroll" href="{{ section.id | prepend: '#' }}">{{ section.name }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</nav>
+
+<section class="ocean-hero" id="about-me">
+  <div class="ocean-hero-vignette"></div>
+  <div class="ocean-hero-content" id="i18_about_me">
+    <p class="ocean-kicker">Security Researcher · Developer</p>
+    <h1 class="ocean-name">{{ site.author.first_name }} {{ site.author.last_name }}</h1>
+    <p class="ocean-sub">{{ site.author.desc }}</p>
+    <div class="ocean-links" aria-label="Profile links">
+      {% if site.author.github_username %}
+        <a href="https://github.com/{{ site.author.github_username }}" target="_blank" rel="noopener">GitHub</a>
+      {% endif %}
+      {% if linkedin_href %}
+        <a href="{{ linkedin_href }}" target="_blank" rel="noopener">LinkedIn</a>
+      {% endif %}
+      {% if site.author.email %}
+        <a href="mailto:{{ site.author.email }}">Email</a>
+      {% endif %}
+      <a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a>
+    </div>
+  </div>
 </section>
-{% endfor %}
+
+<div class="wave-bridge" aria-hidden="true">
+  <div id="foam-field" class="foam-field"></div>
+
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 200px; z-index: 1;">
+    <path id="w1" fill="#024a73" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
+  </svg>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 175px; z-index: 2;">
+    <path id="w2" fill="#0a5a87" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
+  </svg>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 150px; z-index: 3;">
+    <path id="w3" fill="#0d7db0" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
+  </svg>
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 125px; z-index: 4;">
+    <path id="w4" fill="#3d9dc4" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
+  </svg>
+  <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 30px; z-index: 5; bottom: 78px;">
+    <path id="w5" fill="rgba(255,255,255,0.85)" d="M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z"/>
+  </svg>
+</div>
+
+<main class="underwater">
+  <div class="caustics" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="caustic-filter" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.014 0.024" numOctaves="2" seed="5">
+            <animate attributeName="baseFrequency" dur="18s" values="0.014 0.024; 0.02 0.03; 0.014 0.024" repeatCount="indefinite" />
+          </feTurbulence>
+          <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.85  0 0 0 0 1  0 0 0 0.9 -0.5"/>
+          <feGaussianBlur stdDeviation="1.5" />
+        </filter>
+      </defs>
+      <rect width="100%" height="100%" filter="url(#caustic-filter)" />
+    </svg>
+  </div>
+
+  <div class="light-rays" aria-hidden="true">
+    <div class="ray" style="left: 12%; animation-delay: 0s;"></div>
+    <div class="ray" style="left: 28%; animation-delay: -3s; width: 80px;"></div>
+    <div class="ray" style="left: 45%; animation-delay: -6s; width: 140px;"></div>
+    <div class="ray" style="left: 62%; animation-delay: -1.5s; width: 100px;"></div>
+    <div class="ray" style="left: 78%; animation-delay: -4.5s;"></div>
+    <div class="ray" style="left: 90%; animation-delay: -2s; width: 70px;"></div>
+  </div>
+
+  <div class="mouse-glow" id="mouse-glow" aria-hidden="true"></div>
+  <div class="bubble-field" id="bubble-field" aria-hidden="true"></div>
+
+  <section class="ocean-section" id="career">
+    <p class="section-num">01 · Career</p>
+    <h2 class="section-head">My <em>Career</em></h2>
+    <div class="ocean-timeline" id="i18_career">
+      {% for career in site.data.index.careers %}
+        <article class="timeline-item">
+          <p class="timeline-date"><span data-i18n="career.{{ career.date.i18n }}">{{ career.date.detail }}</span></p>
+          <div>
+            <h3 class="timeline-name"><span data-i18n="career.{{ career.name.i18n }}">{{ career.name.detail }}</span></h3>
+            <p class="timeline-role"><span data-i18n="career.{{ career.job.i18n }}">{{ career.job.detail }}</span></p>
+            <p class="timeline-desc"><span data-i18n="career.{{ career.desc.i18n }}">{{ career.desc.detail }}</span></p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="ocean-section" id="projects">
+    <p class="section-num">02 · Projects</p>
+    <h2 class="section-head">Selected <em>Projects</em></h2>
+    <div class="project-grid" id="i18_projects">
+      {% for project in site.data.index.projects %}
+        <article class="project-card">
+          {% if project.img %}
+            <img src="{{ project.img | prepend: site.baseurl }}" alt="{{ project.name }}">
+          {% endif %}
+          <div>
+            <h3>
+              {% if project.url %}
+                <a href="{{ project.url }}" target="_blank" rel="noopener">{{ project.name }}</a>
+              {% elsif project.repo %}
+                <a href="https://github.com/{{ project.gh_user }}/{{ project.repo }}" target="_blank" rel="noopener">{{ project.name }}</a>
+              {% else %}
+                {{ project.name }}
+              {% endif %}
+            </h3>
+            <p><span data-i18n="projects.{{ project.i18n }}">{{ project.desc }}</span></p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="ocean-section" id="blog-overview">
+    {% assign total_posts = site.posts | size %}
+    {% assign development_count = site.categories['Development'] | size %}
+    {% assign ctf_wargame_count = site.categories['CTF-Wargame'] | size %}
+    {% assign bugbounty_count = site.categories['BugBounty'] | size %}
+    {% assign technical_document_count = site.categories['TechnicalDocument'] | size %}
+    {% assign paper_conference_count = site.categories['Paper-Conference'] | size %}
+    {% assign contest_certification_count = site.categories['Contest-Certification'] | size %}
+
+    <p class="section-num">03 · Blog</p>
+    <h2 class="section-head">Field <em>Notes</em></h2>
+    <div class="blog-total">Total Posts: {{ total_posts }}</div>
+    <div class="blog-grid" id="i18_blog_overview">
+      <a class="blog-stat" href="{{ '/development/' | prepend: site.baseurl }}"><strong>{{ development_count }}</strong><span>Development</span></a>
+      <a class="blog-stat" href="{{ '/ctf-wargame/' | prepend: site.baseurl }}"><strong>{{ ctf_wargame_count }}</strong><span>CTF-Wargame</span></a>
+      <a class="blog-stat" href="{{ '/bugbounty/' | prepend: site.baseurl }}"><strong>{{ bugbounty_count }}</strong><span>BugBounty</span></a>
+      <a class="blog-stat" href="{{ '/technical-document/' | prepend: site.baseurl }}"><strong>{{ technical_document_count }}</strong><span>Technical Document</span></a>
+      <a class="blog-stat" href="{{ '/paper-conference/' | prepend: site.baseurl }}"><strong>{{ paper_conference_count }}</strong><span>Paper-Conference</span></a>
+      <a class="blog-stat" href="{{ '/contest-certification/' | prepend: site.baseurl }}"><strong>{{ contest_certification_count }}</strong><span>Contest-Certification</span></a>
+    </div>
+  </section>
+</main>
+
+<div class="whale-cursor" id="whale" aria-hidden="true">🐋</div>
+
 <style>
-.landing-nav {
-  background: rgba(248, 250, 252, 0.96);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap");
+
+html,
+body.landing-page {
+  background: #000;
+  color: #c4ddf0;
+  overflow-x: hidden;
+}
+
+body.landing-page {
+  cursor: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body.landing-page a,
+body.landing-page button {
+  cursor: none;
+}
+
+.ocean-nav {
+  align-items: center;
+  background: rgba(1, 35, 56, 0.58);
+  border-bottom: 1px solid rgba(196, 221, 240, 0.12);
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  left: 0;
   min-height: 56px;
+  padding: 0 44px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
 }
 
-.landing-nav .navbar-brand,
-.landing-nav .nav > li > a {
-  color: #334155 !important;
+.ocean-brand,
+.ocean-nav a {
+  color: #dceaf7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-.landing-nav .navbar-brand {
-  padding-top: 18px;
-  padding-bottom: 18px;
-  height: 56px;
+.ocean-nav a:hover,
+.ocean-nav a:focus {
+  color: #ffffff;
+  text-decoration: none;
 }
 
-.landing-nav .nav > li > a {
-  padding-top: 18px;
-  padding-bottom: 18px;
+.ocean-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: flex-end;
 }
 
-.landing-nav .nav > li > a:hover,
-.landing-nav .nav > li > a:focus,
-.landing-nav .navbar-brand:hover,
-.landing-nav .navbar-brand:focus {
-  color: #0f172a !important;
-  background: rgba(226, 232, 240, 0.7) !important;
+.ocean-hero {
+  align-items: flex-end;
+  background: linear-gradient(180deg, #e6d5b8 0%, #cba276 100%);
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
-.landing-nav .navbar-toggle {
-  margin-top: 11px;
-  margin-bottom: 11px;
+.ocean-hero-vignette {
+  background: radial-gradient(ellipse 75% 85% at 50% 50%, transparent 25%, rgba(203, 162, 118, 0.3) 100%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
 }
 
-.landing-nav .navbar-toggle .icon-bar {
-  background-color: #334155;
+.ocean-hero-content {
+  padding: 0 44px 56px;
+  position: relative;
+  z-index: 20;
 }
 
-iframe {
-  -moz-transform: scale(0.25, 0.25);
-  -webkit-transform: scale(0.25, 0.25);
-  -o-transform: scale(0.25, 0.25);
-  -ms-transform: scale(0.25, 0.25);
-  transform: scale(0.25, 0.25);
-  -moz-transform-origin: top left;
-  -webkit-transform-origin: top left;
-  -o-transform-origin: top left;
-  -ms-transform-origin: top left;
-  transform-origin: top left;
+.ocean-kicker {
+  color: #013a5a;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+.ocean-name {
+  color: #0273a5;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: clamp(60px, 11vw, 120px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.9;
+  margin: 0 0 20px;
+}
+
+.ocean-sub {
+  color: #01476d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  margin: 0 0 40px;
+  max-width: 740px;
+  text-transform: uppercase;
+}
+
+.ocean-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ocean-links a {
+  border: 1px solid rgba(1, 58, 90, 0.2);
+  color: #013a5a;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  padding: 10px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.ocean-links a:hover,
+.ocean-links a:focus {
+  background: rgba(255, 255, 255, 0.18);
+  color: #012f4a;
+  text-decoration: none;
+}
+
+.wave-bridge {
+  background: linear-gradient(180deg, #cba276 0%, #8a7050 8%, #0a5a87 18%, #024a73 50%, #024a73 100%);
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wave-bridge svg.wave {
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.foam-field {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 30;
+}
+
+.foam-particle {
+  animation: foam-drift linear infinite;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  filter: blur(0.4px);
+  pointer-events: none;
+  position: absolute;
+}
+
+@keyframes foam-drift {
+  0% { opacity: 0; transform: translate(0, 0) scale(1); }
+  20% { opacity: 0.85; }
+  85% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate(var(--dx), -60px) scale(0.4); }
+}
+
+.underwater {
+  background: linear-gradient(180deg, #024a73 0%, #01476d 10%, #002238 38%, #000b14 78%, #000000 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+.caustics {
+  height: 60vh;
+  left: 0;
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.5) 40%, transparent 95%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.5) 40%, transparent 95%);
+}
+
+.caustics svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.mouse-glow {
+  background: radial-gradient(circle, rgba(123, 200, 240, 0.18) 0%, rgba(123, 200, 240, 0.08) 30%, transparent 65%);
+  border-radius: 50%;
+  height: 600px;
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  width: 600px;
+  z-index: 2;
+}
+
+.bubble-field {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.bubble {
+  animation: rise linear infinite;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(189, 221, 252, 0.1) 40%, rgba(189, 221, 252, 0.05) 100%);
+  border: 1px solid rgba(189, 221, 252, 0.35);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2);
+  position: absolute;
+}
+
+@keyframes rise {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.8); }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate(var(--sway, 20px), -110vh) scale(1); }
+}
+
+.light-rays {
+  height: 100vh;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
+}
+
+.ray {
+  animation: ray-sway 9s ease-in-out infinite;
+  background: linear-gradient(180deg, rgba(180, 230, 255, 0.12) 0%, rgba(180, 230, 255, 0.04) 50%, transparent 100%);
+  filter: blur(8px);
+  height: 110%;
+  mix-blend-mode: screen;
+  position: absolute;
+  top: -10%;
+  transform-origin: top center;
+  width: 120px;
+}
+
+@keyframes ray-sway {
+  0%, 100% { opacity: 0.6; transform: skewX(-8deg); }
+  50% { opacity: 1; transform: skewX(-12deg); }
+}
+
+.ocean-section {
+  margin: 0 auto;
+  max-width: 940px;
+  padding: 80px 44px 128px;
+  position: relative;
+  z-index: 10;
+}
+
+.section-num {
+  color: rgba(196, 221, 240, 0.32);
+  font-size: 9px;
+  letter-spacing: 0.48em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.section-head {
+  color: #c4ddf0;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0 0 56px;
+}
+
+.section-head em {
+  color: #5ba3cc;
+  font-style: normal;
+}
+
+.timeline-item {
+  border-top: 1px solid rgba(196, 221, 240, 0.08);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 128px 1fr;
+  padding: 32px 0;
+}
+
+.timeline-date {
+  color: rgba(196, 221, 240, 0.5);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  line-height: 1.8;
+  margin: 0;
+  padding-top: 3px;
+  text-transform: uppercase;
+}
+
+.timeline-name {
+  color: #dceaf7;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.timeline-role {
+  color: #7cc4f0;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.timeline-desc {
+  color: rgba(196, 221, 240, 0.62);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.project-grid,
+.blog-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-card,
+.blog-stat {
+  border: 1px solid rgba(196, 221, 240, 0.1);
+  border-radius: 8px;
+  background: rgba(1, 35, 56, 0.32);
+}
+
+.project-card {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 96px 1fr;
+  padding: 18px;
+}
+
+.project-card img {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  height: auto;
+  object-fit: cover;
+  width: 96px;
+}
+
+.project-card h3 {
+  color: #dceaf7;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.project-card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card p {
+  color: rgba(196, 221, 240, 0.62);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.blog-total {
+  color: #dceaf7;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: 22px;
+  margin: -24px 0 24px;
+}
+
+.blog-stat {
+  color: #c4ddf0;
+  display: flex;
+  flex-direction: column;
+  min-height: 128px;
+  padding: 22px;
+  text-decoration: none;
+}
+
+.blog-stat:hover,
+.blog-stat:focus,
+.project-card a:hover,
+.project-card a:focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.blog-stat strong {
+  color: #dceaf7;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: 42px;
+  line-height: 1;
+}
+
+.blog-stat span {
+  color: rgba(196, 221, 240, 0.62);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  margin-top: auto;
+  text-transform: uppercase;
+}
+
+.whale-cursor {
+  font-size: 24px;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+@media (max-width: 760px) {
+  .ocean-nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 22px;
+  }
+
+  .ocean-nav-links {
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .ocean-hero-content {
+    padding: 0 24px 44px;
+  }
+
+  .ocean-name {
+    font-size: 58px;
+  }
+
+  .ocean-sub {
+    letter-spacing: 0.12em;
+  }
+
+  .wave-bridge {
+    height: 200px;
+  }
+
+  .ocean-section {
+    padding: 68px 24px 104px;
+  }
+
+  .timeline-item,
+  .project-card,
+  .project-grid,
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    grid-template-columns: 72px 1fr;
+  }
+
+  .project-card img {
+    width: 72px;
+  }
 }
 </style>
-<!-- <iframe src="https://www.maimemo.com/share/page/?uid=779139&pid=660" style="display: none;"></iframe> -->
+
+<script>
+(function () {
+  var wavePaths = {
+    w1: [
+      'M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z',
+      'M0,120 C220,160 440,105 660,145 C880,110 1100,90 1320,140 C1380,120 1420,100 1440,135 L1440,250 L0,250 Z',
+      'M0,140 C220,100 440,150 660,110 C880,140 1100,95 1320,130 C1380,105 1420,125 1440,100 L1440,250 L0,250 Z'
+    ],
+    w2: [
+      'M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z',
+      'M0,95 C220,135 440,80 660,120 C880,85 1100,65 1320,115 C1380,95 1420,75 1440,110 L1440,250 L0,250 Z',
+      'M0,115 C220,75 440,125 660,85 C880,115 1100,70 1320,105 C1380,80 1420,100 1440,75 L1440,250 L0,250 Z'
+    ],
+    w3: [
+      'M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z',
+      'M0,80 C200,120 400,65 600,105 C800,70 1000,50 1200,100 C1320,80 1400,60 1440,95 L1440,250 L0,250 Z',
+      'M0,100 C200,60 400,110 600,70 C800,100 1000,55 1200,90 C1320,65 1400,85 1440,60 L1440,250 L0,250 Z'
+    ],
+    w4: [
+      'M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z',
+      'M0,70 C180,110 360,50 540,95 C720,65 900,40 1080,90 C1260,70 1350,50 1440,85 L1440,250 L0,250 Z',
+      'M0,90 C180,55 360,100 540,60 C720,90 900,50 1080,80 C1260,45 1350,75 1440,55 L1440,250 L0,250 Z'
+    ],
+    w5: [
+      'M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z',
+      'M0,12 C160,24 320,4 480,20 C640,8 800,5 960,18 C1120,10 1280,6 1440,16 C1280,30 1120,17 960,27 C800,24 640,30 480,23 C320,28 160,12 0,24 Z',
+      'M0,18 C160,5 320,22 480,8 C640,20 800,5 960,18 C1120,7 1280,25 1440,12 C1280,26 1120,12 960,27 C800,29 640,13 480,25 C320,29 160,17 0,29 Z'
+    ]
+  };
+  var waveDurations = { w1: 14, w2: 12, w3: 10, w4: 8, w5: 6 };
+
+  function lerpPath(a, b, t) {
+    var nums = function (s) { return s.match(/-?\d+(\.\d+)?/g).map(Number); };
+    var aN = nums(a);
+    var bN = nums(b);
+    if (aN.length !== bN.length) return a;
+    var i = 0;
+    return a.replace(/-?\d+(\.\d+)?/g, function () {
+      var v = aN[i] + (bN[i] - aN[i]) * t;
+      i += 1;
+      return v.toFixed(2);
+    });
+  }
+
+  function animateWave(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var paths = wavePaths[id];
+    var dur = waveDurations[id] * 1000;
+    var start = performance.now() + Math.random() * 2000;
+    function tick(now) {
+      var t = ((now - start) % dur) / dur;
+      var seg = t * paths.length;
+      var i = Math.floor(seg) % paths.length;
+      var localT = seg - Math.floor(seg);
+      var eased = 0.5 - Math.cos(Math.PI * localT) / 2;
+      el.setAttribute('d', lerpPath(paths[i], paths[(i + 1) % paths.length], eased));
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  ['w1', 'w2', 'w3', 'w4', 'w5'].forEach(animateWave);
+
+  var foamField = document.getElementById('foam-field');
+  function spawnFoam() {
+    if (!foamField) return;
+    var p = document.createElement('div');
+    var size = 2 + Math.random() * 4;
+    p.className = 'foam-particle';
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = 70 + Math.random() * 90 + 'px';
+    p.style.setProperty('--dx', (Math.random() - 0.5) * 80 + 'px');
+    p.style.animationDuration = 2 + Math.random() * 3 + 's';
+    foamField.appendChild(p);
+    setTimeout(function () { p.remove(); }, 5000);
+  }
+  setInterval(spawnFoam, 200);
+  for (var f = 0; f < 12; f += 1) setTimeout(spawnFoam, f * 60);
+
+  var bubbleField = document.getElementById('bubble-field');
+  function createBubble(startInside) {
+    if (!bubbleField) return;
+    var b = document.createElement('div');
+    var size = 4 + Math.random() * 18;
+    b.className = 'bubble';
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + '%';
+    b.style.bottom = startInside ? Math.random() * 100 + '%' : '-30px';
+    b.style.setProperty('--sway', (Math.random() - 0.5) * 120 + 'px');
+    b.style.animationDuration = 10 + Math.random() * 14 + 's';
+    if (startInside) b.style.animationDelay = -Math.random() * 20 + 's';
+    bubbleField.appendChild(b);
+    if (!startInside) setTimeout(function () { b.remove(); }, 25000);
+  }
+  setInterval(function () { createBubble(false); }, 400);
+  for (var b = 0; b < 25; b += 1) setTimeout(function () { createBubble(true); }, b * 20);
+
+  var whale = document.getElementById('whale');
+  var glow = document.getElementById('mouse-glow');
+  var underwater = document.querySelector('.underwater');
+  window.addEventListener('mousemove', function (e) {
+    if (whale) {
+      whale.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px) translate(-50%, -50%)';
+    }
+    if (!glow || !underwater) return;
+    var rect = underwater.getBoundingClientRect();
+    var relX = e.clientX - rect.left;
+    var relY = e.clientY - rect.top;
+    if (relY >= 0 && relY <= rect.height) {
+      glow.style.opacity = '1';
+      glow.style.left = relX + 'px';
+      glow.style.top = relY + 'px';
+    } else {
+      glow.style.opacity = '0';
+    }
+  });
+}());
+</script>
