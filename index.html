@@ -878,9 +878,9 @@ body.landing-page button {
     var paths = wavePaths[id];
     var dur = waveDurations[id] * 1000;
     var motion = waveMotion[id];
-    var start = performance.now() + Math.random() * 4000;
+    var start = performance.now() - Math.random() * 4000;
     function tick(now) {
-      var t = ((now - start) % dur) / dur;
+      var t = ((((now - start) % dur) + dur) % dur) / dur;
       var seg = t * paths.length;
       var i = Math.floor(seg) % paths.length;
       var localT = seg - Math.floor(seg);
