@@ -40,7 +40,6 @@ permalink: /
       {% if site.author.email %}
         <a href="mailto:{{ site.author.email }}">Email</a>
       {% endif %}
-      <a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a>
     </div>
   </div>
 </section>
@@ -49,13 +48,13 @@ permalink: /
   <div id="foam-field" class="foam-field"></div>
 
   <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 220px; z-index: 1; bottom: 0;">
-    <path id="w1" fill="#075b72" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
+    <path id="w1" fill="#315f72" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave wash-wave wash-wave-deep" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 222px; z-index: 2; bottom: 0;">
-    <path id="w2" fill="#11758a" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
+    <path id="w2" fill="#438696" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave wash-wave wash-wave-mid" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 210px; z-index: 3; bottom: 0;">
-    <path id="w3" fill="rgba(42,153,167,0.42)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
+    <path id="w3" fill="rgba(93,151,152,0.36)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
   </svg>
   <svg class="wave wash-wave wash-wave-shallow" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 198px; z-index: 4; bottom: 0;">
     <path id="w4" fill="rgba(73,142,130,0.28)" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
@@ -254,7 +253,7 @@ body.landing-page button {
 .ocean-hero::before {
   background:
     linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 18%, transparent 34%, rgba(255, 255, 255, 0.18) 58%, transparent 78%),
-    linear-gradient(180deg, transparent 0%, rgba(63, 123, 111, 0.18) 44%, rgba(32, 100, 107, 0.32) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(111, 102, 78, 0.18) 44%, rgba(67, 134, 150, 0.22) 100%);
   height: 30vh;
   mix-blend-mode: soft-light;
 }
@@ -262,7 +261,7 @@ body.landing-page button {
 .ocean-hero::after {
   background:
     radial-gradient(ellipse 65% 20% at 50% 96%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.1) 35%, transparent 72%),
-    linear-gradient(180deg, transparent 0%, rgba(36, 117, 125, 0.24) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(93, 151, 152, 0.18) 100%);
   height: 18vh;
   opacity: 0.92;
 }
@@ -270,7 +269,7 @@ body.landing-page button {
 .ocean-hero-vignette {
   background:
     radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(166, 119, 64, 0.22) 100%),
-    linear-gradient(180deg, rgba(255, 245, 224, 0.18) 0%, transparent 38%, rgba(49, 116, 111, 0.2) 100%);
+    linear-gradient(180deg, rgba(255, 245, 224, 0.18) 0%, transparent 38%, rgba(93, 151, 152, 0.14) 100%);
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -283,7 +282,7 @@ body.landing-page button {
 }
 
 .ocean-kicker {
-  color: #194b48;
+  color: #5d5140;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.42em;
@@ -292,22 +291,25 @@ body.landing-page button {
 }
 
 .ocean-hero .ocean-name {
-  color: #146f74;
+  color: #0b6f73;
   font-family: "Syne", system-ui, sans-serif;
-  font-size: clamp(78px, 13vw, 154px);
+  font-size: clamp(72px, 12vw, 142px);
   font-weight: 800;
   letter-spacing: 0;
-  line-height: 0.9;
+  line-height: 1;
   margin: 0 0 20px;
+  overflow: visible;
+  text-shadow: 0 2px 0 rgba(255, 245, 224, 0.18);
 }
 
 .ocean-sub {
-  color: #265f58;
-  font-size: 12px;
+  color: #4a3c2a;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.24em;
   margin: 0 0 40px;
   max-width: 740px;
+  text-shadow: 0 1px 0 rgba(255, 245, 224, 0.34);
   text-transform: uppercase;
 }
 
@@ -339,8 +341,8 @@ body.landing-page button {
 .wave-bridge {
   background:
     radial-gradient(ellipse 140% 46% at 50% 8%, rgba(245, 226, 187, 0.42) 0%, rgba(211, 170, 105, 0.24) 38%, transparent 72%),
-    radial-gradient(ellipse 90% 28% at 50% 36%, rgba(99, 130, 105, 0.44) 0%, rgba(99, 130, 105, 0.16) 42%, transparent 75%),
-    linear-gradient(180deg, rgba(143, 139, 109, 0) 0%, #9a8f68 18%, #b69a68 34%, #c9a970 47%, #958f6f 60%, #5c988b 73%, #1c7888 87%, #075b72 100%);
+    radial-gradient(ellipse 90% 28% at 50% 36%, rgba(134, 122, 106, 0.42) 0%, rgba(134, 122, 106, 0.14) 42%, transparent 75%),
+    linear-gradient(180deg, rgba(143, 139, 109, 0) 0%, #a79a70 18%, #c3b87c 34%, #c2a873 47%, #867a6a 60%, #6f8f86 73%, #438696 87%, #315f72 100%);
   height: 420px;
   margin-top: -150px;
   mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.26) 14%, #000 34%, #000 100%);
@@ -359,9 +361,9 @@ body.landing-page button {
 
 .wave-bridge::before {
   background:
-    radial-gradient(ellipse 110% 18% at 50% 33%, rgba(96, 111, 91, 0.22) 0%, rgba(96, 111, 91, 0.1) 44%, transparent 76%),
-    radial-gradient(ellipse 120% 22% at 50% 47%, rgba(44, 133, 134, 0.22) 0%, rgba(44, 133, 134, 0.09) 48%, transparent 82%),
-    linear-gradient(180deg, rgba(217, 188, 130, 0.08) 0%, rgba(81, 126, 111, 0.18) 48%, rgba(43, 142, 151, 0.2) 76%, transparent 100%);
+    radial-gradient(ellipse 110% 18% at 50% 33%, rgba(134, 122, 106, 0.22) 0%, rgba(134, 122, 106, 0.1) 44%, transparent 76%),
+    radial-gradient(ellipse 120% 22% at 50% 47%, rgba(93, 151, 152, 0.18) 0%, rgba(93, 151, 152, 0.08) 48%, transparent 82%),
+    linear-gradient(180deg, rgba(217, 188, 130, 0.08) 0%, rgba(134, 122, 106, 0.16) 48%, rgba(67, 134, 150, 0.18) 76%, transparent 100%);
   mix-blend-mode: soft-light;
   z-index: 6;
 }
@@ -433,7 +435,7 @@ body.landing-page button {
 }
 
 .underwater {
-  background: linear-gradient(180deg, #075b72 0%, #06465e 16%, #02314b 36%, #001b2c 68%, #000000 100%);
+  background: linear-gradient(180deg, #315f72 0%, #254b61 16%, #18354d 36%, #071d2f 68%, #000000 100%);
   min-height: 100vh;
   position: relative;
 }
