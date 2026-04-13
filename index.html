@@ -47,19 +47,19 @@ permalink: /
 <div class="wave-bridge" aria-hidden="true">
   <div id="foam-field" class="foam-field"></div>
 
-  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 220px; z-index: 1; bottom: 0;">
+  <svg class="wave" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 228px; z-index: 1; bottom: 0;">
     <path id="w1" fill="#0B4E73" d="M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave wash-wave wash-wave-deep" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 222px; z-index: 2; bottom: 0;">
+  <svg class="wave wash-wave wash-wave-deep" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 224px; z-index: 2; bottom: 2px;">
     <path id="w2" fill="#1B8FA9" d="M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave wash-wave wash-wave-mid" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 210px; z-index: 3; bottom: 0;">
+  <svg class="wave wash-wave wash-wave-mid" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 214px; z-index: 3; bottom: 6px;">
     <path id="w3" fill="rgba(73,188,190,0.42)" d="M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave wash-wave wash-wave-shallow" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 198px; z-index: 4; bottom: 0;">
+  <svg class="wave wash-wave wash-wave-shallow" viewBox="0 0 1440 250" preserveAspectRatio="none" style="height: 202px; z-index: 4; bottom: 12px;">
     <path id="w4" fill="rgba(139,213,198,0.32)" d="M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z"/>
   </svg>
-  <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 32px; z-index: 5; bottom: 178px;">
+  <svg class="wave foam-wave" viewBox="0 0 1440 30" preserveAspectRatio="none" style="height: 36px; z-index: 5; bottom: 176px;">
     <path id="w5" fill="rgba(241,247,245,0.74)" d="M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z"/>
   </svg>
 </div>
@@ -152,6 +152,17 @@ permalink: /
 <div class="whale-cursor" id="whale" aria-hidden="true">🐋</div>
 
 <style>
+:root {
+  --sand-dry: #E7C691;
+  --sand-less-wet: #CFA06B;
+  --sand-wet: #9B6C47;
+  --foam: #F1F7F5;
+  --water-very-shallow: #8BD5C6;
+  --water-shallow: #49BCBE;
+  --water-mid: #1B8FA9;
+  --water-deep: #0B4E73;
+}
+
 html,
 body.landing-page {
   background: #000;
@@ -221,8 +232,9 @@ body.landing-page button {
 .ocean-hero {
   align-items: flex-end;
   background:
-    radial-gradient(ellipse 130% 58% at 50% 118%, rgba(139, 213, 198, 0.22) 0%, rgba(155, 108, 71, 0.14) 36%, transparent 68%),
-    linear-gradient(180deg, #e7c691 0%, #e7c691 48%, #d9b17d 76%, #cfa06b 100%);
+    radial-gradient(ellipse 118% 54% at 16% 102%, rgba(255, 243, 214, 0.18) 0%, transparent 64%),
+    radial-gradient(ellipse 110% 48% at 82% 96%, rgba(207, 160, 107, 0.14) 0%, transparent 66%),
+    linear-gradient(180deg, var(--sand-dry) 0%, #e3c08b 38%, #dbb37b 68%, var(--sand-less-wet) 100%);
   display: flex;
   min-height: 104vh;
   overflow: hidden;
@@ -241,24 +253,24 @@ body.landing-page button {
 
 .ocean-hero::before {
   background:
-    linear-gradient(90deg, transparent 0%, rgba(241, 247, 245, 0.2) 18%, transparent 34%, rgba(241, 247, 245, 0.14) 58%, transparent 78%),
-    linear-gradient(180deg, transparent 0%, rgba(207, 160, 107, 0.16) 44%, rgba(139, 213, 198, 0.16) 100%);
-  height: 30vh;
-  mix-blend-mode: soft-light;
+    radial-gradient(ellipse 120% 34% at 50% 100%, rgba(155, 108, 71, 0.18) 0%, rgba(155, 108, 71, 0.08) 32%, transparent 74%),
+    linear-gradient(90deg, transparent 0%, rgba(241, 247, 245, 0.12) 24%, transparent 48%, rgba(241, 247, 245, 0.08) 68%, transparent 100%);
+  height: 34vh;
+  mix-blend-mode: multiply;
+  opacity: 0.78;
 }
 
 .ocean-hero::after {
   background:
-    radial-gradient(ellipse 76% 24% at 50% 98%, rgba(241, 247, 245, 0.28) 0%, rgba(241, 247, 245, 0.08) 38%, transparent 74%),
-    linear-gradient(180deg, transparent 0%, rgba(139, 213, 198, 0.16) 100%);
-  height: 18vh;
-  opacity: 0.92;
+    radial-gradient(ellipse 86% 20% at 50% 100%, rgba(241, 247, 245, 0.12) 0%, rgba(241, 247, 245, 0.04) 26%, transparent 72%);
+  height: 22vh;
+  opacity: 0.6;
 }
 
 .ocean-hero-vignette {
   background:
-    radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(207, 160, 107, 0.16) 100%),
-    linear-gradient(180deg, rgba(241, 247, 245, 0.12) 0%, transparent 38%, rgba(139, 213, 198, 0.1) 100%);
+    radial-gradient(ellipse 75% 85% at 50% 48%, transparent 24%, rgba(207, 160, 107, 0.1) 100%),
+    linear-gradient(180deg, rgba(241, 247, 245, 0.1) 0%, transparent 42%, rgba(207, 160, 107, 0.08) 100%);
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -330,17 +342,27 @@ body.landing-page button {
 
 .wave-bridge {
   background:
-    radial-gradient(ellipse 165% 38% at 50% 6%, rgba(241, 247, 245, 0.18) 0%, rgba(241, 247, 245, 0.06) 22%, transparent 52%),
-    radial-gradient(ellipse 135% 40% at 18% 30%, rgba(231, 198, 145, 0.2) 0%, rgba(231, 198, 145, 0.05) 38%, transparent 72%),
-    radial-gradient(ellipse 140% 36% at 82% 42%, rgba(207, 160, 107, 0.22) 0%, rgba(207, 160, 107, 0.06) 42%, transparent 74%),
-    radial-gradient(ellipse 150% 26% at 50% 72%, rgba(139, 213, 198, 0.22) 0%, rgba(139, 213, 198, 0.05) 48%, transparent 78%),
-    linear-gradient(180deg, #cfa06b 0%, #d9b17d 14%, #e7c691 28%, #d3a26d 44%, #b98154 58%, #9b6c47 70%, #f1f7f5 78%, #8bd5c6 85%, #49bcbe 92%, #1b8fa9 97%, #0b4e73 100%);
-  height: 420px;
-  margin-top: -150px;
-  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 0.72) 24%, #000 42%, #000 100%);
+    radial-gradient(ellipse 136% 48% at 20% 12%, rgba(244, 224, 183, 0.16) 0%, transparent 62%),
+    radial-gradient(ellipse 132% 40% at 78% 26%, rgba(165, 118, 80, 0.16) 0%, transparent 66%),
+    radial-gradient(ellipse 120% 22% at 50% 46%, rgba(155, 108, 71, 0.24) 0%, rgba(155, 108, 71, 0.08) 34%, transparent 72%),
+    radial-gradient(ellipse 150% 34% at 50% 70%, rgba(139, 213, 198, 0.18) 0%, rgba(139, 213, 198, 0.05) 44%, transparent 78%),
+    linear-gradient(180deg,
+      rgba(207, 160, 107, 0.98) 0%,
+      rgba(203, 158, 108, 0.96) 18%,
+      rgba(187, 137, 91, 0.9) 36%,
+      rgba(159, 112, 75, 0.84) 52%,
+      rgba(209, 203, 183, 0.44) 62%,
+      rgba(241, 247, 245, 0.24) 68%,
+      rgba(139, 213, 198, 0.68) 75%,
+      rgba(73, 188, 190, 0.88) 86%,
+      rgba(27, 143, 169, 0.96) 94%,
+      rgba(11, 78, 115, 1) 100%);
+  height: 470px;
+  margin-top: -180px;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.18) 8%, rgba(0, 0, 0, 0.64) 22%, rgba(0, 0, 0, 0.92) 38%, #000 52%, #000 100%);
   overflow: hidden;
   position: relative;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 0.72) 24%, #000 42%, #000 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.18) 8%, rgba(0, 0, 0, 0.64) 22%, rgba(0, 0, 0, 0.92) 38%, #000 52%, #000 100%);
 }
 
 .wave-bridge::before,
@@ -353,20 +375,21 @@ body.landing-page button {
 
 .wave-bridge::before {
   background:
-    radial-gradient(ellipse 90% 18% at 26% 22%, rgba(241, 247, 245, 0.22) 0%, rgba(241, 247, 245, 0.08) 34%, transparent 74%),
-    radial-gradient(ellipse 88% 20% at 74% 34%, rgba(231, 198, 145, 0.18) 0%, rgba(231, 198, 145, 0.05) 40%, transparent 76%),
-    radial-gradient(ellipse 100% 18% at 34% 52%, rgba(155, 108, 71, 0.14) 0%, rgba(155, 108, 71, 0.04) 42%, transparent 80%),
-    radial-gradient(ellipse 100% 16% at 68% 78%, rgba(139, 213, 198, 0.18) 0%, rgba(139, 213, 198, 0.05) 44%, transparent 80%);
-  filter: blur(34px);
+    radial-gradient(ellipse 90% 22% at 32% 30%, rgba(241, 247, 245, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 76% 18% at 68% 44%, rgba(155, 108, 71, 0.14) 0%, transparent 72%),
+    radial-gradient(ellipse 78% 16% at 18% 58%, rgba(241, 247, 245, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 90% 24% at 44% 78%, rgba(139, 213, 198, 0.16) 0%, transparent 76%);
+  filter: blur(42px);
   mix-blend-mode: soft-light;
-  transform: scale(1.04);
+  transform: scale(1.06);
   z-index: 6;
 }
 
 .wave-bridge::after {
   background:
-    linear-gradient(90deg, transparent 0%, rgba(241, 247, 245, 0.07) 16%, transparent 30%, rgba(241, 247, 245, 0.04) 46%, transparent 66%);
-  opacity: 0.22;
+    radial-gradient(ellipse 110% 14% at 50% 62%, rgba(241, 247, 245, 0.12) 0%, rgba(241, 247, 245, 0.03) 26%, transparent 74%);
+  filter: blur(20px);
+  opacity: 0.3;
   z-index: 7;
 }
 
@@ -374,65 +397,74 @@ body.landing-page button {
   display: block;
   left: 0;
   position: absolute;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
   width: 100%;
 }
 
 .wash-wave {
-  filter: blur(14px);
-  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.42) 14%, #000 28%, rgba(0, 0, 0, 0.86) 56%, transparent 96%);
+  filter: blur(16px);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.34) 16%, #000 34%, rgba(0, 0, 0, 0.8) 58%, transparent 97%);
   mix-blend-mode: screen;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.42) 14%, #000 28%, rgba(0, 0, 0, 0.86) 56%, transparent 96%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.34) 16%, #000 34%, rgba(0, 0, 0, 0.8) 58%, transparent 97%);
 }
 
 .wash-wave-deep {
-  opacity: 0.42;
+  opacity: 0.3;
 }
 
 .wash-wave-mid {
-  filter: blur(18px);
-  opacity: 0.28;
+  filter: blur(20px);
+  opacity: 0.2;
 }
 
 .wash-wave-shallow {
   display: block !important;
-  filter: blur(22px);
+  filter: blur(24px);
   mix-blend-mode: soft-light;
-  opacity: 0.24;
+  opacity: 0.16;
 }
 
 .foam-field {
+  display: block;
   inset: 0;
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 48%, rgba(0, 0, 0, 0.85) 58%, #000 68%, transparent 88%);
+  overflow: hidden;
   pointer-events: none;
   position: absolute;
   z-index: 30;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 48%, rgba(0, 0, 0, 0.85) 58%, #000 68%, transparent 88%);
 }
 
 .foam-particle {
   animation: foam-drift linear infinite;
-  background: rgba(255, 255, 255, 0.9);
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.88) 0%, rgba(241, 247, 245, 0.72) 36%, rgba(241, 247, 245, 0) 74%);
   border-radius: 50%;
-  filter: blur(0.4px);
+  filter: blur(0.8px);
   pointer-events: none;
   position: absolute;
 }
 
-.wave-bridge svg.foam-wave,
-.wave-bridge .foam-field {
-  display: none;
+.wave-bridge svg.foam-wave {
+  display: block;
+  filter: blur(1.2px);
+  mix-blend-mode: screen;
+  opacity: 0.52;
 }
 
 @keyframes foam-drift {
-  0% { opacity: 0; transform: translate(0, 0) scale(1); }
-  20% { opacity: 0.85; }
-  85% { opacity: 0.5; }
-  100% { opacity: 0; transform: translate(var(--dx), -60px) scale(0.4); }
+  0% { opacity: 0; transform: translate3d(calc(var(--dx) * -0.35), 10px, 0) scale(0.72); }
+  22% { opacity: 0.7; transform: translate3d(calc(var(--dx) * -0.08), 0, 0) scale(1); }
+  58% { opacity: 0.52; transform: translate3d(calc(var(--dx) * 0.38), calc(var(--dy) * 0.4), 0) scale(1.18); }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(0.82); }
 }
 
 .underwater {
   background:
-    radial-gradient(ellipse 150% 16% at 50% 0%, rgba(241, 247, 245, 0.12) 0%, rgba(241, 247, 245, 0.04) 18%, transparent 42%),
-    radial-gradient(ellipse 120% 24% at 50% 10%, rgba(139, 213, 198, 0.16) 0%, rgba(139, 213, 198, 0.04) 28%, transparent 58%),
-    linear-gradient(180deg, #49bcbe 0%, #1b8fa9 16%, #0b4e73 34%, #083754 62%, #000000 100%);
+    radial-gradient(ellipse 150% 18% at 50% 0%, rgba(241, 247, 245, 0.12) 0%, rgba(241, 247, 245, 0.04) 16%, transparent 40%),
+    radial-gradient(ellipse 120% 26% at 24% 12%, rgba(139, 213, 198, 0.14) 0%, transparent 54%),
+    radial-gradient(ellipse 110% 22% at 78% 20%, rgba(73, 188, 190, 0.12) 0%, transparent 56%),
+    linear-gradient(180deg, rgba(139, 213, 198, 0.88) 0%, rgba(73, 188, 190, 0.94) 14%, rgba(27, 143, 169, 0.98) 32%, rgba(11, 78, 115, 1) 58%, #072d43 84%, #000000 100%);
   min-height: 100vh;
   position: relative;
 }
@@ -723,32 +755,39 @@ body.landing-page button {
 (function () {
   var wavePaths = {
     w1: [
-      'M0,150 C220,115 440,170 660,130 C880,100 1100,160 1320,120 C1380,105 1420,135 1440,115 L1440,250 L0,250 Z',
-      'M0,120 C220,160 440,105 660,145 C880,110 1100,90 1320,140 C1380,120 1420,100 1440,135 L1440,250 L0,250 Z',
-      'M0,140 C220,100 440,150 660,110 C880,140 1100,95 1320,130 C1380,105 1420,125 1440,100 L1440,250 L0,250 Z'
+      'M0,148 C220,136 440,158 660,144 C880,128 1100,152 1320,138 C1386,132 1422,140 1440,134 L1440,250 L0,250 Z',
+      'M0,142 C220,154 440,134 660,150 C880,138 1100,132 1320,146 C1386,140 1422,132 1440,142 L1440,250 L0,250 Z',
+      'M0,146 C220,132 440,152 660,138 C880,146 1100,134 1320,142 C1386,134 1422,146 1440,136 L1440,250 L0,250 Z'
     ],
     w2: [
-      'M0,125 C220,90 440,145 660,105 C880,75 1100,135 1320,95 C1380,80 1420,110 1440,90 L1440,250 L0,250 Z',
-      'M0,95 C220,135 440,80 660,120 C880,85 1100,65 1320,115 C1380,95 1420,75 1440,110 L1440,250 L0,250 Z',
-      'M0,115 C220,75 440,125 660,85 C880,115 1100,70 1320,105 C1380,80 1420,100 1440,75 L1440,250 L0,250 Z'
+      'M0,126 C220,114 440,136 660,120 C880,104 1100,130 1320,116 C1386,108 1422,120 1440,112 L1440,250 L0,250 Z',
+      'M0,120 C220,132 440,114 660,128 C880,116 1100,108 1320,124 C1386,116 1422,108 1440,120 L1440,250 L0,250 Z',
+      'M0,124 C220,110 440,130 660,116 C880,124 1100,112 1320,120 C1386,110 1422,122 1440,114 L1440,250 L0,250 Z'
     ],
     w3: [
-      'M0,110 C200,75 400,130 600,90 C800,60 1000,120 1200,80 C1320,55 1400,100 1440,70 L1440,250 L0,250 Z',
-      'M0,80 C200,120 400,65 600,105 C800,70 1000,50 1200,100 C1320,80 1400,60 1440,95 L1440,250 L0,250 Z',
-      'M0,100 C200,60 400,110 600,70 C800,100 1000,55 1200,90 C1320,65 1400,85 1440,60 L1440,250 L0,250 Z'
+      'M0,110 C200,98 400,120 600,106 C800,92 1000,118 1200,102 C1324,94 1402,108 1440,100 L1440,250 L0,250 Z',
+      'M0,104 C200,116 400,100 600,114 C800,100 1000,96 1200,110 C1324,102 1402,96 1440,108 L1440,250 L0,250 Z',
+      'M0,108 C200,96 400,116 600,102 C800,110 1000,98 1200,106 C1324,96 1402,110 1440,98 L1440,250 L0,250 Z'
     ],
     w4: [
-      'M0,95 C180,60 360,120 540,75 C720,45 900,105 1080,70 C1260,40 1350,90 1440,65 L1440,250 L0,250 Z',
-      'M0,70 C180,110 360,50 540,95 C720,65 900,40 1080,90 C1260,70 1350,50 1440,85 L1440,250 L0,250 Z',
-      'M0,90 C180,55 360,100 540,60 C720,90 900,50 1080,80 C1260,45 1350,75 1440,55 L1440,250 L0,250 Z'
+      'M0,96 C180,86 360,106 540,92 C720,80 900,102 1080,88 C1260,78 1352,94 1440,86 L1440,250 L0,250 Z',
+      'M0,90 C180,100 360,84 540,98 C720,86 900,80 1080,94 C1260,86 1352,82 1440,92 L1440,250 L0,250 Z',
+      'M0,94 C180,84 360,102 540,88 C720,96 900,82 1080,92 C1260,80 1352,96 1440,84 L1440,250 L0,250 Z'
     ],
     w5: [
-      'M0,15 C160,2 320,25 480,10 C640,0 800,22 960,8 C1120,0 1280,20 1440,5 C1280,28 1120,10 960,22 C800,30 640,12 480,25 C320,30 160,15 0,28 Z',
-      'M0,12 C160,24 320,4 480,20 C640,8 800,5 960,18 C1120,10 1280,6 1440,16 C1280,30 1120,17 960,27 C800,24 640,30 480,23 C320,28 160,12 0,24 Z',
-      'M0,18 C160,5 320,22 480,8 C640,20 800,5 960,18 C1120,7 1280,25 1440,12 C1280,26 1120,12 960,27 C800,29 640,13 480,25 C320,29 160,17 0,29 Z'
+      'M0,16 C160,9 320,19 480,13 C640,8 800,18 960,12 C1120,8 1280,17 1440,11 C1280,22 1120,14 960,20 C800,23 640,15 480,21 C320,23 160,17 0,23 Z',
+      'M0,14 C160,20 320,10 480,18 C640,12 800,10 960,16 C1120,12 1280,11 1440,17 C1280,23 1120,18 960,22 C800,20 640,23 480,20 C320,22 160,15 0,21 Z',
+      'M0,17 C160,10 320,18 480,12 C640,17 800,10 960,17 C1120,11 1280,19 1440,13 C1280,22 1120,14 960,22 C800,22 640,14 480,21 C320,22 160,18 0,22 Z'
     ]
   };
-  var waveDurations = { w1: 14, w2: 12, w3: 10, w4: 8, w5: 6 };
+  var waveDurations = { w1: 38, w2: 31, w3: 27, w4: 23, w5: 19 };
+  var waveMotion = {
+    w1: { x: 9, y: 2.6, opacity: 0.94, phase: 0.1 },
+    w2: { x: 7, y: 2.2, opacity: 0.74, phase: 1.1 },
+    w3: { x: 5.5, y: 1.8, opacity: 0.58, phase: 2.1 },
+    w4: { x: 4.5, y: 1.4, opacity: 0.44, phase: 2.9 },
+    w5: { x: 3.2, y: 1, opacity: 0.58, phase: 3.6 }
+  };
 
   function lerpPath(a, b, t) {
     var nums = function (s) { return s.match(/-?\d+(\.\d+)?/g).map(Number); };
@@ -766,9 +805,11 @@ body.landing-page button {
   function animateWave(id) {
     var el = document.getElementById(id);
     if (!el) return;
+    var svg = el.parentNode;
     var paths = wavePaths[id];
     var dur = waveDurations[id] * 1000;
-    var start = performance.now() + Math.random() * 2000;
+    var motion = waveMotion[id];
+    var start = performance.now() + Math.random() * 4000;
     function tick(now) {
       var t = ((now - start) % dur) / dur;
       var seg = t * paths.length;
@@ -776,6 +817,15 @@ body.landing-page button {
       var localT = seg - Math.floor(seg);
       var eased = 0.5 - Math.cos(Math.PI * localT) / 2;
       el.setAttribute('d', lerpPath(paths[i], paths[(i + 1) % paths.length], eased));
+      if (svg && motion) {
+        var phaseA = ((now - start) / dur) * (Math.PI * 2);
+        var phaseB = ((now - start) / (dur * 1.73)) * (Math.PI * 2);
+        var driftX = Math.sin(phaseA + motion.phase) * motion.x + Math.sin(phaseB + motion.phase) * motion.x * 0.35;
+        var driftY = Math.cos(phaseA * 0.82 + motion.phase) * motion.y + Math.sin(phaseB + motion.phase) * motion.y * 0.45;
+        var breathe = 0.94 + (Math.sin(phaseA * 0.55 + motion.phase) * 0.04);
+        svg.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px, ' + driftY.toFixed(2) + 'px, 0) scale(' + breathe.toFixed(3) + ')';
+        svg.style.opacity = (motion.opacity + Math.sin(phaseB + motion.phase) * 0.04).toFixed(3);
+      }
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -787,19 +837,21 @@ body.landing-page button {
   function spawnFoam() {
     if (!foamField) return;
     var p = document.createElement('div');
-    var size = 2 + Math.random() * 4;
+    var size = 10 + Math.random() * 20;
     p.className = 'foam-particle';
     p.style.width = size + 'px';
     p.style.height = size + 'px';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.bottom = 70 + Math.random() * 90 + 'px';
-    p.style.setProperty('--dx', (Math.random() - 0.5) * 80 + 'px');
-    p.style.animationDuration = 2 + Math.random() * 3 + 's';
+    p.style.left = 6 + Math.random() * 88 + '%';
+    p.style.bottom = 150 + Math.random() * 34 + 'px';
+    p.style.setProperty('--dx', (18 + Math.random() * 46) * (Math.random() > 0.5 ? 1 : -1) + 'px');
+    p.style.setProperty('--dy', (-6 - Math.random() * 20) + 'px');
+    p.style.animationDuration = 5 + Math.random() * 5 + 's';
+    p.style.animationDelay = (-Math.random() * 3) + 's';
     foamField.appendChild(p);
-    setTimeout(function () { p.remove(); }, 5000);
+    setTimeout(function () { p.remove(); }, 11000);
   }
-  setInterval(spawnFoam, 200);
-  for (var f = 0; f < 12; f += 1) setTimeout(spawnFoam, f * 60);
+  setInterval(spawnFoam, 520);
+  for (var f = 0; f < 18; f += 1) setTimeout(spawnFoam, f * 180);
 
   var bubbleField = document.getElementById('bubble-field');
   function createBubble(startInside) {
