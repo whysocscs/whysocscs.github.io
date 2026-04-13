@@ -432,8 +432,8 @@ body.landing-page button {
   display: block;
   left: 0;
   position: absolute;
-  transform-origin: 50% 50%;
-  will-change: transform, opacity;
+  transform-origin: 50% 100%;
+  transition: opacity 0.16s linear, transform 0.16s linear;
   width: 100%;
 }
 
@@ -445,19 +445,22 @@ body.landing-page button {
 }
 
 .wash-wave-deep {
-  opacity: 0.2;
+  opacity: calc(0.18 - var(--tide-progress) * 0.04);
+  transform: translate3d(0, calc(var(--shore-retreat) * -0.16), 0) scaleY(calc(1 - var(--tide-progress) * 0.03));
 }
 
 .wash-wave-mid {
   filter: blur(22px);
-  opacity: 0.12;
+  opacity: calc(0.11 - var(--tide-progress) * 0.04);
+  transform: translate3d(0, calc(var(--shore-retreat) * -0.26), 0) scaleY(calc(1 - var(--tide-progress) * 0.05));
 }
 
 .wash-wave-shallow {
   display: block !important;
   filter: blur(28px);
   mix-blend-mode: soft-light;
-  opacity: 0.08;
+  opacity: calc(0.07 - var(--tide-progress) * 0.04);
+  transform: translate3d(0, calc(var(--shore-retreat) * -0.38), 0) scaleY(calc(1 - var(--tide-progress) * 0.07));
 }
 
 .foam-field {
@@ -486,6 +489,7 @@ body.landing-page button {
   filter: blur(2.4px);
   mix-blend-mode: screen;
   opacity: var(--foam-opacity);
+  transform: translate3d(0, calc(var(--shore-retreat) * -0.58), 0) scaleY(calc(1 - var(--tide-progress) * 0.08));
 }
 
 @keyframes foam-drift {
@@ -789,46 +793,10 @@ body.landing-page button {
 
 <script>
 (function () {
-  var wavePaths = {
-    w1: [
-      'M0,148 C220,136 440,158 660,144 C880,128 1100,152 1320,138 C1386,132 1422,140 1440,134 L1440,250 L0,250 Z',
-      'M0,142 C220,154 440,134 660,150 C880,138 1100,132 1320,146 C1386,140 1422,132 1440,142 L1440,250 L0,250 Z',
-      'M0,146 C220,132 440,152 660,138 C880,146 1100,134 1320,142 C1386,134 1422,146 1440,136 L1440,250 L0,250 Z'
-    ],
-    w2: [
-      'M0,126 C220,114 440,136 660,120 C880,104 1100,130 1320,116 C1386,108 1422,120 1440,112 L1440,250 L0,250 Z',
-      'M0,120 C220,132 440,114 660,128 C880,116 1100,108 1320,124 C1386,116 1422,108 1440,120 L1440,250 L0,250 Z',
-      'M0,124 C220,110 440,130 660,116 C880,124 1100,112 1320,120 C1386,110 1422,122 1440,114 L1440,250 L0,250 Z'
-    ],
-    w3: [
-      'M0,110 C200,98 400,120 600,106 C800,92 1000,118 1200,102 C1324,94 1402,108 1440,100 L1440,250 L0,250 Z',
-      'M0,104 C200,116 400,100 600,114 C800,100 1000,96 1200,110 C1324,102 1402,96 1440,108 L1440,250 L0,250 Z',
-      'M0,108 C200,96 400,116 600,102 C800,110 1000,98 1200,106 C1324,96 1402,110 1440,98 L1440,250 L0,250 Z'
-    ],
-    w4: [
-      'M0,96 C180,86 360,106 540,92 C720,80 900,102 1080,88 C1260,78 1352,94 1440,86 L1440,250 L0,250 Z',
-      'M0,90 C180,100 360,84 540,98 C720,86 900,80 1080,94 C1260,86 1352,82 1440,92 L1440,250 L0,250 Z',
-      'M0,94 C180,84 360,102 540,88 C720,96 900,82 1080,92 C1260,80 1352,96 1440,84 L1440,250 L0,250 Z'
-    ],
-    w5: [
-      'M0,16 C160,9 320,19 480,13 C640,8 800,18 960,12 C1120,8 1280,17 1440,11 C1280,22 1120,14 960,20 C800,23 640,15 480,21 C320,23 160,17 0,23 Z',
-      'M0,14 C160,20 320,10 480,18 C640,12 800,10 960,16 C1120,12 1280,11 1440,17 C1280,23 1120,18 960,22 C800,20 640,23 480,20 C320,22 160,15 0,21 Z',
-      'M0,17 C160,10 320,18 480,12 C640,17 800,10 960,17 C1120,11 1280,19 1440,13 C1280,22 1120,14 960,22 C800,22 640,14 480,21 C320,22 160,18 0,22 Z'
-    ]
-  };
-  var waveDurations = { w1: 38, w2: 31, w3: 27, w4: 23, w5: 19 };
-  var waveMotion = {
-    w1: { x: 5.2, y: 1.2, shore: 0.4, opacity: 0.86, phase: 0.1 },
-    w2: { x: 4.2, y: 1.05, shore: 0.7, opacity: 0.5, phase: 1.1 },
-    w3: { x: 3.1, y: 0.82, shore: 1.1, opacity: 0.3, phase: 2.1 },
-    w4: { x: 2.2, y: 0.6, shore: 1.5, opacity: 0.18, phase: 2.9 },
-    w5: { x: 1.8, y: 0.44, shore: 1.8, opacity: 0.18, phase: 3.6 }
-  };
-
   var root = document.documentElement;
   var hero = document.querySelector('.ocean-hero');
   var bridge = document.querySelector('.wave-bridge');
-  var currentShoreRetreat = 0;
+  var currentTideProgress = 0;
 
   function clamp(v, min, max) {
     return Math.min(max, Math.max(min, v));
@@ -844,9 +812,9 @@ body.landing-page button {
     var shallowGlow = 0.18 + eased * 0.1;
     var foamOpacity = 0.2 - eased * 0.15;
     var foamParticleOpacity = 0.32 - eased * 0.22;
-    var retreat = eased * 76;
+    var retreat = eased * 96;
     var depthOverlay = clamp((progress - 0.22) / 0.78, 0, 1);
-    currentShoreRetreat = retreat;
+    currentTideProgress = progress;
 
     root.style.setProperty('--tide-progress', progress.toFixed(3));
     root.style.setProperty('--shore-retreat', retreat.toFixed(2) + 'px');
@@ -858,54 +826,11 @@ body.landing-page button {
     root.style.setProperty('--depth-shift', (eased * 120).toFixed(2) + 'px');
   }
 
-  function lerpPath(a, b, t) {
-    var nums = function (s) { return s.match(/-?\d+(\.\d+)?/g).map(Number); };
-    var aN = nums(a);
-    var bN = nums(b);
-    if (aN.length !== bN.length) return a;
-    var i = 0;
-    return a.replace(/-?\d+(\.\d+)?/g, function () {
-      var v = aN[i] + (bN[i] - aN[i]) * t;
-      i += 1;
-      return v.toFixed(2);
-    });
-  }
-
-  function animateWave(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    var svg = el.parentNode;
-    var paths = wavePaths[id];
-    var dur = waveDurations[id] * 1000;
-    var motion = waveMotion[id];
-    var start = performance.now() - Math.random() * 4000;
-    function tick(now) {
-      var t = ((((now - start) % dur) + dur) % dur) / dur;
-      var seg = t * paths.length;
-      var i = Math.floor(seg) % paths.length;
-      var localT = seg - Math.floor(seg);
-      var eased = 0.5 - Math.cos(Math.PI * localT) / 2;
-      el.setAttribute('d', lerpPath(paths[i], paths[(i + 1) % paths.length], eased));
-      if (svg && motion) {
-        var phaseA = ((now - start) / dur) * (Math.PI * 2);
-        var phaseB = ((now - start) / (dur * 1.73)) * (Math.PI * 2);
-        var swell = 0.5 + (Math.sin(phaseA * 0.5 + motion.phase) * 0.5);
-        var driftX = Math.sin(phaseA + motion.phase) * motion.x + Math.sin(phaseB + motion.phase) * motion.x * 0.22;
-        var driftY = Math.cos(phaseA * 0.72 + motion.phase) * motion.y + (swell * motion.shore) - currentShoreRetreat * 0.055;
-        var breathe = 0.965 + (Math.sin(phaseA * 0.42 + motion.phase) * 0.02);
-        svg.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px, ' + driftY.toFixed(2) + 'px, 0) scale(' + breathe.toFixed(3) + ')';
-        svg.style.opacity = (motion.opacity + Math.sin(phaseB + motion.phase) * 0.025).toFixed(3);
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  ['w1', 'w2', 'w3', 'w4', 'w5'].forEach(animateWave);
-
   var foamField = document.getElementById('foam-field');
   function spawnFoam() {
     if (!foamField) return;
+    if (currentTideProgress > 0.82) return;
+    if (Math.random() < currentTideProgress * 0.55) return;
     var p = document.createElement('div');
     var size = 8 + Math.random() * 16;
     p.className = 'foam-particle';
@@ -915,7 +840,7 @@ body.landing-page button {
     p.style.bottom = 152 + Math.random() * 22 + 'px';
     p.style.setProperty('--dx', (10 + Math.random() * 24) * (Math.random() > 0.5 ? 1 : -1) + 'px');
     p.style.setProperty('--dy', (-3 - Math.random() * 10) + 'px');
-    p.style.animationDuration = 6 + Math.random() * 5 + 's';
+    p.style.animationDuration = 6 + Math.random() * 5 + currentTideProgress * 2 + 's';
     p.style.animationDelay = (-Math.random() * 4) + 's';
     foamField.appendChild(p);
     setTimeout(function () { p.remove(); }, 11000);
