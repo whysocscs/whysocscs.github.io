@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import styles from '@/app/blog/blog.module.css';
-import { CATEGORY_DEPTH, CATEGORY_ICONS, CATEGORY_ORDER } from '@/lib/constants';
+import { CATEGORY_ICONS, CATEGORY_ORDER } from '@/lib/constants';
 import type { PostData } from '@/lib/posts';
 
 interface BlogListProps {
@@ -14,19 +14,29 @@ export default function BlogList({ posts }: BlogListProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSubTag, setSelectedSubTag] = useState<string | null>(null);
 
-  const postsInCategory = selectedCategory
-    ? posts.filter((post) => post.normalizedCategories.includes(selectedCategory as never))
-    : posts;
+  const postsInCategory = useMemo(() => {
+    if (!selectedCategory) {
+      return posts;
+    }
 
-  const availableSubTags = Array.from(
-    new Set(postsInCategory.flatMap((post) => post.tags)),
-  ).sort((a, b) => a.localeCompare(b));
+    return posts.filter((post) => post.normalizedCategories.includes(selectedCategory as never));
+  }, [posts, selectedCategory]);
 
-  const filteredPosts = selectedSubTag
-    ? postsInCategory.filter((post) => post.tags.includes(selectedSubTag))
-    : postsInCategory;
+  const availableSubTags = useMemo(() => {
+    return Array.from(new Set(postsInCategory.flatMap((post) => post.tags))).sort((a, b) =>
+      a.localeCompare(b),
+    );
+  }, [postsInCategory]);
 
-  const currentDepth = selectedCategory ? CATEGORY_DEPTH[selectedCategory] ?? 50 : 50;
+  const filteredPosts = useMemo(() => {
+    if (!selectedSubTag) {
+      return postsInCategory;
+    }
+
+    return postsInCategory.filter((post) => post.tags.includes(selectedSubTag));
+  }, [postsInCategory, selectedSubTag]);
+
+  const headerTitle = selectedSubTag ? selectedSubTag : selectedCategory || 'Archive';
 
   return (
     <div className={styles.blogLayout}>
@@ -36,11 +46,11 @@ export default function BlogList({ posts }: BlogListProps) {
           <ul className={styles.categoryList}>
             <li className={styles.mainCategoryItem}>
               <button
-                className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
                 onClick={() => {
                   setSelectedCategory(null);
                   setSelectedSubTag(null);
                 }}
+                className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
                 type="button"
               >
                 All Posts
@@ -49,16 +59,14 @@ export default function BlogList({ posts }: BlogListProps) {
             {CATEGORY_ORDER.map((category) => (
               <li key={category} className={styles.mainCategoryItem}>
                 <button
-                  className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
                   onClick={() => {
                     setSelectedCategory(category);
                     setSelectedSubTag(null);
                   }}
+                  className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
                   type="button"
                 >
-                  <span style={{ marginRight: '0.6rem', opacity: 0.85, fontSize: '0.95rem' }}>
-                    {CATEGORY_ICONS[category]}
-                  </span>
+                  <span style={{ marginRight: '0.55rem', opacity: 0.8 }}>{CATEGORY_ICONS[category]}</span>
                   {category}
                 </button>
               </li>
@@ -66,48 +74,40 @@ export default function BlogList({ posts }: BlogListProps) {
           </ul>
         </div>
 
-        {selectedCategory && availableSubTags.length > 0 && (
+        {selectedCategory && availableSubTags.length > 0 ? (
           <div className={styles.sidebarSection}>
-            <h3>Sub-tags</h3>
-            <ul className={styles.subCategoryList}>
+            <h3>Tags</h3>
+            <ul className={styles.categoryList}>
               <li className={styles.mainCategoryItem}>
                 <button
-                  className={`${styles.subCategoryButton} ${!selectedSubTag ? styles.activeSubCategory : ''}`}
                   onClick={() => setSelectedSubTag(null)}
+                  className={`${styles.subCategoryButton} ${!selectedSubTag ? styles.activeSubCategory : ''}`}
                   type="button"
                 >
-                  All in {selectedCategory}
+                  All
                 </button>
               </li>
               {availableSubTags.map((tag) => (
                 <li key={tag} className={styles.mainCategoryItem}>
                   <button
-                    className={`${styles.subCategoryButton} ${selectedSubTag === tag ? styles.activeSubCategory : ''}`}
                     onClick={() => setSelectedSubTag(tag)}
+                    className={`${styles.subCategoryButton} ${selectedSubTag === tag ? styles.activeSubCategory : ''}`}
                     type="button"
                   >
-                    # {tag}
+                    {tag}
                   </button>
                 </li>
               ))}
             </ul>
           </div>
-        )}
-
-        <div className={styles.depthGauge}>
-          Current depth
-          <strong>— {currentDepth}m</strong>
-        </div>
+        ) : null}
       </aside>
 
       <main className={styles.mainContent}>
         <header className={styles.header}>
-          <p style={{ marginBottom: '0.9rem' }}>
-            {selectedSubTag ? 'Tag' : selectedCategory ? 'Domain' : 'Collection'} · {currentDepth}m
-          </p>
-          <h1>{selectedSubTag ? `#${selectedSubTag}` : selectedCategory ?? 'Archive'}</h1>
-          <p style={{ marginTop: '0.75rem' }}>
-            {filteredPosts.length} {filteredPosts.length === 1 ? 'transmission' : 'transmissions'} recovered
+          <h1>{headerTitle}</h1>
+          <p>
+            {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
           </p>
         </header>
 
@@ -128,7 +128,7 @@ export default function BlogList({ posts }: BlogListProps) {
                   ))}
                   {post.tags.map((tag) => (
                     <span key={`${post.slug}-${tag}`} className={styles.tag}>
-                      # {tag}
+                      {tag}
                     </span>
                   ))}
                 </div>
@@ -138,19 +138,7 @@ export default function BlogList({ posts }: BlogListProps) {
         </div>
 
         {filteredPosts.length === 0 ? (
-          <div
-            style={{
-              textAlign: 'center',
-              padding: '8rem 0',
-              color: 'var(--ink-faint)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.8rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-            }}
-          >
-            No signals at this depth.
-          </div>
+          <div style={{ padding: '6rem 0', color: 'var(--fg-muted)', fontSize: '0.9rem' }}>No posts.</div>
         ) : null}
       </main>
     </div>

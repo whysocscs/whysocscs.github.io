@@ -10,34 +10,33 @@ export default function HomePage() {
     <div className="home-shell">
       <section className="home-hero">
         <div className="content">
-          <p className="eyebrow">Security Researcher · AI Guardrail</p>
+          <p className="eyebrow">Security research · AI guardrails</p>
           <h1>Lee Sangho</h1>
           <p>
-            Deep-sea portfolio structure restored on Next.js, with the blog now backed directly by the
-            real post source in <code>_posts</code>.
+            Notes, writeups, and project logs — mostly on security research, kernel fuzzing,
+            and AI safety. Scroll down, or head straight to the archive.
           </p>
           <div className="hero-actions">
             <Link href="/blog" className="blog-link">
-              Enter Archive
+              Archive
             </Link>
             <a href="https://github.com/whysocscs" className="ghost-link" target="_blank" rel="noreferrer">
               GitHub
             </a>
           </div>
-          <p className="scroll-cue">Descend</p>
         </div>
       </section>
 
       <section>
         <div className="content">
           <p className="eyebrow">Career</p>
-          <h2>Selected timeline</h2>
+          <h2>Timeline</h2>
           <div className="career-timeline">
             {CAREER_ITEMS.map((item) => (
               <article key={item.title} className="career-item">
                 <h3>{item.title}</h3>
                 <div className="career-org">
-                  {item.org} | {item.period}
+                  {item.org} &nbsp;·&nbsp; {item.period}
                 </div>
                 <p>{item.description}</p>
               </article>
@@ -49,7 +48,7 @@ export default function HomePage() {
       <section>
         <div className="content">
           <p className="eyebrow">Projects</p>
-          <h2>Current work</h2>
+          <h2>Currently working on</h2>
           <div className="portfolio-grid">
             {PROJECT_ITEMS.map((project) => (
               <article key={project.title} className="portfolio-card">
@@ -63,8 +62,8 @@ export default function HomePage() {
 
       <section>
         <div className="content">
-          <p className="eyebrow">Archive Signal</p>
-          <h2>Blog domains</h2>
+          <p className="eyebrow">Blog</p>
+          <h2>By topic</h2>
           <div className="category-grid">
             {CATEGORY_ORDER.map((category) => (
               <div key={category} className="category-stat">
@@ -74,9 +73,9 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <p>Total transmissions recovered: {posts.length}</p>
+          <p className="muted">{posts.length} posts total.</p>
           <Link href="/blog" className="blog-link">
-            Open Full Archive
+            Read the archive
           </Link>
         </div>
       </section>

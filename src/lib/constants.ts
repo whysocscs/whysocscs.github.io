@@ -8,23 +8,13 @@ export const STANDARD_CATEGORIES: Record<string, string[]> = {
 };
 
 export const CATEGORY_ICONS: Record<string, string> = {
-  Development: '⚙',
-  'CTF/Wargame': '⚑',
-  BugBounty: '⌬',
-  'Technical Document': '❡',
-  'Paper/Conference': '❦',
-  'Contest/Certification': '✦',
+  Development: '💻',
+  'CTF/Wargame': '🏁',
+  BugBounty: '🛡️',
+  'Technical Document': '📄',
+  'Paper/Conference': '📚',
+  'Contest/Certification': '🏆',
   Etc: '⚓',
-};
-
-export const CATEGORY_DEPTH: Record<string, number> = {
-  Development: 120,
-  'CTF/Wargame': 450,
-  BugBounty: 800,
-  'Technical Document': 250,
-  'Paper/Conference': 1500,
-  'Contest/Certification': 350,
-  Etc: 4000,
 };
 
 export const CATEGORY_ORDER = [

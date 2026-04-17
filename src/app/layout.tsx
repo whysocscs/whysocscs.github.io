@@ -3,8 +3,8 @@ import '@/app/globals.css';
 import Experience from '@/components/Experience';
 
 export const metadata: Metadata = {
-  title: 'Deep Sea Portfolio',
-  description: 'A mysterious underwater portfolio experience',
+  title: 'Lee Sangho',
+  description: 'Security research notes, CTF writeups, and project logs.',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

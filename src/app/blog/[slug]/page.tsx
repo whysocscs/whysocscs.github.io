@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import styles from '@/app/blog/blog.module.css';
+import styles from '../blog.module.css';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllPosts().map((post) => ({
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -20,10 +21,10 @@ export default async function PostPage({ params }: Props) {
     const post = await getPostBySlug(slug);
 
     return (
-      <div className={styles.blogLayout} style={{ justifyContent: 'center' }}>
+      <div className={styles.blogLayout} style={{ gridTemplateColumns: '1fr', maxWidth: '100%' }}>
         <article className={styles.article}>
           <Link href="/blog" className={styles.backButton}>
-            ← Return to surface
+            ← Archive
           </Link>
 
           <header className={styles.articleHeader}>
@@ -32,17 +33,17 @@ export default async function PostPage({ params }: Props) {
               <time dateTime={post.sortDate}>{post.date}</time>
               {post.normalizedCategories.length > 0 ? (
                 <>
-                  <span style={{ opacity: 0.5 }}>·</span>
+                  <span style={{ opacity: 0.4 }}>·</span>
                   <span>{post.normalizedCategories.join(', ')}</span>
                 </>
               ) : null}
             </div>
 
             {post.tags.length > 0 ? (
-              <div className={styles.tagContainer} style={{ marginTop: '1.5rem' }}>
+              <div className={styles.tagContainer} style={{ marginTop: '1.25rem' }}>
                 {post.tags.map((tag) => (
                   <span key={tag} className={styles.tag}>
-                    # {tag}
+                    {tag}
                   </span>
                 ))}
               </div>
