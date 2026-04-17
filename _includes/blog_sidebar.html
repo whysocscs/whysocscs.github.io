@@ -1,66 +1,41 @@
-<style>
-    .blog-sidebar {
-        padding-top: 18px;
-    }
-
-    .blog-sidebar .ibox {
-        margin-bottom: 20px;
-    }
-
-    .blog-sidebar-title {
-        margin: 0;
-        color: #2f4050;
-        font-size: 16px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-    }
-
-    .blog-sidebar-list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .blog-sidebar-list li + li {
-        margin-top: 8px;
-    }
-
-    .blog-sidebar-link {
-        display: block;
-        padding: 10px 12px;
-        border-radius: 6px;
-        color: #676a6c;
-        text-decoration: none !important;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .blog-sidebar-link:hover,
-    .blog-sidebar-link:focus {
-        background: #f3f3f4;
-        color: #2f4050;
-        text-decoration: none !important;
-    }
-
-    .blog-sidebar-link.active {
-        background: #2f4050;
-        color: #ffffff !important;
-    }
-</style>
-
 {% assign current_path = page.url %}
 <div class="blog-sidebar">
-    <div class="ibox">
+    <div class="ibox blog-sidebar-panel">
         <div class="ibox-content">
+            <p class="blog-sidebar-eyebrow">Depth Gauge</p>
             <h3 class="blog-sidebar-title">Blog Menu</h3>
-            <ul class="blog-sidebar-list" style="margin-top: 16px;">
+            <p class="blog-sidebar-copy">Glass-panel navigation for the archive layers.</p>
+            <ul class="blog-sidebar-list">
                 <li>
-                    <a class="blog-sidebar-link {% if current_path == '/blog/' %}active{% endif %}" href="{{ '/blog/' | prepend: site.baseurl }}">All Posts</a>
+                    <a class="blog-sidebar-link {% if current_path == '/blog/' %}active{% endif %}" href="{{ '/blog/' | prepend: site.baseurl }}">
+                        <span>All Posts</span>
+                        <small>020m</small>
+                    </a>
                 </li>
                 {% for item in site.data.blog %}
                     {% if item.name != 'Blog' and item.name != 'Donate' %}
+                {% assign depth_label = '450m' %}
+                {% case item.name %}
+                {% when 'Development' %}
+                {% assign depth_label = '180m' %}
+                {% when 'CTF-Wargame' %}
+                {% assign depth_label = '620m' %}
+                {% when 'BugBounty' %}
+                {% assign depth_label = '410m' %}
+                {% when 'Technical Document' %}
+                {% assign depth_label = '900m' %}
+                {% when 'Paper-Conference' %}
+                {% assign depth_label = '1240m' %}
+                {% when 'Contest-Certification' %}
+                {% assign depth_label = '760m' %}
+                {% when 'Etc' %}
+                {% assign depth_label = '330m' %}
+                {% endcase %}
                 <li>
-                    <a class="blog-sidebar-link {% if current_path == item.href %}active{% endif %}" href="{{ item.href | prepend: site.baseurl }}">{{ item.name }}</a>
+                    <a class="blog-sidebar-link {% if current_path == item.href %}active{% endif %}" href="{{ item.href | prepend: site.baseurl }}">
+                        <span>{{ item.name }}</span>
+                        <small>{{ depth_label }}</small>
+                    </a>
                 </li>
                     {% endif %}
                 {% endfor %}

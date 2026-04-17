@@ -5,7 +5,18 @@ layout: default
 <div class="wrapper wrapper-content  animated fadeInRight article">
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
-            <div class="ibox">
+            {% assign category_path = '/blog/' %}
+            {% if page.categories and page.categories.size > 0 %}
+                {% assign first_category = page.categories | first %}
+                {% assign category_path = first_category | downcase %}
+                {% case first_category %}
+                {% when 'TechnicalDocument' %}
+                {% assign category_path = 'technical-document' %}
+                {% endcase %}
+                {% assign category_path = category_path | prepend: '/' | append: '/' %}
+            {% endif %}
+            <a class="article-return-link" href="{{ category_path | prepend: site.baseurl }}">&#8592; Return to surface</a>
+            <div class="ibox article-shell">
                 <div class="ibox-content">
                     <div class="pull-right">
                     	{% for category in page.categories %}
@@ -14,11 +25,11 @@ layout: default
                             {% when 'TechnicalDocument' %}
                             {% assign category_path = 'technical-document' %}
                             {% endcase %}
-                        	<a class="btn btn-white btn-xs" href="{{ category_path | prepend: '/' | append: '/' | prepend: site.baseurl }}">{{ category }}</a>
+                        	<a class="btn btn-white btn-xs article-category-pill" href="{{ category_path | prepend: '/' | append: '/' | prepend: site.baseurl }}">{{ category }}</a>
                         {% endfor %}
                     </div>
                     <div class="text-center article-title">
-                    <span class="text-muted"><i class="fa fa-clock-o"></i> {{ page.date | date: "%-d %b %Y" }}</span>
+                    <span class="text-muted article-date"><i class="fa fa-clock-o"></i> {{ page.date | date: "%-d %b %Y" }}</span>
                         <h1>
                             {{ page.title }}
                         </h1>
@@ -27,9 +38,9 @@ layout: default
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                                <h5 style="display: inline;">Tags:</h5>
+                                <h5 class="article-tags-label">Tags:</h5>
                                 {% for tag in page.tags %}
-                                    <button class="btn btn-white btn-xs" type="button">{{ tag }}</button>
+                                    <button class="btn btn-white btn-xs article-tag-pill" type="button">{{ tag }}</button>
                                 {% endfor %}
                         </div>
                         <div class="col-md-6">

@@ -13,51 +13,71 @@ $(function(){
 });
 </script>
 
-<div class="row" style="margin-top: 18px;">
-    <div class="col-lg-12 text-center">
-        <div class="navy-line"></div>
-        {% if page.category_key %}
-        {% assign category = page.category_key %}
-        {% else %}
-        {% assign category = page.url | remove:'/' | capitalize %}
-        {% endif %}
-        {% assign category_title = page.category_title | default: category %}
-        <h1>{{ category_title }}</h1>
+{% if page.category_key %}
+{% assign category = page.category_key %}
+{% else %}
+{% assign category = page.url | remove:'/' | capitalize %}
+{% endif %}
+{% assign category_title = page.category_title | default: category %}
+{% assign depth_label = '450m' %}
+{% case category_title %}
+{% when 'Development' %}
+{% assign depth_label = '180m' %}
+{% when 'CTF-Wargame' %}
+{% assign depth_label = '620m' %}
+{% when 'BugBounty' %}
+{% assign depth_label = '410m' %}
+{% when 'Technical Document' %}
+{% assign depth_label = '900m' %}
+{% when 'Paper-Conference' %}
+{% assign depth_label = '1240m' %}
+{% when 'Contest-Certification' %}
+{% assign depth_label = '760m' %}
+{% when 'Etc' %}
+{% assign depth_label = '330m' %}
+{% endcase %}
+
+<section class="blog-ocean-hero blog-ocean-hero-category">
+    <span class="blog-ocean-kicker">Category Archive</span>
+    <h1>{{ category_title }}</h1>
+    <div class="blog-ocean-meta">
+        <span>{{ site.categories[category] | size }} entries at this depth</span>
+        <span>Depth gauge {{ depth_label }}</span>
     </div>
-</div>
-<div class="wrapper wrapper-content  animated fadeInRight blog">
+</section>
+
+<div class="wrapper wrapper-content animated fadeInRight blog blog-stream">
     <div class="row">
-        <ul id="pag-itemContainer" style="list-style:none;">
+        <ul id="pag-itemContainer" class="blog-category-list">
             {% assign counter = 0 %}
             {% for post in site.categories[category] %}
             {% assign counter = counter | plus: 1 %}
             <li>
                 <div class="col-lg-12">
-                    <div class="ibox">
+                    <div class="ibox blog-category-card">
                         <div class="ibox-content">
-                            <a href="{{ post.url | prepend: site.baseurl }}" class="btn-link">
+                            <div class="blog-card-meta">
+                                <span><i class="fa fa-clock-o"></i> {{ post.date | date: "%-d %b %Y" }}</span>
+                                <span><i class="fa fa-user"></i> {{ site.author.name }}</span>
+                                <span><i class="fa fa-tint"></i> {{ depth_label }}</span>
+                            </div>
+                            <a href="{{ post.url | prepend: site.baseurl }}" class="btn-link blog-category-title">
                                 <h2>{{ post.title }}</h2>
                             </a>
-                            <div class="small m-b-xs">
-                                <strong>{{ site.author.name }}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ post.date | date: "%-d %b %Y" }}</span>
-                            </div>
-                            <p>
-                                {{ post.content | strip_html | truncate:100 }}
+                            <p class="blog-card-excerpt">
+                                {{ post.content | strip_html | truncate: 160 }}
                             </p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5 style="display: inline;">Tags:</h5>
+                            <div class="row blog-category-footer">
+                                <div class="col-md-8">
                                     {% for tag in post.tags %}
-                                    <button class="btn btn-white btn-xs">{{ tag }}</button>
+                                    <span class="blog-tag">{{ tag }}</span>
                                     {% endfor %}
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="small text-right">
-                                        <div>
-                                            {% if site.disqus %}
-                                            <i class="fa fa-comments-o"> </i> <span class="disqus-comment-count" data-disqus-url="{{ site.url }}{{ post.url }}">0</span> comments
-                                            {% endif %}
-                                        </div>
+                                <div class="col-md-4">
+                                    <div class="small text-right blog-card-comments">
+                                        {% if site.disqus %}
+                                        <i class="fa fa-comments-o"></i> <span class="disqus-comment-count" data-disqus-url="{{ site.url }}{{ post.url }}">0</span> comments
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -69,9 +89,9 @@ $(function(){
         </ul>
         {% if counter == 0 %}
         <div class="col-lg-12">
-            <div class="ibox">
+            <div class="ibox blog-category-card">
                 <div class="ibox-content text-center">
-                    <p style="margin: 0;">Sorry,no blog！</p>
+                    <p class="blog-empty-state">No signals at this depth.</p>
                 </div>
             </div>
         </div>

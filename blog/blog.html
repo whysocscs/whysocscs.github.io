@@ -4,44 +4,43 @@ title: Blog
 permalink: /blog/
 ---
 
-<div class="row" style="margin-top: 18px;">
-    <div class="col-lg-12 text-center">
-        <div class="navy-line"></div>
-        <h1>Latest Blog</h1>
+<section class="blog-ocean-hero">
+    <span class="blog-ocean-kicker">Archive Signal</span>
+    <h1>Latest transmissions</h1>
+    <p class="blog-ocean-intro">Deep-sea archive styling applied to the blog index so the ocean tone survives past the landing page.</p>
+    <div class="blog-ocean-meta">
+        <span>{{ site.posts | size }} transmissions recovered</span>
+        <span>Latest 10 surfaced here</span>
     </div>
-</div>
+</section>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="wrapper wrapper-content animated fadeInRight">
-
-            <!-- latest 10 blog -->
-			{% for post in site.posts limit:10 %}
-            <div class="vote-item">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="vote-actions">
-                        </div>
-                        <a href="{{ post.url | prepend: site.baseurl }}" class="vote-title">
-                            {{ post.title }}
-                        </a>
-                        <div class="vote-info">
-                        {% if site.disqus %}
-                            <i class="fa fa-comments-o"> </i> <a>Comments (<span class="disqus-comment-count" data-disqus-url="{{ site.url }}{{ post.url }}">0</span>)</a>
-                        {% endif %}
-                            <i class="fa fa-clock-o"></i> <a>{{ post.date | date: "%-d %b %Y" }}</a>
-                            <i class="fa fa-user"></i> <a>{{ site.author.name }}</a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="vote-icon">
-                            {% if post.icon %}<i class="fa {{ post.icon }}"> </i>{% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+<div class="blog-stream wrapper wrapper-content animated fadeInRight">
+    {% for post in site.posts limit:10 %}
+    <article class="blog-card">
+        <div class="blog-card-signal">
+            {% if post.icon %}
+            <i class="fa {{ post.icon }}"></i>
+            {% else %}
+            <span>⌬</span>
+            {% endif %}
         </div>
-    </div>
-
+        <div class="blog-card-body">
+            <div class="blog-card-meta">
+                <span><i class="fa fa-clock-o"></i> {{ post.date | date: "%-d %b %Y" }}</span>
+                <span><i class="fa fa-user"></i> {{ site.author.name }}</span>
+                {% if post.categories and post.categories.size > 0 %}
+                <span><i class="fa fa-bookmark-o"></i> {{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <a href="{{ post.url | prepend: site.baseurl }}" class="blog-card-title">{{ post.title }}</a>
+            <p class="blog-card-excerpt">{{ post.content | strip_html | truncate: 180 }}</p>
+            <div class="blog-card-footer">
+                <a href="{{ post.url | prepend: site.baseurl }}" class="blog-card-link">Descend into entry</a>
+                {% if site.disqus %}
+                <span class="blog-card-comments">Comments <span class="disqus-comment-count" data-disqus-url="{{ site.url }}{{ post.url }}">0</span></span>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
 </div>
