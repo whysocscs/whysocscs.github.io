@@ -1,146 +1,147 @@
 'use client';
-
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styles from '@/app/blog/blog.module.css';
-import { CATEGORY_ICONS, CATEGORY_ORDER } from '@/lib/constants';
 import type { PostData } from '@/lib/posts';
+import type { StandardCategory } from '@/lib/constants';
 
-interface BlogListProps {
+interface Props {
   posts: Omit<PostData, 'contentHtml'>[];
 }
 
-export default function BlogList({ posts }: BlogListProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSubTag, setSelectedSubTag] = useState<string | null>(null);
+const CAT_META: Record<string, { name: string; color: string }> = {
+  Development:             { name: 'Development',       color: 'oklch(0.78 0.14 210)' },
+  'CTF/Wargame':           { name: 'CTF / Wargame',     color: 'oklch(0.72 0.12 35)'  },
+  BugBounty:               { name: 'Bug Bounty',        color: 'oklch(0.65 0.10 150)' },
+  'Technical Document':    { name: 'Technical Doc',     color: 'oklch(0.82 0.12 195)' },
+  'Paper/Conference':      { name: 'Paper / Conference', color: 'oklch(0.75 0.10 280)' },
+  'Contest/Certification': { name: 'Contest / Cert',    color: 'oklch(0.78 0.11 85)'  },
+  Etc:                     { name: 'Etc',               color: 'oklch(0.60 0.03 230)' },
+};
 
-  const postsInCategory = useMemo(() => {
-    if (!selectedCategory) {
-      return posts;
+const HASH_TO_CAT: Record<string, StandardCategory> = {
+  development: 'Development',
+  ctf:         'CTF/Wargame',
+  bugbounty:   'BugBounty',
+  techdoc:     'Technical Document',
+  paper:       'Paper/Conference',
+  contest:     'Contest/Certification',
+  etc:         'Etc',
+};
+
+export default function BlogList({ posts }: Props) {
+  const [currentCat, setCurrentCat] = useState<StandardCategory | 'all'>('all');
+  const [currentSubTag, setCurrentSubTag] = useState<string | null>(null);
+
+  useEffect(() => {
+    function applyHash() {
+      const h = location.hash.replace('#', '');
+      if (!h) return;
+      const cat = HASH_TO_CAT[h];
+      if (cat) { setCurrentCat(cat); setCurrentSubTag(null); }
     }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
 
-    return posts.filter((post) => post.normalizedCategories.includes(selectedCategory as never));
-  }, [posts, selectedCategory]);
+  const filtered = currentCat === 'all'
+    ? posts
+    : posts.filter(p => p.normalizedCategories.includes(currentCat as StandardCategory));
 
-  const availableSubTags = useMemo(() => {
-    return Array.from(new Set(postsInCategory.flatMap((post) => post.tags))).sort((a, b) =>
-      a.localeCompare(b),
-    );
-  }, [postsInCategory]);
+  const subFiltered = currentSubTag
+    ? filtered.filter(p => p.tags.includes(currentSubTag))
+    : filtered;
 
-  const filteredPosts = useMemo(() => {
-    if (!selectedSubTag) {
-      return postsInCategory;
-    }
+  function selectCat(cat: StandardCategory | 'all') {
+    setCurrentCat(cat);
+    setCurrentSubTag(null);
+  }
 
-    return postsInCategory.filter((post) => post.tags.includes(selectedSubTag));
-  }, [postsInCategory, selectedSubTag]);
-
-  const headerTitle = selectedSubTag ? selectedSubTag : selectedCategory || 'Archive';
+  const catName = currentCat === 'all' ? 'all' : (CAT_META[currentCat]?.name ?? currentCat);
 
   return (
-    <div className={styles.blogLayout}>
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarSection}>
+    <div className="blog-layout">
+      <aside className="blog-sidebar" id="sidebar">
+        <div className="sidebar-header">
+          <a href="/" className="back">← Home</a>
           <h2>Archive</h2>
-          <ul className={styles.categoryList}>
-            <li className={styles.mainCategoryItem}>
-              <button
-                onClick={() => {
-                  setSelectedCategory(null);
-                  setSelectedSubTag(null);
-                }}
-                className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
-                type="button"
-              >
-                All Posts
-              </button>
-            </li>
-            {CATEGORY_ORDER.map((category) => (
-              <li key={category} className={styles.mainCategoryItem}>
-                <button
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    setSelectedSubTag(null);
-                  }}
-                  className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
-                  type="button"
-                >
-                  <span style={{ marginRight: '0.55rem', opacity: 0.8 }}>{CATEGORY_ICONS[category]}</span>
-                  {category}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="meta">{posts.length} entries · 2025 — 2026</div>
         </div>
 
-        {selectedCategory && availableSubTags.length > 0 ? (
-          <div className={styles.sidebarSection}>
-            <h3>Tags</h3>
-            <ul className={styles.categoryList}>
-              <li className={styles.mainCategoryItem}>
-                <button
-                  onClick={() => setSelectedSubTag(null)}
-                  className={`${styles.subCategoryButton} ${!selectedSubTag ? styles.activeSubCategory : ''}`}
-                  type="button"
-                >
-                  All
-                </button>
-              </li>
-              {availableSubTags.map((tag) => (
-                <li key={tag} className={styles.mainCategoryItem}>
-                  <button
-                    onClick={() => setSelectedSubTag(tag)}
-                    className={`${styles.subCategoryButton} ${selectedSubTag === tag ? styles.activeSubCategory : ''}`}
-                    type="button"
-                  >
-                    {tag}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        <button
+          className={`cat-btn${currentCat === 'all' ? ' active' : ''}`}
+          onClick={() => selectCat('all')}
+        >
+          All <span className="count">{posts.length}</span>
+        </button>
+
+        {(Object.keys(CAT_META) as StandardCategory[]).map(cat => {
+          const meta = CAT_META[cat];
+          const isActive = currentCat === cat;
+          const count = posts.filter(p => p.normalizedCategories.includes(cat)).length;
+          const catSubTags = Array.from(new Set(
+            posts.filter(p => p.normalizedCategories.includes(cat)).flatMap(p => p.tags)
+          ));
+          return (
+            <div key={cat}>
+              <button
+                className={`cat-btn${isActive ? ' active' : ''}`}
+                onClick={() => selectCat(cat)}
+              >
+                {meta.name} <span className="count">{count}</span>
+              </button>
+              {isActive && catSubTags.length > 0 && (
+                <div className="sub-tags visible">
+                  {catSubTags.map(tag => (
+                    <button
+                      key={tag}
+                      className={`sub-tag${currentSubTag === tag ? ' active' : ''}`}
+                      onClick={() => setCurrentSubTag(currentSubTag === tag ? null : tag)}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </aside>
 
-      <main className={styles.mainContent}>
-        <header className={styles.header}>
-          <h1>{headerTitle}</h1>
-          <p>
-            {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
-          </p>
-        </header>
-
-        <div className={styles.postGrid}>
-          {filteredPosts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className={styles.postItem}>
-              <article className={styles.postArticle}>
-                <div className={styles.postHeader}>
-                  <h2 className={styles.postTitle}>{post.title}</h2>
-                  <time className={styles.postDate}>{post.date}</time>
-                </div>
-                {post.desc ? <p className={styles.postDesc}>{post.desc}</p> : null}
-                <div className={styles.tagContainer}>
-                  {post.normalizedCategories.map((category) => (
-                    <span key={`${post.slug}-${category}`} className={styles.tag}>
-                      {category}
-                    </span>
-                  ))}
-                  {post.tags.map((tag) => (
-                    <span key={`${post.slug}-${tag}`} className={styles.tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            </Link>
-          ))}
+      <div className="blog-content">
+        <div className="content-header">
+          <div className="showing">
+            Showing <em>{catName}</em>{currentSubTag ? ` · ${currentSubTag}` : ''}
+          </div>
+          <div className="result-count">{subFiltered.length} entries</div>
         </div>
 
-        {filteredPosts.length === 0 ? (
-          <div style={{ padding: '6rem 0', color: 'var(--fg-muted)', fontSize: '0.9rem' }}>No posts.</div>
-        ) : null}
-      </main>
+        <div id="post-list">
+          {subFiltered.length === 0 ? (
+            <div className="empty-state">No entries yet in this category.</div>
+          ) : (
+            subFiltered.map(post => {
+              const primaryCat = post.normalizedCategories[0] ?? 'Etc';
+              const meta = CAT_META[primaryCat] ?? CAT_META['Etc'];
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="post-row"
+                  style={{ '--cat-color': meta.color } as React.CSSProperties}
+                >
+                  <div className="post-date">{post.date}</div>
+                  <div className="post-title">{post.title}</div>
+                  <div className="post-tags">
+                    <span className="cat-tag">{meta.name}</span>
+                    {post.tags.map(tag => <span key={tag}>{tag}</span>)}
+                  </div>
+                </Link>
+              );
+            })
+          )}
+        </div>
+      </div>
     </div>
   );
 }

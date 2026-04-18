@@ -39,6 +39,7 @@
     "node_modules",
     "_site",
     "deep-sea-patch",
+    "deep-sea-v2",
     "ocean-demo-wip"
   ]
 }
