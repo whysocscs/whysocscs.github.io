@@ -443,7 +443,7 @@ export default function HomeEffects() {
       window.addEventListener('mousemove', (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; }, { signal });
       (function tick() {
         if (!cursorRunning) return;
-        cx += (tx-cx)*0.22; cy += (ty-cy)*0.22;
+        cx += (tx-cx)*0.5; cy += (ty-cy)*0.5;
         cursor.style.left = cx+'px'; cursor.style.top = cy+'px';
         requestAnimationFrame(tick);
       })();

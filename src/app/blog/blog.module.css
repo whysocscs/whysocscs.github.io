@@ -2,7 +2,8 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 5rem 3rem 8rem;
-  background: transparent;
+  background: oklch(0.06 0.02 220 / 0.72);
+  backdrop-filter: blur(2px);
   color: var(--foam);
   line-height: 1.75;
   min-height: 100vh;
@@ -58,7 +59,7 @@
 
 .content {
   font-size: 1.02rem;
-  color: var(--foam-dim);
+  color: var(--foam);
   overflow-wrap: break-word;
   font-family: var(--font-body);
 }
@@ -80,7 +81,7 @@
 
 .content p {
   margin-bottom: 1.25rem;
-  color: var(--foam-dim);
+  color: var(--foam);
 }
 
 .content a {
@@ -145,7 +146,7 @@
 
 .content li {
   margin-bottom: 0.4rem;
-  color: var(--foam-dim);
+  color: var(--foam);
 }
 
 .content hr {
