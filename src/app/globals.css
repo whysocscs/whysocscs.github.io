@@ -513,7 +513,7 @@ section.stage {
   top: 0;
   height: 100vh;
   padding: 40px 28px 40px 32px;
-  border-right: 1px solid var(--line-soft);
+  border-right: 1px solid oklch(0.74 0.06 195 / 0.12);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -521,9 +521,12 @@ section.stage {
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
   background:
-    linear-gradient(180deg, oklch(0.05 0.016 222 / 0.78), oklch(0.028 0.008 240 / 0.72)),
-    radial-gradient(circle at top, oklch(0.20 0.05 198 / 0.16), transparent 58%);
-  backdrop-filter: blur(18px);
+    linear-gradient(180deg, oklch(0.10 0.026 210 / 0.54), oklch(0.055 0.014 228 / 0.44)),
+    radial-gradient(circle at 50% 0%, oklch(0.28 0.07 194 / 0.18), transparent 62%);
+  box-shadow:
+    inset -1px 0 0 oklch(0.8 0.05 195 / 0.06),
+    inset 0 1px 0 oklch(0.9 0.03 195 / 0.07);
+  backdrop-filter: blur(22px) saturate(125%);
   z-index: 1;
 }
 
