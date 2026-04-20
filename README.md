@@ -43,6 +43,7 @@ The GitHub Pages workflow builds the site from `master` and uploads `./out`.
 - `src/components/BlogList.tsx`: archive filtering UI
 - `src/app/blog/[slug]/page.tsx`: post detail page
 - `src/app/globals.css`: shared visual system and blog/home styling
+- `docs/sea-we-breathe-analysis.md`: browser inspection notes from the Blue Marine reference
 - `_posts/`: imported blog posts
 - `.github/workflows/deploy-pages.yml`: GitHub Pages deployment
 
@@ -53,6 +54,7 @@ The site should avoid generic AI landing-page patterns. Keep the ocean concept s
 - Use cinematic depth, not flat dark mode.
 - Prefer big, expressive type with generous spacing.
 - Make motion feel physical: slow ocean background, quick cursor response, subtle bubbles, scroll-triggered reveals.
+- Let the first visit auto-descend after a short surface pause; avoid large competing intro text over the `Lee Sangho` reveal.
 - Keep visual language consistent across home and blog.
 - When adding UI, preserve the underwater metaphor: surface, twilight, midnight, abyssal, hadal.
 
@@ -108,4 +110,3 @@ If the public site does not update after pushing:
 - Check the `Deploy Pages` workflow in GitHub Actions.
 - Confirm `npm run build` succeeds locally.
 - Confirm `next.config.mjs` still has `output: 'export'`.
-

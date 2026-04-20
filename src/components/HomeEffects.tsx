@@ -76,6 +76,7 @@ export default function HomeEffects() {
       let t = 0;
       let started = false;
       let idleRunning = true;
+      let autoDiveTimer = 0;
 
       function ease(x: number) { return x < 0.5 ? 2*x*x : 1 - Math.pow(-2*x+2, 2)/2; }
       function ramp(s: number, e: number, el: number) { return Math.max(0, Math.min(1, (el-s)/(e-s))); }
@@ -128,8 +129,9 @@ export default function HomeEffects() {
         requestAnimationFrame(frame);
       }
 
-      introEl.querySelector<HTMLButtonElement>('[data-begin-descent]')?.addEventListener('click', startDive, { signal });
       requestAnimationFrame(drawIdle);
+      autoDiveTimer = window.setTimeout(startDive, 900);
+      signal.addEventListener('abort', () => window.clearTimeout(autoDiveTimer), { once: true });
 
       function frame(now: number) {
         if (!introRunning) return;
@@ -318,7 +320,6 @@ export default function HomeEffects() {
         }
         requestAnimationFrame(frame);
       }
-      requestAnimationFrame(frame);
     })();
 
     // ─── OCEAN CANVAS ─────────────────────────────────────────
@@ -705,9 +706,8 @@ export default function HomeEffects() {
         <canvas id="intro-canvas" />
         <div className="intro-panel" aria-hidden="false">
           <div className="intro-status">Connection Established</div>
-          <h2>The Portfolio Below</h2>
-          <p>Take a breath. Press begin and dive from the surface into Lee Sangho&apos;s security research archive.</p>
-          <button type="button" data-begin-descent="">Begin Descent</button>
+          <div className="intro-brief">Auto descent into Lee Sangho&apos;s archive</div>
+          <div className="intro-meter" aria-hidden="true"><span /></div>
         </div>
       </div>
       <div id="cursor" data-zone="surface" aria-hidden="true"><span className="cursor-glyph" /></div>
