@@ -25,17 +25,20 @@ export default function HomeEffects() {
     (function initIntro() {
       const intro = document.getElementById('intro') as HTMLDivElement | null;
       const canvas = document.getElementById('intro-canvas') as HTMLCanvasElement | null;
+      const oceanCanvas = document.getElementById('ocean-canvas') as HTMLCanvasElement | null;
       if (!intro || !canvas) return;
       const introEl = intro;
       const canvasEl = canvas;
 
       if (sessionStorage.getItem('introSeen') === '1') {
         introEl.style.display = 'none';
+        if (oceanCanvas) oceanCanvas.style.opacity = '1';
         showFrameUI();
         return;
       }
 
       document.body.style.overflow = 'hidden';
+      if (oceanCanvas) oceanCanvas.style.opacity = '0';
       const ctx = canvasEl.getContext('2d')!;
       const isMobile = window.innerWidth < 768;
       let W = 0, H = 0;
@@ -49,29 +52,25 @@ export default function HomeEffects() {
       resize();
       window.addEventListener('resize', resize, { signal });
 
-      const SC = isMobile ? 30 : 72;
-      const SNOW = Array.from({ length: SC }, () => ({
+      const SC = isMobile ? 18 : 34;
+      const PLANKTON = Array.from({ length: SC }, () => ({
         x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
         r: 0.3 + Math.random() * 0.82,
         vy: -(0.07 + Math.random() * 0.18), vx: (Math.random() - 0.5) * 0.09,
         alpha: 0.05 + Math.random() * 0.15, phase: Math.random() * Math.PI * 2,
       }));
 
-      const RAYS = Array.from({ length: isMobile ? 5 : 8 }, () => ({
-        x: 0.30 + Math.random() * 0.40 + (Math.random() - 0.5) * 0.05,
-        w: 0.013 + Math.random() * 0.020,
-        speed: 0.05 + Math.random() * 0.09,
+      const INTRO_BUBBLES = Array.from({ length: isMobile ? 8 : 14 }, () => ({
+        x: Math.random(),
+        y: Math.random(),
+        r: 6 + Math.random() * 18,
+        speed: 0.06 + Math.random() * 0.16,
+        drift: (Math.random() - 0.5) * 0.45,
         phase: Math.random() * Math.PI * 2,
-        b: 0.45 + Math.random() * 0.55,
-      }));
-      const INTRO_BUBBLES = Array.from({ length: isMobile ? 24 : 44 }, () => ({
-        x: Math.random(), y: Math.random(), r: 1 + Math.random() * 4,
-        speed: 0.06 + Math.random() * 0.16, phase: Math.random() * Math.PI * 2,
-        alpha: 0.18 + Math.random() * 0.35,
+        alpha: 0.10 + Math.random() * 0.18,
       }));
 
-      const oc = document.createElement('canvas');
-      const TOTAL = 7000;
+      const TOTAL = 4200;
       const t0 = performance.now();
       let t = 0;
 
@@ -82,83 +81,77 @@ export default function HomeEffects() {
         if (!introRunning) return;
         t += 0.007;
         const el = now - t0;
-        const dive = ease(ramp(300, 5600, el));
+        const dive = ease(ramp(300, 3200, el));
 
         ctx.clearRect(0, 0, W, H);
 
-        const fi = ease(ramp(0, 950, el));
-        const sh = isMobile ? ease(ramp(300, 900, el)) * 0.036 : 0;
+        const fi = ease(ramp(0, 700, el));
+        const plunge = ease(ramp(820, 1900, el));
+        const diveDark = ease(ramp(1250, 3400, el));
         const bg = ctx.createLinearGradient(0, 0, 0, H);
-        bg.addColorStop(0, `oklch(${(0.025 + fi*0.24 - dive*0.10 + sh).toFixed(3)} ${(fi*0.10).toFixed(3)} 205)`);
-        bg.addColorStop(0.42, `oklch(${(0.018 + fi*0.13 - dive*0.08).toFixed(3)} ${(fi*0.075).toFixed(3)} ${215 + dive*15})`);
-        bg.addColorStop(1, `oklch(${(0.006 + fi*0.046 - dive*0.026).toFixed(3)} ${(fi*0.034).toFixed(3)} ${232 + dive*18})`);
+        bg.addColorStop(0, `oklch(${(0.09 + fi * 0.26 - diveDark * 0.18).toFixed(3)} ${(0.02 + fi * 0.06).toFixed(3)} ${198 + diveDark * 16})`);
+        bg.addColorStop(0.38, `oklch(${(0.055 + fi * 0.16 - diveDark * 0.14).toFixed(3)} ${(0.018 + fi * 0.05).toFixed(3)} ${205 + diveDark * 16})`);
+        bg.addColorStop(1, `oklch(${(0.016 + fi * 0.07 - diveDark * 0.05).toFixed(3)} ${(0.01 + fi * 0.025).toFixed(3)} ${228 + diveDark * 18})`);
         ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-        const surface = ease(ramp(200, 2500, el)) * (1 - ease(ramp(3600, 6100, el)));
+        const surface = ease(ramp(0, 1400, el)) * (1 - ease(ramp(1350, 2400, el)));
         if (surface > 0.01) {
           ctx.save();
           ctx.globalCompositeOperation = 'screen';
-          const horizonY = H * (0.18 - dive * 0.14);
-          const surfaceG = ctx.createLinearGradient(0, horizonY - 120, 0, horizonY + 90);
-          surfaceG.addColorStop(0, `oklch(0.98 0.02 195 / ${surface * 0.22})`);
-          surfaceG.addColorStop(0.45, `oklch(0.78 0.12 190 / ${surface * 0.32})`);
+          const horizonY = H * (0.24 - plunge * 0.12);
+          const surfaceG = ctx.createLinearGradient(0, horizonY - 140, 0, horizonY + 120);
+          surfaceG.addColorStop(0, `oklch(0.98 0.02 195 / ${surface * 0.18})`);
+          surfaceG.addColorStop(0.42, `oklch(0.88 0.07 192 / ${surface * 0.28})`);
           surfaceG.addColorStop(1, 'transparent');
           ctx.fillStyle = surfaceG;
           ctx.beginPath();
           ctx.moveTo(0, horizonY);
           for (let x = 0; x <= W; x += 18) {
-            const y = horizonY + Math.sin(x * 0.012 + t * 14) * 9 + Math.sin(x * 0.024 - t * 9) * 5;
+            const y = horizonY + Math.sin(x * 0.011 + t * 7.5) * 7 + Math.sin(x * 0.024 - t * 4.6) * 3;
             ctx.lineTo(x, y);
           }
           ctx.lineTo(W, horizonY + 130);
           ctx.lineTo(0, horizonY + 130);
           ctx.closePath();
           ctx.fill();
-          ctx.restore();
-        }
-
-        const ri = ease(ramp(800, 2300, el));
-        if (ri > 0.01) {
-          ctx.save(); ctx.globalCompositeOperation = 'lighter';
-          for (const r of RAYS) {
-            const rx = (r.x + Math.sin(t * r.speed + r.phase) * 0.055) * W;
-            const w = r.w * W, bW = w * 5, a = ri * r.b * 0.052;
-            const g = ctx.createLinearGradient(rx, -H*0.05, rx, H*0.68);
-            g.addColorStop(0, `oklch(0.68 0.10 202 / ${a*2})`);
-            g.addColorStop(0.25, `oklch(0.48 0.08 208 / ${a})`);
-            g.addColorStop(0.7, `oklch(0.28 0.05 218 / ${a*0.35})`);
-            g.addColorStop(1, 'transparent');
-            ctx.fillStyle = g;
-            ctx.beginPath();
-            ctx.moveTo(rx-w, -H*0.05); ctx.lineTo(rx+w, -H*0.05);
-            ctx.lineTo(rx+bW, H*0.68); ctx.lineTo(rx-bW, H*0.68);
-            ctx.closePath(); ctx.fill();
+          ctx.strokeStyle = `oklch(0.96 0.02 194 / ${surface * 0.38})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, horizonY + 2);
+          for (let x = 0; x <= W; x += 22) {
+            const y = horizonY + Math.sin(x * 0.013 + t * 8.2) * 5;
+            ctx.lineTo(x, y);
           }
+          ctx.stroke();
           ctx.restore();
         }
 
-        const tunnel = ease(ramp(1050, 5000, el));
-        if (tunnel > 0.01) {
+        if (plunge > 0.01) {
           ctx.save();
           ctx.globalCompositeOperation = 'screen';
-          const cx = W * 0.5;
-          const cy = H * (0.42 + dive * 0.08);
-          for (let i = 0; i < 5; i++) {
-            const ring = ((tunnel * 1.35 + i * 0.19) % 1);
-            const rx = (120 + ring * W * 0.58) * (isMobile ? 0.78 : 1);
-            const ry = rx * (0.34 + dive * 0.09);
-            ctx.strokeStyle = `oklch(0.78 0.11 195 / ${Math.max(0, (1 - ring) * 0.10 * tunnel)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.ellipse(cx, cy + ring * H * 0.16, rx, ry, Math.sin(t + i) * 0.03, 0, Math.PI * 2);
-            ctx.stroke();
+          const bandY = H * (0.18 + plunge * 0.68);
+          const band = ctx.createLinearGradient(0, bandY - H * 0.12, 0, bandY + H * 0.18);
+          band.addColorStop(0, `oklch(0.96 0.02 194 / ${plunge * 0.02})`);
+          band.addColorStop(0.42, `oklch(0.92 0.05 192 / ${plunge * 0.18})`);
+          band.addColorStop(0.75, `oklch(0.78 0.08 196 / ${plunge * 0.06})`);
+          band.addColorStop(1, 'transparent');
+          ctx.fillStyle = band;
+          ctx.beginPath();
+          ctx.moveTo(0, bandY - H * 0.12);
+          for (let x = 0; x <= W; x += 20) {
+            const y = bandY + Math.sin(x * 0.014 + t * 12) * (10 + plunge * 10);
+            ctx.lineTo(x, y);
           }
+          ctx.lineTo(W, H);
+          ctx.lineTo(0, H);
+          ctx.closePath();
+          ctx.fill();
           ctx.restore();
         }
 
-        const si = ease(ramp(3000, 4500, el));
+        const si = ease(ramp(1800, 3600, el));
         if (si > 0.01) {
-          for (const s of SNOW) {
+          for (const s of PLANKTON) {
             s.y += s.vy; s.x += s.vx + Math.sin(t*0.6 + s.phase)*0.11;
             if (s.y < -4) { s.y = H+4; s.x = Math.random()*W; }
             if (s.x < -4) s.x = W+4; if (s.x > W+4) s.x = -4;
@@ -169,15 +162,15 @@ export default function HomeEffects() {
           }
         }
 
-        const bubbleIn = ease(ramp(1300, 5600, el));
+        const bubbleIn = ease(ramp(1550, 3400, el));
         if (bubbleIn > 0.01) {
           ctx.save();
           for (const b of INTRO_BUBBLES) {
             const drift = (el * 0.00004 * b.speed * H) % 1;
-            const x = b.x * W + Math.sin(t * 2.1 + b.phase) * 22;
+            const x = b.x * W + Math.sin(t * 1.6 + b.phase) * (12 + b.r * 0.35) + b.drift * 24;
             const y = ((b.y - drift + 1) % 1) * H;
-            const rr = b.r * (0.75 + dive * 0.65);
-            const a = b.alpha * bubbleIn * (0.35 + dive * 0.65);
+            const rr = b.r * (0.86 + diveDark * 0.38);
+            const a = b.alpha * bubbleIn * (0.28 + diveDark * 0.72);
             ctx.beginPath();
             ctx.arc(x, y, rr, 0, Math.PI * 2);
             ctx.fillStyle = `oklch(0.78 0.10 195 / ${a * 0.14})`; ctx.fill();
@@ -188,76 +181,20 @@ export default function HomeEffects() {
           ctx.restore();
         }
 
-        const whale = ease(ramp(2500, 5600, el)) * (1 - ease(ramp(6100, 6900, el)));
-        if (whale > 0.01 && !isMobile) {
-          ctx.save();
-          ctx.translate(W * (0.12 + whale * 0.74), H * (0.64 - Math.sin(whale * Math.PI) * 0.12));
-          ctx.scale(1.2 + whale * 0.3, 1.2 + whale * 0.3);
-          ctx.globalAlpha = whale * 0.2;
-          ctx.fillStyle = 'oklch(0.02 0.025 230)';
-          ctx.beginPath();
-          ctx.ellipse(0, 0, 88, 24, -0.06, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.beginPath();
-          ctx.moveTo(-82, -2); ctx.lineTo(-132, -24); ctx.lineTo(-116, 0); ctx.lineTo(-134, 22); ctx.closePath(); ctx.fill();
-          ctx.beginPath();
-          ctx.moveTo(26, 16); ctx.lineTo(76, 52); ctx.lineTo(48, 12); ctx.closePath(); ctx.fill();
-          ctx.restore();
-        }
+        const depthShade = ctx.createLinearGradient(0, 0, 0, H);
+        depthShade.addColorStop(0, `oklch(0.02 0.01 230 / ${0.02 + diveDark * 0.02})`);
+        depthShade.addColorStop(0.58, `oklch(0.02 0.01 230 / ${0.05 + diveDark * 0.08})`);
+        depthShade.addColorStop(1, `oklch(0.02 0.01 230 / ${0.16 + diveDark * 0.18})`);
+        ctx.fillStyle = depthShade;
+        ctx.fillRect(0, 0, W, H);
 
-        const tv = ease(ramp(2000, 2650, el));
-        const tc = ease(ramp(2250, 3500, el));
-        if (tv > 0.01) {
-          const cx = W*0.5, cy = H*0.5 - 36;
-          const fs = Math.min(W*0.11, 118);
-          if (oc.width !== W*DPR) { oc.width = W*DPR; oc.height = H*DPR; }
-          const ox = oc.getContext('2d')!;
-          ox.clearRect(0, 0, oc.width, oc.height);
-          ox.setTransform(DPR, 0, 0, DPR, 0, 0);
-          ox.font = `800 ${fs}px 'Outfit', 'Pretendard', sans-serif`;
-          ox.textAlign = 'center'; ox.textBaseline = 'middle';
-          ox.fillStyle = `rgba(240,237,232,${tv})`;
-          ox.fillText('Lee Sangho', cx, cy);
-
-          const amp = (1 - tc) * 12;
-          const tp = el * 0.0018;
-          const sh = 3;
-          for (let row = 0; row < Math.ceil(H/sh); row++) {
-            const sy = row * sh, shh = Math.min(sh, H-sy);
-            const dx = Math.sin(sy*0.03 + tp + row*0.38)*amp + Math.sin(sy*0.067 + tp*1.25)*amp*0.38;
-            ctx.drawImage(oc, 0, sy*DPR, W*DPR, shh*DPR, dx, sy, W, shh);
-          }
-        }
-
-        const sv = ease(ramp(3500, 4500, el));
-        if (sv > 0.01) {
-          const cx = W*0.5, cy = H*0.5 - 36, fs = Math.min(W*0.11, 118);
-          ctx.font = `300 ${Math.min(W*0.021, 12)}px 'JetBrains Mono', monospace`;
-          ctx.textAlign = 'center';
-          ctx.fillStyle = `oklch(0.52 0.025 215 / ${sv})`;
-          ctx.fillText('NOTES FROM THE DEEP SEA', cx, cy + fs*0.72 + 22);
-        }
-
-        const hv = ease(ramp(5000, 6000, el));
-        if (hv > 0.01) {
-          const cx = W*0.5, cy = H*0.5 - 36, fs = Math.min(W*0.11, 118);
-          const hy = cy + fs*0.72 + 66;
-          ctx.font = `300 9px 'JetBrains Mono', monospace`;
-          ctx.fillStyle = `oklch(0.48 0.02 215 / ${hv*0.62})`;
-          ctx.fillText('DESCEND', cx, hy);
-          const lg = ctx.createLinearGradient(cx, hy+16, cx, hy+54);
-          lg.addColorStop(0, `oklch(0.76 0.11 190 / ${hv*(0.5+0.5*Math.sin(el*0.004))})`);
-          lg.addColorStop(1, 'transparent');
-          ctx.strokeStyle = lg; ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(cx, hy+16); ctx.lineTo(cx, hy+54); ctx.stroke();
-        }
-
-        const fo = ease(ramp(6200, 7000, el));
+        const fo = ease(ramp(3500, 4200, el));
         if (fo > 0.01) introEl.style.opacity = (1-fo).toFixed(3);
 
         if (el >= TOTAL) {
           introEl.classList.add('done');
           document.body.style.overflow = '';
+          if (oceanCanvas) oceanCanvas.style.opacity = '1';
           sessionStorage.setItem('introSeen', '1');
           showFrameUI();
           setTimeout(() => introEl.remove(), 400);
