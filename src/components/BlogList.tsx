@@ -65,6 +65,11 @@ function getPostSummary(post: Omit<PostData, 'contentHtml'>) {
   return 'Field note entry from the archive.';
 }
 
+function getCompactSummary(post: Omit<PostData, 'contentHtml'>) {
+  const summary = getPostSummary(post).replace(/\s+/g, ' ').trim();
+  return summary.length > 120 ? `${summary.slice(0, 117).trimEnd()}...` : summary;
+}
+
 export default function BlogList({ posts }: Props) {
   const [currentCat, setCurrentCat] = useState<StandardCategory | 'all'>('all');
   const [currentSubTag, setCurrentSubTag] = useState<string | null>(null);
@@ -100,7 +105,7 @@ export default function BlogList({ posts }: Props) {
     setCurrentSubTag(null);
   }
 
-  const catName = currentCat === 'all' ? 'all' : (CAT_META[currentCat]?.name ?? currentCat);
+  const catName = currentCat === 'all' ? 'Full archive' : (CAT_META[currentCat]?.name ?? currentCat);
   const years = posts
     .map(getPostYear)
     .filter((year) => /^\d{4}$/.test(year))
@@ -119,6 +124,7 @@ export default function BlogList({ posts }: Props) {
 
     return a.localeCompare(b);
   });
+  const visibleTagCount = new Set(subFiltered.flatMap((post) => post.tags)).size;
 
   return (
     <div className="blog-layout">
@@ -190,24 +196,15 @@ export default function BlogList({ posts }: Props) {
             <div className="archive-intro">
               <h1>Signal Archive</h1>
               <p>
-                Security notes, experiments, conference takeaways, and field records arranged as a
-                calm index instead of a promotional feed.
+                Security notes, experiments, conference takeaways, and field records arranged as an
+                editorial index instead of a promotional feed.
               </p>
             </div>
 
-            <div className="archive-stats-grid">
-              <div className="archive-stat-card">
-                <span>Visible</span>
-                <strong>{subFiltered.length}</strong>
-              </div>
-              <div className="archive-stat-card">
-                <span>Years</span>
-                <strong>{archiveYears.length}</strong>
-              </div>
-              <div className="archive-stat-card">
-                <span>Mode</span>
-                <strong>{currentSubTag ? 'Tag Focus' : 'Full Index'}</strong>
-              </div>
+            <div className="archive-overview">
+              <span>{subFiltered.length} visible notes</span>
+              <span>{archiveYears.length} years indexed</span>
+              <span>{visibleTagCount} active tags</span>
             </div>
           </header>
 
@@ -226,6 +223,8 @@ export default function BlogList({ posts }: Props) {
                     {groupedArchive[year].map((post, index) => {
                       const primaryCategory = post.normalizedCategories[0] ?? 'Etc';
                       const meta = CAT_META[primaryCategory] ?? CAT_META.Etc;
+                      const previewTags = post.tags.slice(0, 2);
+                      const remainingTags = post.tags.length - previewTags.length;
 
                       return (
                         <Link
@@ -241,14 +240,15 @@ export default function BlogList({ posts }: Props) {
 
                           <div className="entry-main">
                             <div className="entry-title">{post.title}</div>
-                            <div className="entry-summary">{getPostSummary(post)}</div>
+                            <div className="entry-summary">{getCompactSummary(post)}</div>
                           </div>
 
                           <div className="entry-tags">
                             <span className="cat-tag">{meta.name}</span>
-                            {post.tags.map((tag) => (
+                            {previewTags.map((tag) => (
                               <span key={tag}>{tag}</span>
                             ))}
+                            {remainingTags > 0 ? <span>+{remainingTags}</span> : null}
                           </div>
                         </Link>
                       );
