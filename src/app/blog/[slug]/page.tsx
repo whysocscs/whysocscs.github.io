@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import styles from '../blog.module.css';
 import {
   decoratePostHtml,
@@ -15,6 +16,16 @@ import BlogEffects from '@/components/BlogEffects';
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+const CATEGORY_COLORS: Record<string, string> = {
+  Development: 'oklch(0.78 0.14 210)',
+  'CTF/Wargame': 'oklch(0.72 0.12 35)',
+  BugBounty: 'oklch(0.65 0.10 150)',
+  'Technical Document': 'oklch(0.82 0.12 195)',
+  'Paper/Conference': 'oklch(0.75 0.10 280)',
+  'Contest/Certification': 'oklch(0.78 0.11 85)',
+  Etc: 'oklch(0.60 0.03 230)',
+};
 
 function getSourceLink(content: string) {
   const match = content.match(/^>\s*Source:\s*\[(.*?)\]\((.*?)\)/m);
@@ -68,6 +79,7 @@ export default async function PostPage({ params }: Props) {
     const { newer, older } = getAdjacentPosts(slug);
     const relatedPosts = getRelatedPosts(slug, 3);
     const showDescription = post.desc.trim() && post.desc.trim() !== post.title.trim();
+    const getCardAccent = (category: string) => CATEGORY_COLORS[category] ?? CATEGORY_COLORS.Etc;
 
     return (
       <>
@@ -145,7 +157,11 @@ export default async function PostPage({ params }: Props) {
                     <div className={styles.sectionLabel}>Continue Reading</div>
                     <div className={styles.articleNav}>
                       {newer ? (
-                        <Link href={`/blog/${newer.slug}`} className={styles.navCard}>
+                        <Link
+                          href={`/blog/${newer.slug}`}
+                          className={styles.navCard}
+                          style={{ '--card-accent': getCardAccent(newer.normalizedCategories[0] ?? 'Etc') } as CSSProperties}
+                        >
                           <span className={styles.navLabel}>Newer</span>
                           <strong>{newer.title}</strong>
                           <p>{getPostSummary(newer)}</p>
@@ -155,7 +171,11 @@ export default async function PostPage({ params }: Props) {
                       )}
 
                       {older ? (
-                        <Link href={`/blog/${older.slug}`} className={styles.navCard}>
+                        <Link
+                          href={`/blog/${older.slug}`}
+                          className={styles.navCard}
+                          style={{ '--card-accent': getCardAccent(older.normalizedCategories[0] ?? 'Etc') } as CSSProperties}
+                        >
                           <span className={styles.navLabel}>Older</span>
                           <strong>{older.title}</strong>
                           <p>{getPostSummary(older)}</p>
@@ -172,7 +192,12 @@ export default async function PostPage({ params }: Props) {
                     <div className={styles.sectionLabel}>Related Notes</div>
                     <div className={styles.relatedGrid}>
                       {relatedPosts.map((related) => (
-                        <Link key={related.slug} href={`/blog/${related.slug}`} className={styles.relatedCard}>
+                        <Link
+                          key={related.slug}
+                          href={`/blog/${related.slug}`}
+                          className={styles.relatedCard}
+                          style={{ '--card-accent': getCardAccent(related.normalizedCategories[0] ?? 'Etc') } as CSSProperties}
+                        >
                           <span className={styles.relatedMeta}>
                             {related.date} / {related.normalizedCategories[0] ?? 'Etc'}
                           </span>
