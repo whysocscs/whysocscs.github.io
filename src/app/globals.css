@@ -454,18 +454,22 @@ section.stage {
 
 /* ─── INTRO ──────────────────────────────────────────────── */
 #intro {
-  position:fixed; inset:0; z-index:1000; background:var(--abyss); overflow:hidden;
+  position:fixed; inset:0; z-index:1000;
+  background:
+    radial-gradient(ellipse at 50% 18%, oklch(0.96 0.04 188 / .38), transparent 46%),
+    linear-gradient(180deg, oklch(0.78 0.09 198), oklch(0.42 0.10 205) 48%, var(--abyss));
+  overflow:hidden;
 }
 #intro::before {
   content:"";
   position:absolute;
   pointer-events:none;
   background:
-    radial-gradient(ellipse at 50% -10%, oklch(0.9 0.08 195 / .20), transparent 54%),
-    radial-gradient(ellipse at 50% 120%, oklch(0.02 0.03 240 / .82), transparent 58%);
+    radial-gradient(ellipse at 50% -10%, oklch(1 0.04 190 / .22), transparent 54%),
+    radial-gradient(ellipse at 50% 120%, oklch(0.02 0.03 240 / .58), transparent 62%);
   inset:0;
   mix-blend-mode:screen;
-  opacity:.72;
+  opacity:.64;
   z-index:2;
 }
 #intro-canvas { position:absolute; inset:0; width:100%; height:100%; }
