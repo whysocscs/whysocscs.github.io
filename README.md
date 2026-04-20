@@ -32,12 +32,21 @@ Build the static export:
 npm run build
 ```
 
+Render the cinematic intro assets after changing `src/remotion/*`:
+
+```powershell
+npm run render:intro:poster
+npm run render:intro
+```
+
 The GitHub Pages workflow builds the site from `master` and uploads `./out`.
 
 ## Project Map
 
 - `src/app/page.tsx`: home page content
 - `src/components/HomeEffects.tsx`: intro animation, ocean background, cursor, bubbles, scroll effects
+- `src/remotion/`: Remotion source for the rendered ocean plunge intro video
+- `public/intro/`: rendered intro video and poster used before the Canvas fallback
 - `src/app/blog/page.tsx`: blog archive page
 - `src/components/BlogEffects.tsx`: blog ocean background, creature cursor, bubble trail, depth counter
 - `src/components/BlogList.tsx`: archive filtering UI

@@ -25,9 +25,11 @@ export default function HomeEffects() {
     (function initIntro() {
       const intro = document.getElementById('intro') as HTMLDivElement | null;
       const canvas = document.getElementById('intro-canvas') as HTMLCanvasElement | null;
+      const video = document.getElementById('intro-video') as HTMLVideoElement | null;
       if (!intro || !canvas) return;
       const introEl = intro;
       const canvasEl = canvas;
+      const videoEl = video;
 
       if (sessionStorage.getItem('introSeen') === '1') {
         introEl.style.display = 'none';
@@ -48,6 +50,44 @@ export default function HomeEffects() {
       }
       resize();
       window.addEventListener('resize', resize, { signal });
+
+      let completed = false;
+      function completeIntro() {
+        if (completed) return;
+        completed = true;
+        introEl.classList.add('done');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('introSeen', '1');
+        showFrameUI();
+        setTimeout(() => introEl.remove(), 400);
+      }
+
+      if (videoEl) {
+        const activateVideoMode = () => {
+          introEl.classList.add('intro-video-mode');
+          canvasEl.style.opacity = '0';
+        };
+
+        const fallbackDelay = window.setTimeout(() => {
+          if (videoEl.readyState < 2) introEl.classList.remove('intro-video-mode');
+        }, 1200);
+        const finishDelay = window.setTimeout(completeIntro, 8600);
+
+        signal.addEventListener('abort', () => {
+          window.clearTimeout(fallbackDelay);
+          window.clearTimeout(finishDelay);
+        }, { once: true });
+
+        videoEl.addEventListener('loadeddata', activateVideoMode, { signal });
+        videoEl.addEventListener('canplay', activateVideoMode, { signal });
+        videoEl.addEventListener('ended', completeIntro, { signal });
+        if (videoEl.readyState >= 2) activateVideoMode();
+        videoEl.play().catch(() => {
+          window.clearTimeout(finishDelay);
+          canvasEl.style.opacity = '';
+          introEl.classList.remove('intro-video-mode');
+        });
+      }
 
       const SC = isMobile ? 30 : 72;
       const SNOW = Array.from({ length: SC }, () => ({
@@ -341,11 +381,7 @@ export default function HomeEffects() {
         if (fo > 0.01) introEl.style.opacity = (1-fo).toFixed(3);
 
         if (el >= TOTAL) {
-          introEl.classList.add('done');
-          document.body.style.overflow = '';
-          sessionStorage.setItem('introSeen', '1');
-          showFrameUI();
-          setTimeout(() => introEl.remove(), 400);
+          completeIntro();
           return;
         }
         requestAnimationFrame(frame);
@@ -733,6 +769,15 @@ export default function HomeEffects() {
   return (
     <>
       <div id="intro">
+        <video
+          id="intro-video"
+          autoPlay
+          muted
+          playsInline
+          poster="/intro/ocean-plunge-poster.jpg"
+          preload="auto"
+          src="/intro/ocean-plunge.mp4"
+        />
         <canvas id="intro-canvas" />
         <div className="intro-panel" aria-hidden="false">
           <div className="intro-status">Connection Established</div>
