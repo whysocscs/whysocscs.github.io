@@ -104,19 +104,36 @@
 }
 
 .articleHero {
+  position: relative;
+  overflow: hidden;
   margin-bottom: 44px;
   padding: 34px 36px 38px;
-  border: 1px solid oklch(0.76 0.11 190 / 0.16);
+  border: 1px solid oklch(0.82 0.11 190 / 0.20);
   border-radius: 32px;
   background:
-    linear-gradient(135deg, oklch(0.08 0.03 215 / 0.95), oklch(0.03 0.01 245 / 0.95)),
-    radial-gradient(circle at top left, oklch(0.18 0.05 205 / 0.18), transparent 46%);
-  box-shadow: inset 0 1px 0 oklch(0.76 0.11 190 / 0.08);
+    linear-gradient(135deg, oklch(0.13 0.05 210 / 0.94), oklch(0.05 0.02 238 / 0.92)),
+    radial-gradient(circle at top left, oklch(0.42 0.10 198 / 0.18), transparent 38%),
+    radial-gradient(circle at 85% 18%, oklch(0.28 0.06 204 / 0.10), transparent 26%);
+  box-shadow:
+    inset 0 1px 0 oklch(0.94 0.03 200 / 0.12),
+    0 18px 48px oklch(0.01 0.004 250 / 0.18);
+}
+
+.articleHero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, oklch(0.94 0.02 200 / 0.04), transparent 32%),
+    radial-gradient(circle at 18% 24%, oklch(0.92 0.04 198 / 0.08), transparent 24%);
 }
 
 .articleKicker {
+  position: relative;
+  z-index: 1;
   margin-bottom: 16px;
-  color: var(--plankton);
+  color: oklch(0.86 0.10 191);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
@@ -124,9 +141,11 @@
 }
 
 .articleTitle {
+  position: relative;
+  z-index: 1;
   max-width: 9ch;
   margin-bottom: 22px;
-  color: oklch(0.97 0.02 205);
+  color: oklch(0.995 0.01 200);
   font-family: var(--font-display);
   font-size: clamp(2.9rem, 5.4vw, 5rem);
   font-style: italic;
@@ -135,10 +154,14 @@
   line-height: 0.97;
   text-transform: none !important;
   text-wrap: balance;
-  text-shadow: 0 10px 24px oklch(0.01 0.004 250 / 0.24);
+  text-shadow:
+    0 10px 24px oklch(0.01 0.004 250 / 0.20),
+    0 0 24px oklch(0.92 0.04 198 / 0.08);
 }
 
 .articleDek {
+  position: relative;
+  z-index: 1;
   max-width: 58ch;
   margin-bottom: 22px;
   color: var(--foam-dim);
@@ -147,10 +170,12 @@
 }
 
 .articleMeta {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--foam-muted);
+  color: oklch(0.78 0.03 205);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
