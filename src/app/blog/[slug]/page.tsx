@@ -1,11 +1,32 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from '../blog.module.css';
-import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import {
+  decoratePostHtml,
+  estimateReadingMinutes,
+  getAdjacentPosts,
+  getAllPosts,
+  getPostBySlug,
+  getPostSummary,
+  getRelatedPosts,
+} from '@/lib/posts';
 import BlogEffects from '@/components/BlogEffects';
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+function getSourceLink(content: string) {
+  const match = content.match(/^>\s*Source:\s*\[(.*?)\]\((.*?)\)/m);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    label: match[1],
+    href: match[2],
+  };
 }
 
 export async function generateStaticParams() {
@@ -20,40 +41,149 @@ export default async function PostPage({ params }: Props) {
 
   try {
     const post = await getPostBySlug(slug);
+    const primaryCategory = post.normalizedCategories[0] ?? 'Etc';
+    const readingMinutes = estimateReadingMinutes(post.content);
+    const source = getSourceLink(post.content);
+    const { contentHtml, headings } = decoratePostHtml(post.contentHtml);
+    const { newer, older } = getAdjacentPosts(slug);
+    const relatedPosts = getRelatedPosts(slug, 3);
+    const showDescription = post.desc.trim() && post.desc.trim() !== post.title.trim();
 
     return (
       <>
         <BlogEffects />
-        <main>
-          <article className={styles.article}>
-            <Link href="/blog" className={styles.backButton}>
-              ← Archive
-            </Link>
-
-            <header className={styles.articleHeader}>
-              <h1 className={styles.articleTitle}>{post.title}</h1>
-              <div className={styles.articleMeta}>
-                <time dateTime={post.sortDate}>{post.date}</time>
-                {post.normalizedCategories.length > 0 ? (
+        <main className={styles.page}>
+          <article className={styles.articleShell}>
+            <aside className={styles.metaRail}>
+              <div className={styles.railCard}>
+                <Link href="/blog" className={styles.backButton}>
+                  Back to Archive
+                </Link>
+                <div className={styles.railLabel}>Filed</div>
+                <time dateTime={post.sortDate} className={styles.railValue}>
+                  {post.date}
+                </time>
+                <div className={styles.railLabel}>Category</div>
+                <div className={styles.railValue}>{primaryCategory}</div>
+                <div className={styles.railLabel}>Read</div>
+                <div className={styles.railValue}>{readingMinutes} min</div>
+                {source ? (
                   <>
-                    <span style={{ opacity: 0.4 }}>·</span>
-                    <span>{post.normalizedCategories.join(', ')}</span>
+                    <div className={styles.railLabel}>Source</div>
+                    <a
+                      href={source.href}
+                      target="_blank"
+                      rel="noopener"
+                      className={styles.railLink}
+                    >
+                      {source.label}
+                    </a>
                   </>
                 ) : null}
               </div>
 
               {post.tags.length > 0 ? (
-                <div className={styles.tagContainer}>
-                  {post.tags.map((tag) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
-                    </span>
-                  ))}
+                <div className={styles.railCard}>
+                  <div className={styles.railLabel}>Tags</div>
+                  <div className={styles.tagContainer}>
+                    {post.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ) : null}
-            </header>
+            </aside>
 
-            <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+            <div className={styles.articleMain}>
+              <header className={styles.articleHero}>
+                <div className={styles.articleKicker}>Research Note / {primaryCategory}</div>
+                <h1 className={styles.articleTitle}>{post.title}</h1>
+                {showDescription ? <p className={styles.articleDek}>{post.desc}</p> : null}
+                <div className={styles.articleMeta}>
+                  <time dateTime={post.sortDate}>{post.date}</time>
+                  <span className={styles.metaDivider}>/</span>
+                  <span>{post.normalizedCategories.join(', ')}</span>
+                  <span className={styles.metaDivider}>/</span>
+                  <span>{readingMinutes} min read</span>
+                </div>
+              </header>
+
+              <div
+                className={styles.content}
+                data-article-body=""
+                dangerouslySetInnerHTML={{ __html: contentHtml }}
+              />
+
+              <footer className={styles.articleFooter}>
+                {(newer || older) && (
+                  <section className={styles.articleSection}>
+                    <div className={styles.sectionLabel}>Continue Reading</div>
+                    <div className={styles.articleNav}>
+                      {newer ? (
+                        <Link href={`/blog/${newer.slug}`} className={styles.navCard}>
+                          <span className={styles.navLabel}>Newer</span>
+                          <strong>{newer.title}</strong>
+                          <p>{getPostSummary(newer)}</p>
+                        </Link>
+                      ) : (
+                        <div className={styles.navCardEmpty} />
+                      )}
+
+                      {older ? (
+                        <Link href={`/blog/${older.slug}`} className={styles.navCard}>
+                          <span className={styles.navLabel}>Older</span>
+                          <strong>{older.title}</strong>
+                          <p>{getPostSummary(older)}</p>
+                        </Link>
+                      ) : (
+                        <div className={styles.navCardEmpty} />
+                      )}
+                    </div>
+                  </section>
+                )}
+
+                {relatedPosts.length > 0 && (
+                  <section className={styles.articleSection}>
+                    <div className={styles.sectionLabel}>Related Notes</div>
+                    <div className={styles.relatedGrid}>
+                      {relatedPosts.map((related) => (
+                        <Link key={related.slug} href={`/blog/${related.slug}`} className={styles.relatedCard}>
+                          <span className={styles.relatedMeta}>
+                            {related.date} / {related.normalizedCategories[0] ?? 'Etc'}
+                          </span>
+                          <strong>{related.title}</strong>
+                          <p>{getPostSummary(related)}</p>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </footer>
+            </div>
+
+            <aside className={styles.tocRail}>
+              <div className={styles.railCard}>
+                <div className={styles.railLabel}>Outline</div>
+                {headings.length > 0 ? (
+                  <nav className={styles.tocList}>
+                    {headings.map((heading) => (
+                      <a
+                        key={heading.id}
+                        href={`#${heading.id}`}
+                        className={styles.tocItem}
+                        data-level={heading.level}
+                      >
+                        {heading.text}
+                      </a>
+                    ))}
+                  </nav>
+                ) : (
+                  <p className={styles.tocEmpty}>This note flows without section headings.</p>
+                )}
+              </div>
+            </aside>
           </article>
         </main>
       </>

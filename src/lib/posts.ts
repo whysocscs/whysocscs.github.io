@@ -25,6 +25,12 @@ export interface PostData {
   contentHtml: string;
 }
 
+export interface PostHeading {
+  id: string;
+  level: number;
+  text: string;
+}
+
 function toArray(value: unknown): string[] {
   if (Array.isArray(value)) {
     return value.map((item) => String(item).trim()).filter(Boolean);
@@ -62,6 +68,33 @@ function normalizeDate(value: unknown) {
   }
 
   return '';
+}
+
+function stripHtml(value: string) {
+  return value.replace(/<[^>]*>/g, ' ');
+}
+
+function decodeEntities(value: string) {
+  return value
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function slugifyHeading(value: string) {
+  const normalized = decodeEntities(stripHtml(value))
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{Letter}\p{Number}\s-]/gu, ' ')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+
+  return normalized || 'section';
 }
 
 function isRealPost(title: string, rawCategories: string[], sortDate: string) {
@@ -145,6 +178,138 @@ export async function getPostBySlug(slug: string): Promise<PostData> {
     ...post,
     contentHtml: String(processed),
   };
+}
+
+export function getPostSummary(post: Omit<PostData, 'contentHtml'> | PostData) {
+  const title = post.title.trim().toLowerCase();
+  const desc = post.desc.trim();
+
+  if (desc && desc.toLowerCase() !== title) {
+    return desc;
+  }
+
+  const filteredKeywords = post.keywords
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter(Boolean)
+    .filter((keyword) => keyword.toLowerCase() !== title)
+    .filter((keyword) => !post.normalizedCategories.includes(keyword as StandardCategory))
+    .slice(0, 3);
+
+  if (filteredKeywords.length > 0) {
+    return filteredKeywords.join(' / ');
+  }
+
+  if (post.tags.length > 0) {
+    return post.tags.join(' / ');
+  }
+
+  return 'Field note entry from the archive.';
+}
+
+export function decoratePostHtml(contentHtml: string) {
+  const seenIds = new Map<string, number>();
+  const headings: PostHeading[] = [];
+
+  const nextHtml = contentHtml.replace(/<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi, (full, levelText, attrs, inner) => {
+    const level = Number(levelText);
+    const text = decodeEntities(stripHtml(inner)).replace(/\s+/g, ' ').trim();
+
+    if (!text) {
+      return full;
+    }
+
+    const existingId = /id=(["'])(.*?)\1/i.exec(attrs)?.[2];
+    let id = existingId;
+
+    if (!id) {
+      const baseId = slugifyHeading(text);
+      const count = (seenIds.get(baseId) ?? 0) + 1;
+      seenIds.set(baseId, count);
+      id = count === 1 ? baseId : `${baseId}-${count}`;
+    }
+
+    headings.push({ id, level, text });
+
+    if (existingId) {
+      return full;
+    }
+
+    return `<h${level}${attrs} id="${id}">${inner}</h${level}>`;
+  });
+
+  return {
+    contentHtml: nextHtml,
+    headings,
+  };
+}
+
+export function estimateReadingMinutes(content: string) {
+  const plain = decodeEntities(stripHtml(content)).replace(/\s+/g, ' ').trim();
+  const words = plain ? plain.split(' ').length : 0;
+  return Math.max(1, Math.round(words / 220));
+}
+
+export function getAdjacentPosts(slug: string) {
+  const posts = getAllPosts();
+  const index = posts.findIndex((post) => post.slug === slug);
+
+  if (index === -1) {
+    return { newer: null, older: null };
+  }
+
+  return {
+    newer: posts[index - 1] ?? null,
+    older: posts[index + 1] ?? null,
+  };
+}
+
+export function getRelatedPosts(slug: string, limit = 3) {
+  const posts = getAllPosts();
+  const current = posts.find((post) => post.slug === slug);
+
+  if (!current) {
+    return [];
+  }
+
+  const currentTags = new Set(current.tags);
+  const currentCategories = new Set(current.normalizedCategories);
+
+  const scored = posts
+    .filter((post) => post.slug !== slug)
+    .map((post) => {
+      let score = 0;
+
+      for (const tag of post.tags) {
+        if (currentTags.has(tag)) score += 3;
+      }
+
+      for (const category of post.normalizedCategories) {
+        if (currentCategories.has(category)) score += 2;
+      }
+
+      if ((post.normalizedCategories[0] ?? 'Etc') === (current.normalizedCategories[0] ?? 'Etc')) {
+        score += 1;
+      }
+
+      return { post, score };
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+
+      return a.post.sortDate < b.post.sortDate ? 1 : -1;
+    });
+
+  const meaningful = scored.filter((entry) => entry.score > 0).slice(0, limit);
+
+  if (meaningful.length >= limit) {
+    return meaningful.map((entry) => entry.post);
+  }
+
+  const fallback = scored.slice(0, limit).map((entry) => entry.post);
+  return meaningful.length > 0 ? meaningful.map((entry) => entry.post) : fallback;
 }
 
 export function getCategoryCounts(posts: Omit<PostData, 'contentHtml'>[]) {

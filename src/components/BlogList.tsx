@@ -39,18 +39,29 @@ function getPostYear(post: Omit<PostData, 'contentHtml'>) {
 }
 
 function getPostSummary(post: Omit<PostData, 'contentHtml'>) {
-  const summary = post.desc?.trim();
-  if (summary) return summary;
+  const title = post.title.trim().toLowerCase();
+  const desc = post.desc.trim();
 
-  const keywordSummary = post.keywords
+  if (desc && desc.toLowerCase() !== title) {
+    return desc;
+  }
+
+  const filteredKeywords = post.keywords
     .split(',')
-    .map(keyword => keyword.trim())
+    .map((keyword) => keyword.trim())
     .filter(Boolean)
-    .slice(0, 3)
-    .join(' / ');
+    .filter((keyword) => keyword.toLowerCase() !== title)
+    .filter((keyword) => !post.normalizedCategories.includes(keyword as StandardCategory))
+    .slice(0, 3);
 
-  if (keywordSummary) return keywordSummary;
-  if (post.tags.length > 0) return post.tags.slice(0, 4).join(' / ');
+  if (filteredKeywords.length > 0) {
+    return filteredKeywords.join(' / ');
+  }
+
+  if (post.tags.length > 0) {
+    return post.tags.join(' / ');
+  }
+
   return 'Field note entry from the archive.';
 }
 
@@ -78,10 +89,10 @@ export default function BlogList({ posts }: Props) {
   const filtered =
     currentCat === 'all'
       ? posts
-      : posts.filter(post => post.normalizedCategories.includes(currentCat as StandardCategory));
+      : posts.filter((post) => post.normalizedCategories.includes(currentCat as StandardCategory));
 
   const subFiltered = currentSubTag
-    ? filtered.filter(post => post.tags.includes(currentSubTag))
+    ? filtered.filter((post) => post.tags.includes(currentSubTag))
     : filtered;
 
   function selectCat(category: StandardCategory | 'all') {
@@ -92,20 +103,15 @@ export default function BlogList({ posts }: Props) {
   const catName = currentCat === 'all' ? 'all' : (CAT_META[currentCat]?.name ?? currentCat);
   const years = posts
     .map(getPostYear)
-    .filter(year => /^\d{4}$/.test(year))
+    .filter((year) => /^\d{4}$/.test(year))
     .sort((a, b) => Number(b) - Number(a));
   const yearRange = years.length > 0 ? `${years[years.length - 1]} - ${years[0]}` : 'Live archive';
-  const featuredPost = subFiltered[0] ?? null;
-  const archivePosts = subFiltered.slice(1);
-  const groupedArchive = archivePosts.reduce<Record<string, Omit<PostData, 'contentHtml'>[]>>(
-    (acc, post) => {
-      const year = getPostYear(post);
-      if (!acc[year]) acc[year] = [];
-      acc[year].push(post);
-      return acc;
-    },
-    {},
-  );
+  const groupedArchive = subFiltered.reduce<Record<string, Omit<PostData, 'contentHtml'>[]>>((acc, post) => {
+    const year = getPostYear(post);
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  }, {});
   const archiveYears = Object.keys(groupedArchive).sort((a, b) => {
     if (/^\d{4}$/.test(a) && /^\d{4}$/.test(b)) {
       return Number(b) - Number(a);
@@ -134,15 +140,15 @@ export default function BlogList({ posts }: Props) {
           All <span className="count">{posts.length}</span>
         </button>
 
-        {(Object.keys(CAT_META) as StandardCategory[]).map(category => {
+        {(Object.keys(CAT_META) as StandardCategory[]).map((category) => {
           const meta = CAT_META[category];
           const isActive = currentCat === category;
-          const count = posts.filter(post => post.normalizedCategories.includes(category)).length;
+          const count = posts.filter((post) => post.normalizedCategories.includes(category)).length;
           const categoryTags = Array.from(
             new Set(
               posts
-                .filter(post => post.normalizedCategories.includes(category))
-                .flatMap(post => post.tags),
+                .filter((post) => post.normalizedCategories.includes(category))
+                .flatMap((post) => post.tags),
             ),
           );
 
@@ -157,7 +163,7 @@ export default function BlogList({ posts }: Props) {
 
               {isActive && categoryTags.length > 0 && (
                 <div className="sub-tags visible">
-                  {categoryTags.map(tag => (
+                  {categoryTags.map((tag) => (
                     <button
                       key={tag}
                       className={`sub-tag${currentSubTag === tag ? ' active' : ''}`}
@@ -182,103 +188,75 @@ export default function BlogList({ posts }: Props) {
             </div>
 
             <div className="archive-intro">
-              <h1>Security Research & Field Notes</h1>
+              <h1>Signal Archive</h1>
               <p>
-                A living archive of write-ups, experiments, paper notes, and technical traces.
-                The taxonomy stays intact, but the reading flow is cleaner and more editorial.
+                Security notes, experiments, conference takeaways, and field records arranged as a
+                calm index instead of a promotional feed.
               </p>
             </div>
 
-            <div className="archive-stats">
-              <span>{subFiltered.length} visible entries</span>
-              <span>Structured by category, tag, and year</span>
+            <div className="archive-stats-grid">
+              <div className="archive-stat-card">
+                <span>Visible</span>
+                <strong>{subFiltered.length}</strong>
+              </div>
+              <div className="archive-stat-card">
+                <span>Years</span>
+                <strong>{archiveYears.length}</strong>
+              </div>
+              <div className="archive-stat-card">
+                <span>Mode</span>
+                <strong>{currentSubTag ? 'Tag Focus' : 'Full Index'}</strong>
+              </div>
             </div>
           </header>
 
           {subFiltered.length === 0 ? (
             <div className="empty-state">No entries yet in this category.</div>
           ) : (
-            <>
-              {featuredPost && (() => {
-                const primaryCategory = featuredPost.normalizedCategories[0] ?? 'Etc';
-                const meta = CAT_META[primaryCategory] ?? CAT_META.Etc;
+            <div className="archive-groups">
+              {archiveYears.map((year) => (
+                <section key={year} className="archive-year-block">
+                  <div className="archive-year-header">
+                    <span className="archive-year">{year}</span>
+                    <span className="archive-year-count">{groupedArchive[year].length} entries</span>
+                  </div>
 
-                return (
-                  <Link
-                    href={`/blog/${featuredPost.slug}`}
-                    className="featured-post"
-                    style={{ '--cat-color': meta.color } as CSSProperties}
-                  >
-                    <div className="featured-label">Featured Entry</div>
+                  <div className="archive-year-list">
+                    {groupedArchive[year].map((post, index) => {
+                      const primaryCategory = post.normalizedCategories[0] ?? 'Etc';
+                      const meta = CAT_META[primaryCategory] ?? CAT_META.Etc;
 
-                    <div className="featured-grid">
-                      <div className="featured-meta">
-                        <span>{featuredPost.date}</span>
-                        <span>{getPostYear(featuredPost)}</span>
-                        <span>{meta.name}</span>
-                      </div>
+                      return (
+                        <Link
+                          key={post.slug}
+                          href={`/blog/${post.slug}`}
+                          className="archive-entry"
+                          style={{ '--cat-color': meta.color } as CSSProperties}
+                        >
+                          <div className="entry-date">
+                            <span>{post.date}</span>
+                            <span className="entry-index">{String(index + 1).padStart(2, '0')}</span>
+                          </div>
 
-                      <div className="featured-copy">
-                        <h2>{featuredPost.title}</h2>
-                        <p>{getPostSummary(featuredPost)}</p>
-                      </div>
+                          <div className="entry-main">
+                            <div className="entry-title">{post.title}</div>
+                            <div className="entry-summary">{getPostSummary(post)}</div>
+                          </div>
 
-                      <div className="featured-tags">
-                        <span className="cat-tag">{meta.name}</span>
-                        {featuredPost.tags.map(tag => (
-                          <span key={tag}>{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })()}
-
-              {archiveYears.length > 0 && (
-                <div className="archive-groups">
-                  {archiveYears.map(year => (
-                    <section key={year} className="archive-year-block">
-                      <div className="archive-year-header">
-                        <span className="archive-year">{year}</span>
-                        <span className="archive-year-count">
-                          {groupedArchive[year].length} entries
-                        </span>
-                      </div>
-
-                      <div className="archive-year-list">
-                        {groupedArchive[year].map(post => {
-                          const primaryCategory = post.normalizedCategories[0] ?? 'Etc';
-                          const meta = CAT_META[primaryCategory] ?? CAT_META.Etc;
-
-                          return (
-                            <Link
-                              key={post.slug}
-                              href={`/blog/${post.slug}`}
-                              className="archive-entry"
-                              style={{ '--cat-color': meta.color } as CSSProperties}
-                            >
-                              <div className="entry-date">{post.date}</div>
-
-                              <div className="entry-main">
-                                <div className="entry-title">{post.title}</div>
-                                <div className="entry-summary">{getPostSummary(post)}</div>
-                              </div>
-
-                              <div className="entry-tags">
-                                <span className="cat-tag">{meta.name}</span>
-                                {post.tags.map(tag => (
-                                  <span key={tag}>{tag}</span>
-                                ))}
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </section>
-                  ))}
-                </div>
-              )}
-            </>
+                          <div className="entry-tags">
+                            <span className="cat-tag">{meta.name}</span>
+                            {post.tags.map((tag) => (
+                              <span key={tag}>{tag}</span>
+                            ))}
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
           )}
         </div>
       </div>

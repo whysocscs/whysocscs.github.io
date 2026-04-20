@@ -660,15 +660,14 @@ section.stage {
 
 .archive-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 28px 32px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
   padding: 0 0 56px;
   margin-bottom: 28px;
   border-bottom: 1px solid var(--line-soft);
 }
 
-.archive-kicker,
-.archive-stats {
+.archive-kicker {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
@@ -682,8 +681,7 @@ section.stage {
 }
 
 .archive-intro {
-  grid-column: 1 / 2;
-  max-width: 760px;
+  max-width: 920px;
 }
 
 .archive-intro h1 {
@@ -704,14 +702,37 @@ section.stage {
   line-height: 1.75;
 }
 
-.archive-stats {
-  align-self: end;
-  justify-self: end;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: right;
+.archive-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 920px;
+}
+
+.archive-stat-card {
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: oklch(0.05 0.015 235 / 0.78);
+}
+
+.archive-stat-card span {
+  display: block;
+  margin-bottom: 10px;
   color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.archive-stat-card strong {
+  color: var(--foam);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 280;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .featured-post {
@@ -886,6 +907,9 @@ section.stage {
 }
 
 .entry-date {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding-top: 3px;
   color: var(--muted);
   font-family: var(--font-mono);
@@ -893,6 +917,12 @@ section.stage {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.entry-index {
+  color: var(--foam-muted);
+  font-size: 9px;
+  letter-spacing: 0.2em;
 }
 
 .entry-main {
@@ -969,9 +999,8 @@ section.stage {
     padding-bottom: 40px;
   }
 
-  .archive-stats {
-    justify-self: start;
-    text-align: left;
+  .archive-stats-grid {
+    grid-template-columns: 1fr;
   }
 
   .featured-post {
@@ -983,6 +1012,12 @@ section.stage {
   .archive-year-block,
   .archive-entry {
     grid-template-columns: 1fr;
+  }
+
+  .entry-date {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .featured-tags,
