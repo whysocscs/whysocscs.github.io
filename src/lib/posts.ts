@@ -210,33 +210,40 @@ export function getPostSummary(post: Omit<PostData, 'contentHtml'> | PostData) {
 export function decoratePostHtml(contentHtml: string) {
   const seenIds = new Map<string, number>();
   const headings: PostHeading[] = [];
+  const withoutSourceBlock = contentHtml.replace(
+    /^\s*<blockquote>\s*<p>\s*Source:\s*<a[\s\S]*?<\/a>\s*<\/p>\s*<\/blockquote>\s*/i,
+    '',
+  );
 
-  const nextHtml = contentHtml.replace(/<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi, (full, levelText, attrs, inner) => {
-    const level = Number(levelText);
-    const text = decodeEntities(stripHtml(inner)).replace(/\s+/g, ' ').trim();
+  const nextHtml = withoutSourceBlock.replace(
+    /<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+    (full, levelText, attrs, inner) => {
+      const level = Number(levelText);
+      const text = decodeEntities(stripHtml(inner)).replace(/\s+/g, ' ').trim();
 
-    if (!text) {
-      return full;
-    }
+      if (!text) {
+        return full;
+      }
 
-    const existingId = /id=(["'])(.*?)\1/i.exec(attrs)?.[2];
-    let id = existingId;
+      const existingId = /id=(["'])(.*?)\1/i.exec(attrs)?.[2];
+      let id = existingId;
 
-    if (!id) {
-      const baseId = slugifyHeading(text);
-      const count = (seenIds.get(baseId) ?? 0) + 1;
-      seenIds.set(baseId, count);
-      id = count === 1 ? baseId : `${baseId}-${count}`;
-    }
+      if (!id) {
+        const baseId = slugifyHeading(text);
+        const count = (seenIds.get(baseId) ?? 0) + 1;
+        seenIds.set(baseId, count);
+        id = count === 1 ? baseId : `${baseId}-${count}`;
+      }
 
-    headings.push({ id, level, text });
+      headings.push({ id, level, text });
 
-    if (existingId) {
-      return full;
-    }
+      if (existingId) {
+        return full;
+      }
 
-    return `<h${level}${attrs} id="${id}">${inner}</h${level}>`;
-  });
+      return `<h${level}${attrs} id="${id}">${inner}</h${level}>`;
+    },
+  );
 
   return {
     contentHtml: nextHtml,
