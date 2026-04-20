@@ -3,13 +3,15 @@ import { useEffect } from 'react';
 
 export default function BlogEffects() {
   useEffect(() => {
-    document.body.style.cursor = 'default';
+    document.body.style.cursor = 'none';
+    sessionStorage.setItem('introSeen', '1');
 
     const ac = new AbortController();
     const { signal } = ac;
     const observers: IntersectionObserver[] = [];
     let oceanRunning = true;
     let bubbleRunning = true;
+    let cursorRunning = true;
 
     // ─── OCEAN CANVAS ─────────────────────────────────────────
     (function initCanvas() {
@@ -227,9 +229,37 @@ export default function BlogEffects() {
         depthEl!.textContent = String(Math.round(p * 4000)).padStart(4, '0') + 'm';
         const zone = ZONES.find(z => p <= z.max) || ZONES[ZONES.length - 1];
         if (labelEl) labelEl.textContent = zone.n;
+        document.getElementById('cursor')?.setAttribute('data-zone', zone.n.toLowerCase());
       }
       window.addEventListener('scroll', onScroll, { passive: true, signal });
       onScroll();
+    })();
+
+    (function initCreatureCursor() {
+      if (matchMedia('(pointer: coarse)').matches) {
+        const c = document.getElementById('cursor');
+        if (c) c.style.display = 'none';
+        document.body.style.cursor = 'auto';
+        return;
+      }
+      const cursor = document.getElementById('cursor');
+      if (!cursor) return;
+      let cx = -100, cy = -100, tx = -100, ty = -100;
+      window.addEventListener('mousemove', (e: MouseEvent) => {
+        tx = e.clientX; ty = e.clientY;
+      }, { signal });
+      (function tick() {
+        if (!cursorRunning) return;
+        cx += (tx - cx) * 0.78;
+        cy += (ty - cy) * 0.78;
+        cursor.style.left = cx + 'px';
+        cursor.style.top = cy + 'px';
+        requestAnimationFrame(tick);
+      })();
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('link'), { signal });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('link'), { signal });
+      });
     })();
 
     // ─── SCROLL REVEAL ────────────────────────────────────────
@@ -257,6 +287,7 @@ export default function BlogEffects() {
     return () => {
       oceanRunning = false;
       bubbleRunning = false;
+      cursorRunning = false;
       ac.abort();
       observers.forEach(io => io.disconnect());
       document.body.style.cursor = '';
@@ -265,6 +296,7 @@ export default function BlogEffects() {
 
   return (
     <>
+      <div id="cursor" className="blog-cursor" data-zone="surface" aria-hidden="true"><span className="cursor-glyph" /></div>
       <canvas id="ocean-canvas" />
       <canvas id="bubble-trail" />
       <div className="overlay-vignette" />

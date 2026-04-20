@@ -7,7 +7,6 @@ export default function HomeEffects() {
       '--breathe-y',
       window.innerWidth < 768 ? '-2px' : '-5px',
     );
-    sessionStorage.removeItem('introSeen');
 
     const ac = new AbortController();
     const { signal } = ac;
@@ -15,6 +14,7 @@ export default function HomeEffects() {
     let introRunning = true;
     let oceanRunning = true;
     let cursorRunning = true;
+    let bubbleRunning = true;
 
     function showFrameUI() {
       document.querySelector('.fr-logo')?.classList.add('in');
@@ -49,7 +49,7 @@ export default function HomeEffects() {
       resize();
       window.addEventListener('resize', resize, { signal });
 
-      const SC = isMobile ? 20 : 50;
+      const SC = isMobile ? 30 : 72;
       const SNOW = Array.from({ length: SC }, () => ({
         x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
         r: 0.3 + Math.random() * 0.82,
@@ -57,16 +57,21 @@ export default function HomeEffects() {
         alpha: 0.05 + Math.random() * 0.15, phase: Math.random() * Math.PI * 2,
       }));
 
-      const RAYS = Array.from({ length: 5 }, () => ({
+      const RAYS = Array.from({ length: isMobile ? 5 : 8 }, () => ({
         x: 0.30 + Math.random() * 0.40 + (Math.random() - 0.5) * 0.05,
         w: 0.013 + Math.random() * 0.020,
         speed: 0.05 + Math.random() * 0.09,
         phase: Math.random() * Math.PI * 2,
         b: 0.45 + Math.random() * 0.55,
       }));
+      const INTRO_BUBBLES = Array.from({ length: isMobile ? 24 : 44 }, () => ({
+        x: Math.random(), y: Math.random(), r: 1 + Math.random() * 4,
+        speed: 0.06 + Math.random() * 0.16, phase: Math.random() * Math.PI * 2,
+        alpha: 0.18 + Math.random() * 0.35,
+      }));
 
       const oc = document.createElement('canvas');
-      const TOTAL = 5800;
+      const TOTAL = 7000;
       const t0 = performance.now();
       let t = 0;
 
@@ -77,15 +82,40 @@ export default function HomeEffects() {
         if (!introRunning) return;
         t += 0.007;
         const el = now - t0;
+        const dive = ease(ramp(300, 5600, el));
 
         ctx.clearRect(0, 0, W, H);
 
         const fi = ease(ramp(0, 950, el));
         const sh = isMobile ? ease(ramp(300, 900, el)) * 0.036 : 0;
         const bg = ctx.createLinearGradient(0, 0, 0, H);
-        bg.addColorStop(0, `oklch(${(0.001 + fi*0.145 + sh).toFixed(3)} ${(fi*0.072).toFixed(3)} 210)`);
-        bg.addColorStop(1, `oklch(${(0.001 + fi*0.048).toFixed(3)} ${(fi*0.028).toFixed(3)} 228)`);
+        bg.addColorStop(0, `oklch(${(0.025 + fi*0.24 - dive*0.10 + sh).toFixed(3)} ${(fi*0.10).toFixed(3)} 205)`);
+        bg.addColorStop(0.42, `oklch(${(0.018 + fi*0.13 - dive*0.08).toFixed(3)} ${(fi*0.075).toFixed(3)} ${215 + dive*15})`);
+        bg.addColorStop(1, `oklch(${(0.006 + fi*0.046 - dive*0.026).toFixed(3)} ${(fi*0.034).toFixed(3)} ${232 + dive*18})`);
         ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+        const surface = ease(ramp(200, 2500, el)) * (1 - ease(ramp(3600, 6100, el)));
+        if (surface > 0.01) {
+          ctx.save();
+          ctx.globalCompositeOperation = 'screen';
+          const horizonY = H * (0.18 - dive * 0.14);
+          const surfaceG = ctx.createLinearGradient(0, horizonY - 120, 0, horizonY + 90);
+          surfaceG.addColorStop(0, `oklch(0.98 0.02 195 / ${surface * 0.22})`);
+          surfaceG.addColorStop(0.45, `oklch(0.78 0.12 190 / ${surface * 0.32})`);
+          surfaceG.addColorStop(1, 'transparent');
+          ctx.fillStyle = surfaceG;
+          ctx.beginPath();
+          ctx.moveTo(0, horizonY);
+          for (let x = 0; x <= W; x += 18) {
+            const y = horizonY + Math.sin(x * 0.012 + t * 14) * 9 + Math.sin(x * 0.024 - t * 9) * 5;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(W, horizonY + 130);
+          ctx.lineTo(0, horizonY + 130);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
 
         const ri = ease(ramp(800, 2300, el));
         if (ri > 0.01) {
@@ -107,6 +137,25 @@ export default function HomeEffects() {
           ctx.restore();
         }
 
+        const tunnel = ease(ramp(1050, 5000, el));
+        if (tunnel > 0.01) {
+          ctx.save();
+          ctx.globalCompositeOperation = 'screen';
+          const cx = W * 0.5;
+          const cy = H * (0.42 + dive * 0.08);
+          for (let i = 0; i < 5; i++) {
+            const ring = ((tunnel * 1.35 + i * 0.19) % 1);
+            const rx = (120 + ring * W * 0.58) * (isMobile ? 0.78 : 1);
+            const ry = rx * (0.34 + dive * 0.09);
+            ctx.strokeStyle = `oklch(0.78 0.11 195 / ${Math.max(0, (1 - ring) * 0.10 * tunnel)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy + ring * H * 0.16, rx, ry, Math.sin(t + i) * 0.03, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+          ctx.restore();
+        }
+
         const si = ease(ramp(3000, 4500, el));
         if (si > 0.01) {
           for (const s of SNOW) {
@@ -118,6 +167,42 @@ export default function HomeEffects() {
             ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
             ctx.fillStyle = `oklch(0.88 0.04 205 / ${a})`; ctx.fill();
           }
+        }
+
+        const bubbleIn = ease(ramp(1300, 5600, el));
+        if (bubbleIn > 0.01) {
+          ctx.save();
+          for (const b of INTRO_BUBBLES) {
+            const drift = (el * 0.00004 * b.speed * H) % 1;
+            const x = b.x * W + Math.sin(t * 2.1 + b.phase) * 22;
+            const y = ((b.y - drift + 1) % 1) * H;
+            const rr = b.r * (0.75 + dive * 0.65);
+            const a = b.alpha * bubbleIn * (0.35 + dive * 0.65);
+            ctx.beginPath();
+            ctx.arc(x, y, rr, 0, Math.PI * 2);
+            ctx.fillStyle = `oklch(0.78 0.10 195 / ${a * 0.14})`; ctx.fill();
+            ctx.strokeStyle = `oklch(0.92 0.05 198 / ${a})`;
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+          ctx.restore();
+        }
+
+        const whale = ease(ramp(2500, 5600, el)) * (1 - ease(ramp(6100, 6900, el)));
+        if (whale > 0.01 && !isMobile) {
+          ctx.save();
+          ctx.translate(W * (0.12 + whale * 0.74), H * (0.64 - Math.sin(whale * Math.PI) * 0.12));
+          ctx.scale(1.2 + whale * 0.3, 1.2 + whale * 0.3);
+          ctx.globalAlpha = whale * 0.2;
+          ctx.fillStyle = 'oklch(0.02 0.025 230)';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 88, 24, -0.06, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(-82, -2); ctx.lineTo(-132, -24); ctx.lineTo(-116, 0); ctx.lineTo(-134, 22); ctx.closePath(); ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(26, 16); ctx.lineTo(76, 52); ctx.lineTo(48, 12); ctx.closePath(); ctx.fill();
+          ctx.restore();
         }
 
         const tv = ease(ramp(2000, 2650, el));
@@ -153,7 +238,7 @@ export default function HomeEffects() {
           ctx.fillText('NOTES FROM THE DEEP SEA', cx, cy + fs*0.72 + 22);
         }
 
-        const hv = ease(ramp(4600, 5200, el));
+        const hv = ease(ramp(5000, 6000, el));
         if (hv > 0.01) {
           const cx = W*0.5, cy = H*0.5 - 36, fs = Math.min(W*0.11, 118);
           const hy = cy + fs*0.72 + 66;
@@ -167,7 +252,7 @@ export default function HomeEffects() {
           ctx.beginPath(); ctx.moveTo(cx, hy+16); ctx.lineTo(cx, hy+54); ctx.stroke();
         }
 
-        const fo = ease(ramp(5000, 5800, el));
+        const fo = ease(ramp(6200, 7000, el));
         if (fo > 0.01) introEl.style.opacity = (1-fo).toFixed(3);
 
         if (el >= TOTAL) {
@@ -281,6 +366,76 @@ export default function HomeEffects() {
       frame();
     })();
 
+    (function initBubbleTrail() {
+      const canvas = document.getElementById('bubble-trail') as HTMLCanvasElement | null;
+      if (!canvas || matchMedia('(pointer: coarse)').matches) return;
+      const canvasEl = canvas;
+      const ctx = canvasEl.getContext('2d')!;
+      let W = 0, H = 0;
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resize() {
+        W = window.innerWidth; H = window.innerHeight;
+        canvasEl.width = W * DPR; canvasEl.height = H * DPR;
+        canvasEl.style.width = W + 'px'; canvasEl.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize, { signal });
+
+      let mx = -100, my = -100, pmx = -100, pmy = -100;
+      let lastSpawn = 0, lastMoveAt = 0;
+      const bubbles: { x: number; y: number; r: number; vy: number; vx: number; life: number; decay: number; hue: number; phase: number }[] = [];
+
+      window.addEventListener('mousemove', (e: MouseEvent) => {
+        mx = e.clientX; my = e.clientY; lastMoveAt = performance.now();
+      }, { signal });
+
+      function frame(now: number) {
+        if (!bubbleRunning) return;
+        ctx.clearRect(0, 0, W, H);
+        const dx = mx - pmx, dy = my - pmy;
+        const speed = Math.hypot(dx, dy);
+        pmx = mx; pmy = my;
+
+        if (mx > 0 && speed > 0.7 && now - lastMoveAt < 90 && now - lastSpawn > 34) {
+          lastSpawn = now;
+          const count = speed > 16 ? 3 : speed > 7 ? 2 : 1;
+          for (let i = 0; i < count; i += 1) {
+            bubbles.push({
+              x: mx + (Math.random() - 0.5) * 18,
+              y: my + (Math.random() - 0.5) * 12,
+              r: 1.2 + Math.random() * 4.8,
+              vy: -(0.7 + Math.random() * 1.5),
+              vx: (Math.random() - 0.5) * 0.55,
+              life: 1,
+              decay: 0.008 + Math.random() * 0.012,
+              hue: 188 + Math.random() * 28,
+              phase: Math.random() * Math.PI * 2,
+            });
+          }
+        }
+
+        for (let i = bubbles.length - 1; i >= 0; i -= 1) {
+          const b = bubbles[i];
+          b.life -= b.decay;
+          if (b.life <= 0) { bubbles.splice(i, 1); continue; }
+          b.y += b.vy;
+          b.x += b.vx + Math.sin(now * 0.004 + b.phase) * 0.35;
+          const a = b.life * 0.78;
+          const r = b.r * (0.5 + b.life * 0.6);
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `oklch(0.64 0.09 ${b.hue} / ${a * 0.13})`; ctx.fill();
+          ctx.strokeStyle = `oklch(0.9 0.06 ${b.hue} / ${a})`;
+          ctx.lineWidth = 0.75; ctx.stroke();
+        }
+        if (bubbles.length > 140) bubbles.splice(0, bubbles.length - 140);
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+
     // ─── HERO SCROLL SUCK-IN ──────────────────────────────────
     (function() {
       const hero = document.getElementById('hero');
@@ -319,6 +474,7 @@ export default function HomeEffects() {
         depthEl!.textContent = String(Math.round(p*4000)).padStart(4,'0') + 'm';
         const z = ZONES.find(z => p <= z.max) || ZONES[ZONES.length-1];
         if (labelEl && z.label !== lastLabel) { lastLabel = z.label; labelEl.textContent = z.label; flicker(); }
+        document.getElementById('cursor')?.setAttribute('data-zone', z.label.toLowerCase());
         if (lineEl) {
           if (p > 0.02) { lineEl.classList.add('visible'); lineEl.style.height = (p*100)+'%'; }
           else lineEl.classList.remove('visible');
@@ -443,7 +599,7 @@ export default function HomeEffects() {
       window.addEventListener('mousemove', (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; }, { signal });
       (function tick() {
         if (!cursorRunning) return;
-        cx += (tx-cx)*0.5; cy += (ty-cy)*0.5;
+        cx += (tx-cx)*0.82; cy += (ty-cy)*0.82;
         cursor.style.left = cx+'px'; cursor.style.top = cy+'px';
         requestAnimationFrame(tick);
       })();
@@ -483,6 +639,7 @@ export default function HomeEffects() {
       introRunning = false;
       oceanRunning = false;
       cursorRunning = false;
+      bubbleRunning = false;
       ac.abort();
       observers.forEach(io => io.disconnect());
     };
@@ -491,9 +648,10 @@ export default function HomeEffects() {
   return (
     <>
       <div id="intro"><canvas id="intro-canvas" /></div>
-      <div id="cursor" />
+      <div id="cursor" data-zone="surface" aria-hidden="true"><span className="cursor-glyph" /></div>
       <div id="descent-line" />
       <canvas id="ocean-canvas" />
+      <canvas id="bubble-trail" />
       <div className="overlay-vignette" />
       <div className="overlay-grain" />
       <div className="frame">

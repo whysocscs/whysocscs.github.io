@@ -36,17 +36,58 @@ html, body {
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; min-height: 100vh; }
 a { color: inherit; text-decoration: none; }
+a, button { cursor: none; }
 
 /* ─── CURSOR ─────────────────────────────────────────────── */
 #cursor {
-  position: fixed; width: 5px; height: 5px; border-radius: 50%;
-  border: 1px solid var(--plankton); background: transparent;
-  pointer-events: none; z-index: 9999;
+  align-items: center;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  left: -100px;
+  pointer-events: none;
+  position: fixed;
+  top: -100px;
   transform: translate(-50%,-50%);
-  transition: width .3s, height .3s, border-color .3s;
-  will-change: left, top;
+  transition: filter .35s var(--ease-depth), opacity .35s var(--ease-depth), transform .35s var(--ease-depth);
+  width: 34px;
+  will-change: left, top, transform;
+  z-index: 9999;
 }
-#cursor.link { width: 14px; height: 14px; border-color: var(--foam); }
+#cursor::before {
+  background: radial-gradient(circle, oklch(0.76 0.11 190 / .26), transparent 62%);
+  border-radius: 50%;
+  content: "";
+  inset: -12px;
+  opacity: .7;
+  position: absolute;
+  transform: scale(.85);
+  transition: transform .35s var(--ease-depth), opacity .35s var(--ease-depth);
+}
+.cursor-glyph::before {
+  content: "🫧";
+  display: block;
+  font-size: 23px;
+  filter: drop-shadow(0 0 14px oklch(0.76 0.11 190 / .48));
+  transform: rotate(-8deg);
+  transition: content .2s, font-size .35s var(--ease-depth), transform .35s var(--ease-depth);
+}
+#cursor[data-zone="twilight"] .cursor-glyph::before { content: "🐟"; }
+#cursor[data-zone="midnight"] .cursor-glyph::before { content: "🐋"; font-size: 26px; }
+#cursor[data-zone="abyssal"] .cursor-glyph::before { content: "🪼"; font-size: 26px; }
+#cursor[data-zone="hadal"] .cursor-glyph::before { content: "✦"; color: var(--plankton); font-size: 28px; }
+#cursor.link {
+  filter: brightness(1.25);
+  transform: translate(-50%,-50%) scale(1.22);
+}
+#cursor.link::before {
+  opacity: 1;
+  transform: scale(1.25);
+}
+.blog-cursor .cursor-glyph::before {
+  content: "🐋";
+  font-size: 25px;
+}
 
 /* ─── CANVAS + OVERLAYS ──────────────────────────────────── */
 #ocean-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
@@ -379,7 +420,35 @@ section.stage {
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
 /* ─── INTRO ──────────────────────────────────────────────── */
-#intro { position:fixed; inset:0; z-index:1000; background:var(--abyss); overflow:hidden; }
+#intro {
+  position:fixed; inset:0; z-index:1000; background:var(--abyss); overflow:hidden;
+}
+#intro::before,
+#intro::after {
+  content:"";
+  position:absolute;
+  pointer-events:none;
+}
+#intro::before {
+  background:
+    radial-gradient(ellipse at 50% -10%, oklch(0.9 0.08 195 / .20), transparent 54%),
+    radial-gradient(ellipse at 50% 120%, oklch(0.02 0.03 240 / .82), transparent 58%);
+  inset:0;
+  mix-blend-mode:screen;
+  opacity:.72;
+  z-index:2;
+}
+#intro::after {
+  border:1px solid oklch(0.76 0.11 190 / .18);
+  border-radius:50%;
+  box-shadow:0 0 80px oklch(0.76 0.11 190 / .08), inset 0 0 80px oklch(0.76 0.11 190 / .08);
+  height:min(64vw,64vh);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(64vw,64vh);
+  z-index:3;
+}
 #intro-canvas { position:absolute; inset:0; width:100%; height:100%; }
 #intro.done { pointer-events:none; animation:introFade .9s var(--ease-depth) forwards; }
 @keyframes introFade { to{opacity:0} }
@@ -410,6 +479,15 @@ section.stage {
   .archive-grid{grid-template-columns:1fr}
   .topics-header{grid-template-columns:1fr}
   .archive-link{align-self:start;margin-top:24px}
+}
+
+@media(pointer: coarse) {
+  html, body, a, button {
+    cursor: auto;
+  }
+  #cursor {
+    display: none;
+  }
 }
 
 /* ============================================================
@@ -482,6 +560,11 @@ section.stage {
 }
 .sub-tag:hover { color: var(--foam-dim); background: oklch(0.18 0.03 220 / 0.3); }
 .sub-tag.active { color: var(--plankton); background: oklch(0.20 0.05 200 / 0.3); }
+.cat-btn,
+.sub-tag,
+.backButton {
+  cursor: none;
+}
 
 .blog-content { padding: 40px 48px 120px; min-height: 100vh; }
 
