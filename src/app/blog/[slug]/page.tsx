@@ -23,10 +23,30 @@ function getSourceLink(content: string) {
     return null;
   }
 
-  return {
-    label: match[1],
-    href: match[2],
-  };
+  const label = match[1];
+  const href = match[2];
+
+  try {
+    const parsed = new URL(href);
+    const domain = parsed.hostname.replace(/^www\./, '');
+    const cleanPath = parsed.pathname.replace(/\/$/, '') || '/';
+    const readableLabel =
+      label === href || label.includes(parsed.hostname) ? domain : label;
+    const readableMeta =
+      cleanPath === '/' ? 'Original article' : `${cleanPath}${parsed.search}`;
+
+    return {
+      label: readableLabel,
+      href,
+      meta: readableMeta,
+    };
+  } catch {
+    return {
+      label,
+      href,
+      meta: 'External source',
+    };
+  }
 }
 
 export async function generateStaticParams() {
@@ -70,14 +90,17 @@ export default async function PostPage({ params }: Props) {
                 {source ? (
                   <>
                     <div className={styles.railLabel}>Source</div>
-                    <a
-                      href={source.href}
-                      target="_blank"
-                      rel="noopener"
-                      className={styles.railLink}
-                    >
-                      {source.label}
-                    </a>
+                    <div className={styles.sourceBlock}>
+                      <a
+                        href={source.href}
+                        target="_blank"
+                        rel="noopener"
+                        className={styles.railLink}
+                      >
+                        {source.label}
+                      </a>
+                      <span className={styles.railSubtle}>{source.meta}</span>
+                    </div>
                   </>
                 ) : null}
               </div>

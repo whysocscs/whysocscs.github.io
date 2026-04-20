@@ -25,12 +25,15 @@
 
 .railCard {
   padding: 18px 18px 20px;
-  border: 1px solid var(--line-soft);
+  border: 1px solid oklch(0.76 0.11 190 / 0.12);
   border-radius: 24px;
   background:
-    linear-gradient(180deg, oklch(0.06 0.02 220 / 0.86), oklch(0.03 0.01 245 / 0.82)),
-    radial-gradient(circle at top left, oklch(0.18 0.05 205 / 0.12), transparent 48%);
-  backdrop-filter: blur(16px);
+    linear-gradient(180deg, oklch(0.10 0.03 215 / 0.52), oklch(0.05 0.015 235 / 0.38)),
+    radial-gradient(circle at top left, oklch(0.22 0.06 200 / 0.16), transparent 52%);
+  box-shadow:
+    inset 0 1px 0 oklch(0.94 0.01 205 / 0.06),
+    0 12px 40px oklch(0.01 0.004 250 / 0.14);
+  backdrop-filter: blur(22px) saturate(120%);
 }
 
 .railLabel {
@@ -45,7 +48,7 @@
 .railValue,
 .railLink {
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   color: var(--foam);
   font-family: var(--font-display);
   font-size: 18px;
@@ -56,11 +59,26 @@
 }
 
 .railLink {
-  color: var(--plankton);
+  margin-bottom: 6px;
+  color: oklch(0.84 0.08 194);
 }
 
 .railLink:hover {
   color: var(--foam);
+}
+
+.sourceBlock {
+  margin-bottom: 16px;
+}
+
+.railSubtle {
+  display: block;
+  color: var(--foam-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .backButton {
@@ -417,7 +435,7 @@
 }
 
 .tocItem {
-  color: var(--foam-muted);
+  color: oklch(0.84 0.02 210 / 0.84);
   font-size: 13px;
   line-height: 1.5;
   text-decoration: none;
@@ -439,7 +457,7 @@
 }
 
 .tocEmpty {
-  color: var(--foam-muted);
+  color: oklch(0.84 0.02 210 / 0.76);
   font-size: 14px;
   line-height: 1.6;
 }
