@@ -25,11 +25,9 @@ export default function HomeEffects() {
     (function initIntro() {
       const intro = document.getElementById('intro') as HTMLDivElement | null;
       const canvas = document.getElementById('intro-canvas') as HTMLCanvasElement | null;
-      const video = document.getElementById('intro-video') as HTMLVideoElement | null;
       if (!intro || !canvas) return;
       const introEl = intro;
       const canvasEl = canvas;
-      const videoEl = video;
 
       if (sessionStorage.getItem('introSeen') === '1') {
         introEl.style.display = 'none';
@@ -51,44 +49,6 @@ export default function HomeEffects() {
       resize();
       window.addEventListener('resize', resize, { signal });
 
-      let completed = false;
-      function completeIntro() {
-        if (completed) return;
-        completed = true;
-        introEl.classList.add('done');
-        document.body.style.overflow = '';
-        sessionStorage.setItem('introSeen', '1');
-        showFrameUI();
-        setTimeout(() => introEl.remove(), 400);
-      }
-
-      if (videoEl) {
-        const activateVideoMode = () => {
-          introEl.classList.add('intro-video-mode');
-          canvasEl.style.opacity = '0';
-        };
-
-        const fallbackDelay = window.setTimeout(() => {
-          if (videoEl.readyState < 2) introEl.classList.remove('intro-video-mode');
-        }, 1200);
-        const finishDelay = window.setTimeout(completeIntro, 6200);
-
-        signal.addEventListener('abort', () => {
-          window.clearTimeout(fallbackDelay);
-          window.clearTimeout(finishDelay);
-        }, { once: true });
-
-        videoEl.addEventListener('loadeddata', activateVideoMode, { signal });
-        videoEl.addEventListener('canplay', activateVideoMode, { signal });
-        videoEl.addEventListener('ended', completeIntro, { signal });
-        if (videoEl.readyState >= 2) activateVideoMode();
-        videoEl.play().catch(() => {
-          window.clearTimeout(finishDelay);
-          canvasEl.style.opacity = '';
-          introEl.classList.remove('intro-video-mode');
-        });
-      }
-
       const SC = isMobile ? 30 : 72;
       const SNOW = Array.from({ length: SC }, () => ({
         x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
@@ -104,145 +64,65 @@ export default function HomeEffects() {
         phase: Math.random() * Math.PI * 2,
         b: 0.45 + Math.random() * 0.55,
       }));
-      const INTRO_BUBBLES = Array.from({ length: isMobile ? 10 : 18 }, () => ({
-        x: Math.random(), y: Math.random(), r: 6 + Math.random() * 22,
-        speed: 0.18 + Math.random() * 0.42, phase: Math.random() * Math.PI * 2,
-        alpha: 0.08 + Math.random() * 0.18,
+      const INTRO_BUBBLES = Array.from({ length: isMobile ? 24 : 44 }, () => ({
+        x: Math.random(), y: Math.random(), r: 1 + Math.random() * 4,
+        speed: 0.06 + Math.random() * 0.16, phase: Math.random() * Math.PI * 2,
+        alpha: 0.18 + Math.random() * 0.35,
       }));
 
       const oc = document.createElement('canvas');
-      const TOTAL = 8200;
-      let startTime = 0;
+      const TOTAL = 7000;
+      const t0 = performance.now();
       let t = 0;
-      let started = false;
-      let idleRunning = true;
-      let autoDiveTimer = 0;
 
       function ease(x: number) { return x < 0.5 ? 2*x*x : 1 - Math.pow(-2*x+2, 2)/2; }
       function ramp(s: number, e: number, el: number) { return Math.max(0, Math.min(1, (el-s)/(e-s))); }
 
-      function drawIdle(now: number) {
-        if (!introRunning || !idleRunning || started) return;
-        const pulse = 0.5 + Math.sin(now * 0.0014) * 0.5;
-        ctx.clearRect(0, 0, W, H);
-        const bg = ctx.createLinearGradient(0, 0, 0, H);
-        bg.addColorStop(0, 'oklch(0.83 0.08 205)');
-        bg.addColorStop(0.36, 'oklch(0.55 0.12 200)');
-        bg.addColorStop(1, 'oklch(0.17 0.07 220)');
-        ctx.fillStyle = bg;
-        ctx.fillRect(0, 0, W, H);
-
-        const horizonY = H * 0.34;
-        ctx.save();
-        ctx.globalCompositeOperation = 'screen';
-        const glow = ctx.createRadialGradient(W * 0.5, horizonY, 0, W * 0.5, horizonY, W * 0.56);
-        glow.addColorStop(0, `oklch(0.96 0.04 190 / ${0.24 + pulse * 0.08})`);
-        glow.addColorStop(0.45, 'oklch(0.72 0.12 195 / 0.16)');
-        glow.addColorStop(1, 'transparent');
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, W, H);
-        ctx.restore();
-
-        ctx.save();
-        ctx.globalCompositeOperation = 'screen';
-        for (let y = horizonY - 30; y < horizonY + 120; y += 22) {
-          ctx.beginPath();
-          for (let x = 0; x <= W; x += 16) {
-            const yy = y + Math.sin(x * 0.012 + now * 0.002 + y * 0.03) * 7;
-            if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
-          }
-          ctx.strokeStyle = `oklch(0.92 0.06 190 / ${0.12 - Math.abs(y - horizonY) / 220})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-        ctx.restore();
-
-        requestAnimationFrame(drawIdle);
-      }
-
-      function startDive() {
-        if (started) return;
-        started = true;
-        idleRunning = false;
-        startTime = performance.now();
-        introEl.classList.add('intro-diving');
-        requestAnimationFrame(frame);
-      }
-
-      requestAnimationFrame(drawIdle);
-      autoDiveTimer = window.setTimeout(startDive, 260);
-      signal.addEventListener('abort', () => window.clearTimeout(autoDiveTimer), { once: true });
-
       function frame(now: number) {
         if (!introRunning) return;
         t += 0.007;
-        const el = now - startTime;
-        const plunge = ease(ramp(1650, 3400, el));
-        const dive = ease(ramp(1900, 6900, el));
-        const surfaceLight = 1 - ease(ramp(2400, 5600, el));
+        const el = now - t0;
+        const dive = ease(ramp(300, 5600, el));
 
         ctx.clearRect(0, 0, W, H);
 
-        const fi = ease(ramp(0, 800, el));
+        const fi = ease(ramp(0, 950, el));
         const sh = isMobile ? ease(ramp(300, 900, el)) * 0.036 : 0;
         const bg = ctx.createLinearGradient(0, 0, 0, H);
-        bg.addColorStop(0, `oklch(${Math.max(0.035, 0.80*surfaceLight + 0.16*fi - dive*0.08 + sh).toFixed(3)} ${Math.max(0.015, 0.07 + surfaceLight*0.06).toFixed(3)} 198)`);
-        bg.addColorStop(0.38, `oklch(${Math.max(0.025, 0.58*surfaceLight + 0.12*fi - dive*0.08).toFixed(3)} ${Math.max(0.014, 0.05 + surfaceLight*0.05).toFixed(3)} ${205 + dive*12})`);
-        bg.addColorStop(1, `oklch(${Math.max(0.008, 0.20*surfaceLight + 0.05*fi - dive*0.03).toFixed(3)} ${Math.max(0.008, 0.025 + surfaceLight*0.025).toFixed(3)} ${225 + dive*18})`);
+        bg.addColorStop(0, `oklch(${(0.025 + fi*0.24 - dive*0.10 + sh).toFixed(3)} ${(fi*0.10).toFixed(3)} 205)`);
+        bg.addColorStop(0.42, `oklch(${(0.018 + fi*0.13 - dive*0.08).toFixed(3)} ${(fi*0.075).toFixed(3)} ${215 + dive*15})`);
+        bg.addColorStop(1, `oklch(${(0.006 + fi*0.046 - dive*0.026).toFixed(3)} ${(fi*0.034).toFixed(3)} ${232 + dive*18})`);
         ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-        if (surfaceLight > 0.02) {
-          ctx.save();
-          ctx.globalCompositeOperation = 'screen';
-          const sun = ctx.createRadialGradient(W * 0.5, H * 0.18, 0, W * 0.5, H * 0.18, W * 0.54);
-          sun.addColorStop(0, `oklch(0.98 0.04 185 / ${surfaceLight * 0.34})`);
-          sun.addColorStop(0.35, `oklch(0.78 0.11 195 / ${surfaceLight * 0.20})`);
-          sun.addColorStop(1, 'transparent');
-          ctx.fillStyle = sun;
-          ctx.fillRect(0, 0, W, H);
-
-          ctx.strokeStyle = `oklch(0.98 0.04 190 / ${surfaceLight * 0.16})`;
-          ctx.lineWidth = 1;
-          for (let y = H * 0.22; y < H * 0.68; y += 28) {
-            ctx.beginPath();
-            for (let x = -40; x <= W + 40; x += 24) {
-              const yy = y + Math.sin(x * 0.013 + el * 0.0022 + y * 0.018) * 8;
-              if (x === -40) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
-            }
-            ctx.stroke();
-          }
-          ctx.restore();
-        }
-
-        const surface = ease(ramp(0, 1200, el)) * (1 - ease(ramp(4400, 6700, el)));
+        const surface = ease(ramp(200, 2500, el)) * (1 - ease(ramp(3600, 6100, el)));
         if (surface > 0.01) {
           ctx.save();
           ctx.globalCompositeOperation = 'screen';
-          const horizonY = H * (0.52 - plunge * 0.38);
-          const surfaceG = ctx.createLinearGradient(0, horizonY - 170, 0, horizonY + 150);
-          surfaceG.addColorStop(0, `oklch(1 0.02 190 / ${surface * (0.38 - dive*0.08)})`);
-          surfaceG.addColorStop(0.45, `oklch(0.82 0.13 192 / ${surface * 0.45})`);
+          const horizonY = H * (0.18 - dive * 0.14);
+          const surfaceG = ctx.createLinearGradient(0, horizonY - 120, 0, horizonY + 90);
+          surfaceG.addColorStop(0, `oklch(0.98 0.02 195 / ${surface * 0.22})`);
+          surfaceG.addColorStop(0.45, `oklch(0.78 0.12 190 / ${surface * 0.32})`);
           surfaceG.addColorStop(1, 'transparent');
           ctx.fillStyle = surfaceG;
           ctx.beginPath();
           ctx.moveTo(0, horizonY);
           for (let x = 0; x <= W; x += 18) {
-            const y = horizonY + Math.sin(x * 0.010 + t * 17) * (12 + plunge * 18) + Math.sin(x * 0.027 - t * 11) * 7;
+            const y = horizonY + Math.sin(x * 0.012 + t * 14) * 9 + Math.sin(x * 0.024 - t * 9) * 5;
             ctx.lineTo(x, y);
           }
-          ctx.lineTo(W, horizonY + 190);
-          ctx.lineTo(0, horizonY + 190);
+          ctx.lineTo(W, horizonY + 130);
+          ctx.lineTo(0, horizonY + 130);
           ctx.closePath();
           ctx.fill();
           ctx.restore();
         }
 
-        const ri = ease(ramp(1600, 3600, el)) * (1 - ease(ramp(6000, 7600, el)));
+        const ri = ease(ramp(800, 2300, el));
         if (ri > 0.01) {
           ctx.save(); ctx.globalCompositeOperation = 'lighter';
           for (const r of RAYS) {
             const rx = (r.x + Math.sin(t * r.speed + r.phase) * 0.055) * W;
-            const w = r.w * W * (1.2 + plunge * 0.8), bW = w * 5, a = ri * r.b * 0.08;
+            const w = r.w * W, bW = w * 5, a = ri * r.b * 0.052;
             const g = ctx.createLinearGradient(rx, -H*0.05, rx, H*0.68);
             g.addColorStop(0, `oklch(0.68 0.10 202 / ${a*2})`);
             g.addColorStop(0.25, `oklch(0.48 0.08 208 / ${a})`);
@@ -257,31 +137,26 @@ export default function HomeEffects() {
           ctx.restore();
         }
 
-        const splash = ease(ramp(1450, 2100, el)) * (1 - ease(ramp(2450, 3900, el)));
-        if (splash > 0.01) {
+        const tunnel = ease(ramp(1050, 5000, el));
+        if (tunnel > 0.01) {
           ctx.save();
           ctx.globalCompositeOperation = 'screen';
           const cx = W * 0.5;
-          const cy = H * (0.52 - plunge * 0.20);
-          ctx.strokeStyle = `oklch(0.98 0.03 190 / ${(1 - splash * 0.45) * 0.52})`;
-          ctx.lineWidth = Math.max(2, W * 0.0025);
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, splash * W * 0.34, splash * H * 0.08, 0, 0, Math.PI * 2);
-          ctx.stroke();
-          for (let i = 0; i < 42; i += 1) {
-            const a = (i / 42) * Math.PI * 2;
-            const dist = splash * (90 + Math.sin(i * 12.9) * 26) * (isMobile ? 0.76 : 1);
-            const x = cx + Math.cos(a) * dist * 2.7;
-            const y = cy + Math.sin(a) * dist * 0.34 - splash * 62;
+          const cy = H * (0.42 + dive * 0.08);
+          for (let i = 0; i < 5; i++) {
+            const ring = ((tunnel * 1.35 + i * 0.19) % 1);
+            const rx = (120 + ring * W * 0.58) * (isMobile ? 0.78 : 1);
+            const ry = rx * (0.34 + dive * 0.09);
+            ctx.strokeStyle = `oklch(0.78 0.11 195 / ${Math.max(0, (1 - ring) * 0.10 * tunnel)})`;
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.arc(x, y, 1.4 + (1 - splash) * 3.4, 0, Math.PI * 2);
-            ctx.fillStyle = `oklch(0.98 0.04 190 / ${(1 - splash * 0.55) * 0.28})`;
-            ctx.fill();
+            ctx.ellipse(cx, cy + ring * H * 0.16, rx, ry, Math.sin(t + i) * 0.03, 0, Math.PI * 2);
+            ctx.stroke();
           }
           ctx.restore();
         }
 
-        const si = ease(ramp(4200, 5600, el));
+        const si = ease(ramp(3000, 4500, el));
         if (si > 0.01) {
           for (const s of SNOW) {
             s.y += s.vy; s.x += s.vx + Math.sin(t*0.6 + s.phase)*0.11;
@@ -294,26 +169,26 @@ export default function HomeEffects() {
           }
         }
 
-        const bubbleIn = ease(ramp(2300, 6200, el)) * (1 - ease(ramp(6500, 7900, el)));
+        const bubbleIn = ease(ramp(1300, 5600, el));
         if (bubbleIn > 0.01) {
           ctx.save();
           for (const b of INTRO_BUBBLES) {
-            const drift = (el * 0.00012 * b.speed * H) % 1;
-            const x = b.x * W + Math.sin(t * 1.6 + b.phase) * (30 + dive * 30);
-            const y = ((b.y - drift + 1.15) % 1.25) * H;
-            const rr = b.r * (0.6 + dive * 0.7) * (isMobile ? 0.72 : 1);
-            const a = b.alpha * bubbleIn * (0.45 + dive * 0.45);
+            const drift = (el * 0.00004 * b.speed * H) % 1;
+            const x = b.x * W + Math.sin(t * 2.1 + b.phase) * 22;
+            const y = ((b.y - drift + 1) % 1) * H;
+            const rr = b.r * (0.75 + dive * 0.65);
+            const a = b.alpha * bubbleIn * (0.35 + dive * 0.65);
             ctx.beginPath();
             ctx.arc(x, y, rr, 0, Math.PI * 2);
-            ctx.fillStyle = `oklch(0.88 0.08 195 / ${a * 0.07})`; ctx.fill();
-            ctx.strokeStyle = `oklch(0.98 0.04 198 / ${a * 0.58})`;
-            ctx.lineWidth = 1;
+            ctx.fillStyle = `oklch(0.78 0.10 195 / ${a * 0.14})`; ctx.fill();
+            ctx.strokeStyle = `oklch(0.92 0.05 198 / ${a})`;
+            ctx.lineWidth = 0.7;
             ctx.stroke();
           }
           ctx.restore();
         }
 
-        const whale = ease(ramp(4300, 6800, el)) * (1 - ease(ramp(7100, 8000, el)));
+        const whale = ease(ramp(2500, 5600, el)) * (1 - ease(ramp(6100, 6900, el)));
         if (whale > 0.01 && !isMobile) {
           ctx.save();
           ctx.translate(W * (0.12 + whale * 0.74), H * (0.64 - Math.sin(whale * Math.PI) * 0.12));
@@ -330,8 +205,8 @@ export default function HomeEffects() {
           ctx.restore();
         }
 
-        const tv = ease(ramp(3900, 4700, el));
-        const tc = ease(ramp(4450, 6100, el));
+        const tv = ease(ramp(2000, 2650, el));
+        const tc = ease(ramp(2250, 3500, el));
         if (tv > 0.01) {
           const cx = W*0.5, cy = H*0.5 - 36;
           const fs = Math.min(W*0.11, 118);
@@ -354,7 +229,7 @@ export default function HomeEffects() {
           }
         }
 
-        const sv = ease(ramp(5650, 6650, el));
+        const sv = ease(ramp(3500, 4500, el));
         if (sv > 0.01) {
           const cx = W*0.5, cy = H*0.5 - 36, fs = Math.min(W*0.11, 118);
           ctx.font = `300 ${Math.min(W*0.021, 12)}px 'JetBrains Mono', monospace`;
@@ -363,7 +238,7 @@ export default function HomeEffects() {
           ctx.fillText('NOTES FROM THE DEEP SEA', cx, cy + fs*0.72 + 22);
         }
 
-        const hv = ease(ramp(6800, 7600, el));
+        const hv = ease(ramp(5000, 6000, el));
         if (hv > 0.01) {
           const cx = W*0.5, cy = H*0.5 - 36, fs = Math.min(W*0.11, 118);
           const hy = cy + fs*0.72 + 66;
@@ -377,15 +252,20 @@ export default function HomeEffects() {
           ctx.beginPath(); ctx.moveTo(cx, hy+16); ctx.lineTo(cx, hy+54); ctx.stroke();
         }
 
-        const fo = ease(ramp(7400, 8200, el));
+        const fo = ease(ramp(6200, 7000, el));
         if (fo > 0.01) introEl.style.opacity = (1-fo).toFixed(3);
 
         if (el >= TOTAL) {
-          completeIntro();
+          introEl.classList.add('done');
+          document.body.style.overflow = '';
+          sessionStorage.setItem('introSeen', '1');
+          showFrameUI();
+          setTimeout(() => introEl.remove(), 400);
           return;
         }
         requestAnimationFrame(frame);
       }
+      requestAnimationFrame(frame);
     })();
 
     // ─── OCEAN CANVAS ─────────────────────────────────────────
@@ -591,7 +471,6 @@ export default function HomeEffects() {
       function onScroll() {
         const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         const p = Math.min(1, window.scrollY / max);
-        document.documentElement.style.setProperty('--journey-progress', p.toFixed(3));
         depthEl!.textContent = String(Math.round(p*4000)).padStart(4,'0') + 'm';
         const z = ZONES.find(z => p <= z.max) || ZONES[ZONES.length-1];
         if (labelEl && z.label !== lastLabel) { lastLabel = z.label; labelEl.textContent = z.label; flicker(); }
@@ -768,28 +647,11 @@ export default function HomeEffects() {
 
   return (
     <>
-      <div id="intro">
-        <video
-          id="intro-video"
-          autoPlay
-          muted
-          playsInline
-          poster="/intro/ocean-plunge-poster.jpg"
-          preload="auto"
-          src="/intro/ocean-plunge.mp4"
-        />
-        <canvas id="intro-canvas" />
-        <div className="intro-panel" aria-hidden="false">
-          <div className="intro-status">Connection Established</div>
-          <div className="intro-brief">Auto descent into Lee Sangho&apos;s archive</div>
-          <div className="intro-meter" aria-hidden="true"><span /></div>
-        </div>
-      </div>
+      <div id="intro"><canvas id="intro-canvas" /></div>
       <div id="cursor" data-zone="surface" aria-hidden="true"><span className="cursor-glyph" /></div>
       <div id="descent-line" />
       <canvas id="ocean-canvas" />
       <canvas id="bubble-trail" />
-      <div className="current-streams" aria-hidden="true" />
       <div className="overlay-vignette" />
       <div className="overlay-grain" />
       <div className="frame">

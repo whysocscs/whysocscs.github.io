@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "render:intro": "remotion render src/remotion/index.ts OceanPlunge public/intro/ocean-plunge.mp4 --codec h264 --crf 27 --concurrency 2",
-    "render:intro:poster": "remotion still src/remotion/index.ts OceanPlunge public/intro/ocean-plunge-poster.jpg --frame 0"
+    "start": "next start"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -21,12 +19,9 @@
     "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
-    "@remotion/cli": "^4.0.448",
-    "@remotion/renderer": "^4.0.448",
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "remotion": "^4.0.448",
     "typescript": "^5.9.3"
   }
 }
