@@ -11,8 +11,8 @@
   --muted:      oklch(0.48 0.03 230);
   --line:       oklch(0.28 0.04 225 / 0.45);
   --line-soft:  oklch(0.22 0.03 228 / 0.22);
-  --font-display: 'Fraunces', 'Noto Serif KR', Georgia, serif;
-  --font-body:    'Fraunces', 'Noto Serif KR', Georgia, serif;
+  --font-display: 'Outfit', 'Pretendard', sans-serif;
+  --font-body:    'Pretendard', 'Apple SD Gothic Neo', sans-serif;
   --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, monospace;
   --ease-depth: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-water: cubic-bezier(0.4, 0, 0.2, 1);

@@ -129,7 +129,7 @@ export default function HomeEffects() {
           const ox = oc.getContext('2d')!;
           ox.clearRect(0, 0, oc.width, oc.height);
           ox.setTransform(DPR, 0, 0, DPR, 0, 0);
-          ox.font = `300 italic ${fs}px 'Fraunces', Georgia, serif`;
+          ox.font = `800 ${fs}px 'Outfit', 'Pretendard', sans-serif`;
           ox.textAlign = 'center'; ox.textBaseline = 'middle';
           ox.fillStyle = `rgba(240,237,232,${tv})`;
           ox.fillText('Lee Sangho', cx, cy);
