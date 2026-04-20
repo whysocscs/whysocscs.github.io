@@ -1,4 +1,4 @@
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Easing, useCurrentFrame } from 'remotion';
 
 const W = 1600;
 const H = 900;
@@ -69,60 +69,24 @@ const SurfaceWaves = ({ frame, light, plunge }: { frame: number; light: number; 
   );
 };
 
-const LightBeams = ({ frame, amount }: { frame: number; amount: number }) => {
+const SurfaceBreak = ({ frame, amount, plunge }: { frame: number; amount: number; plunge: number }) => {
   return (
     <svg height={H} style={{ position: 'absolute', inset: 0, mixBlendMode: 'screen' }} viewBox={`0 0 ${W} ${H}`} width={W}>
-      {Array.from({ length: 9 }, (_, i) => {
-        const x = 390 + i * 95 + Math.sin(frame * 0.018 + i) * 28;
-        const w = 42 + rand(i + 4) * 34;
+      {Array.from({ length: 12 }, (_, i) => {
+        const y = 384 - plunge * 126 + i * 8;
+        const opacity = amount * (0.08 + i * 0.012);
         return (
-          <polygon
-            fill={`rgba(140, 246, 247, ${amount * (0.05 + rand(i + 10) * 0.05)})`}
+          <path
+            d={wavePath(frame, i + 40, 16 + i * 0.8 + amount * 20, y, 0.07)}
+            fill="none"
             key={i}
-            points={`${x - w},-40 ${x + w},-40 ${x + w * 5},${H * 0.9} ${x - w * 5},${H * 0.9}`}
+            opacity={opacity}
+            stroke="rgba(245,255,252,0.85)"
+            strokeWidth={1.2 + amount * 1.8}
           />
         );
       })}
-    </svg>
-  );
-};
-
-const Splash = ({ frame, amount, plunge }: { frame: number; amount: number; plunge: number }) => {
-  const cx = W / 2;
-  const cy = 430 - plunge * 165;
-  const rx = interpolate(amount, [0, 1], [80, 560]);
-  const ry = interpolate(amount, [0, 1], [10, 82]);
-
-  return (
-    <svg height={H} style={{ position: 'absolute', inset: 0, mixBlendMode: 'screen' }} viewBox={`0 0 ${W} ${H}`} width={W}>
-      <ellipse
-        cx={cx}
-        cy={cy}
-        fill="none"
-        opacity={amount * Math.max(0, 0.68 - amount * 0.32)}
-        rx={rx}
-        ry={ry}
-        stroke="rgba(242,255,253,0.76)"
-        strokeWidth={4}
-      />
-      {Array.from({ length: 54 }, (_, i) => {
-        const a = (i / 54) * Math.PI * 2;
-        const spread = 96 + rand(i + 91) * 96;
-        const x = cx + Math.cos(a) * spread * amount * 3;
-        const y = cy + Math.sin(a) * spread * amount * 0.42 - amount * 82;
-        const r = 1.8 + rand(i + 9) * 5 * (1 - amount * 0.45);
-        return (
-          <circle
-            cx={x}
-            cy={y}
-            fill="rgba(244,255,252,0.58)"
-            key={i}
-            opacity={amount * Math.max(0, 0.44 - amount * 0.2)}
-            r={r}
-          />
-        );
-      })}
-      <rect fill={`rgba(245,255,255,${amount * 0.11})`} height={H} width={W} />
+      <rect fill={`rgba(244,255,252,${amount * 0.10})`} height={H} width={W} />
     </svg>
   );
 };
@@ -172,19 +136,16 @@ const Grain = ({ amount }: { amount: number }) => {
 
 export const OceanPlunge = () => {
   const frame = useCurrentFrame();
-  const plunge = range(52, 108, frame);
-  const dive = range(70, 190, frame);
-  const surfaceLight = fadeOut(92, 166, frame);
-  const splash = range(45, 69, frame) * fadeOut(76, 122, frame);
-  const beams = range(58, 112, frame) * fadeOut(178, 226, frame);
-  const bubbleAmount = range(82, 142, frame) * fadeOut(198, 238, frame);
-  const title = range(118, 142, frame) * fadeOut(218, 244, frame);
+  const plunge = range(32, 74, frame);
+  const dive = range(48, 126, frame);
+  const surfaceLight = fadeOut(52, 112, frame);
+  const surfaceBreak = range(28, 54, frame) * fadeOut(58, 92, frame);
+  const bubbleAmount = range(54, 100, frame) * fadeOut(118, 150, frame);
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#020711', overflow: 'hidden' }}>
       <SurfaceWaves frame={frame} light={surfaceLight} plunge={plunge} />
-      <Splash amount={splash} frame={frame} plunge={plunge} />
-      <LightBeams amount={beams} frame={frame} />
+      <SurfaceBreak amount={surfaceBreak} frame={frame} plunge={plunge} />
       <Bubbles amount={bubbleAmount} frame={frame} />
       <Grain amount={0.55 + dive * 0.45} />
 
@@ -195,44 +156,6 @@ export const OceanPlunge = () => {
             `linear-gradient(180deg, rgba(0,0,0,${dive * 0.04}) 0%, rgba(1,5,12,${0.04 + dive * 0.58}) 100%)`,
         }}
       />
-
-      <AbsoluteFill
-        style={{
-          alignItems: 'center',
-          color: 'white',
-          display: 'flex',
-          fontFamily: 'Outfit, Pretendard, Arial, sans-serif',
-          justifyContent: 'center',
-          opacity: title,
-          transform: `translateY(${interpolate(title, [0, 1], [18, 0])}px) scale(${1 + (1 - title) * 0.05})`,
-        }}
-      >
-        <div
-          style={{
-            filter: `blur(${Math.max(0, (1 - title) * 10)}px) drop-shadow(0 36px 90px rgba(0,0,0,.5))`,
-            fontSize: 112,
-            fontWeight: 850,
-            letterSpacing: '-0.055em',
-            lineHeight: 0.92,
-            textAlign: 'center',
-          }}
-        >
-          Lee Sangho
-          <div
-            style={{
-              color: 'rgba(205,235,238,.42)',
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: 12,
-              fontWeight: 400,
-              letterSpacing: '0.32em',
-              marginTop: 34,
-              textTransform: 'uppercase',
-            }}
-          >
-            Notes from the deep sea
-          </div>
-        </div>
-      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

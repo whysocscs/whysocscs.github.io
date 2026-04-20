@@ -71,7 +71,7 @@ export default function HomeEffects() {
         const fallbackDelay = window.setTimeout(() => {
           if (videoEl.readyState < 2) introEl.classList.remove('intro-video-mode');
         }, 1200);
-        const finishDelay = window.setTimeout(completeIntro, 8600);
+        const finishDelay = window.setTimeout(completeIntro, 6200);
 
         signal.addEventListener('abort', () => {
           window.clearTimeout(fallbackDelay);

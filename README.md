@@ -53,6 +53,7 @@ The GitHub Pages workflow builds the site from `master` and uploads `./out`.
 - `src/app/blog/[slug]/page.tsx`: post detail page
 - `src/app/globals.css`: shared visual system and blog/home styling
 - `docs/sea-we-breathe-analysis.md`: browser inspection notes from the Blue Marine reference
+- `docs/awwwards-intro-scan.md`: Awwwards intro reference notes and design decisions
 - `_posts/`: imported blog posts
 - `.github/workflows/deploy-pages.yml`: GitHub Pages deployment
 
