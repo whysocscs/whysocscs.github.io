@@ -18,13 +18,13 @@ interface Props {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  Development: 'oklch(0.78 0.14 210)',
-  'CTF/Wargame': 'oklch(0.72 0.12 35)',
-  BugBounty: 'oklch(0.65 0.10 150)',
-  'Technical Document': 'oklch(0.82 0.12 195)',
-  'Paper/Conference': 'oklch(0.75 0.10 280)',
-  'Contest/Certification': 'oklch(0.78 0.11 85)',
-  Etc: 'oklch(0.60 0.03 230)',
+  Development: '#4589ff',
+  'CTF/Wargame': '#ee5396',
+  BugBounty: '#009d9a',
+  'Technical Document': '#33b1ff',
+  'Paper/Conference': '#a56eff',
+  'Contest/Certification': '#24a148',
+  Etc: '#8d8d8d',
 };
 
 function getSourceLink(content: string) {
