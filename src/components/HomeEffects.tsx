@@ -72,16 +72,69 @@ export default function HomeEffects() {
 
       const oc = document.createElement('canvas');
       const TOTAL = 7000;
-      const t0 = performance.now();
+      let startTime = 0;
       let t = 0;
+      let started = false;
+      let idleRunning = true;
 
       function ease(x: number) { return x < 0.5 ? 2*x*x : 1 - Math.pow(-2*x+2, 2)/2; }
       function ramp(s: number, e: number, el: number) { return Math.max(0, Math.min(1, (el-s)/(e-s))); }
 
+      function drawIdle(now: number) {
+        if (!introRunning || !idleRunning || started) return;
+        const pulse = 0.5 + Math.sin(now * 0.0014) * 0.5;
+        ctx.clearRect(0, 0, W, H);
+        const bg = ctx.createLinearGradient(0, 0, 0, H);
+        bg.addColorStop(0, 'oklch(0.83 0.08 205)');
+        bg.addColorStop(0.36, 'oklch(0.55 0.12 200)');
+        bg.addColorStop(1, 'oklch(0.17 0.07 220)');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const horizonY = H * 0.34;
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        const glow = ctx.createRadialGradient(W * 0.5, horizonY, 0, W * 0.5, horizonY, W * 0.56);
+        glow.addColorStop(0, `oklch(0.96 0.04 190 / ${0.24 + pulse * 0.08})`);
+        glow.addColorStop(0.45, 'oklch(0.72 0.12 195 / 0.16)');
+        glow.addColorStop(1, 'transparent');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        for (let y = horizonY - 30; y < horizonY + 120; y += 22) {
+          ctx.beginPath();
+          for (let x = 0; x <= W; x += 16) {
+            const yy = y + Math.sin(x * 0.012 + now * 0.002 + y * 0.03) * 7;
+            if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+          }
+          ctx.strokeStyle = `oklch(0.92 0.06 190 / ${0.12 - Math.abs(y - horizonY) / 220})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        requestAnimationFrame(drawIdle);
+      }
+
+      function startDive() {
+        if (started) return;
+        started = true;
+        idleRunning = false;
+        startTime = performance.now();
+        introEl.classList.add('intro-diving');
+        requestAnimationFrame(frame);
+      }
+
+      introEl.querySelector<HTMLButtonElement>('[data-begin-descent]')?.addEventListener('click', startDive, { signal });
+      requestAnimationFrame(drawIdle);
+
       function frame(now: number) {
         if (!introRunning) return;
         t += 0.007;
-        const el = now - t0;
+        const el = now - startTime;
         const dive = ease(ramp(300, 5600, el));
 
         ctx.clearRect(0, 0, W, H);
@@ -137,21 +190,21 @@ export default function HomeEffects() {
           ctx.restore();
         }
 
-        const tunnel = ease(ramp(1050, 5000, el));
-        if (tunnel > 0.01) {
+        const splash = ease(ramp(0, 900, el)) * (1 - ease(ramp(1050, 2300, el)));
+        if (splash > 0.01) {
           ctx.save();
           ctx.globalCompositeOperation = 'screen';
           const cx = W * 0.5;
-          const cy = H * (0.42 + dive * 0.08);
-          for (let i = 0; i < 5; i++) {
-            const ring = ((tunnel * 1.35 + i * 0.19) % 1);
-            const rx = (120 + ring * W * 0.58) * (isMobile ? 0.78 : 1);
-            const ry = rx * (0.34 + dive * 0.09);
-            ctx.strokeStyle = `oklch(0.78 0.11 195 / ${Math.max(0, (1 - ring) * 0.10 * tunnel)})`;
-            ctx.lineWidth = 1;
+          const cy = H * (0.36 + dive * 0.1);
+          for (let i = 0; i < 26; i += 1) {
+            const a = (i / 26) * Math.PI * 2;
+            const dist = splash * (70 + Math.sin(i * 12.9) * 20) * (isMobile ? 0.72 : 1);
+            const x = cx + Math.cos(a) * dist * 2.2;
+            const y = cy + Math.sin(a) * dist * 0.42 - splash * 42;
             ctx.beginPath();
-            ctx.ellipse(cx, cy + ring * H * 0.16, rx, ry, Math.sin(t + i) * 0.03, 0, Math.PI * 2);
-            ctx.stroke();
+            ctx.arc(x, y, 1.2 + splash * 2.8, 0, Math.PI * 2);
+            ctx.fillStyle = `oklch(0.96 0.04 190 / ${(1 - splash) * 0.35 + 0.1})`;
+            ctx.fill();
           }
           ctx.restore();
         }
@@ -471,6 +524,7 @@ export default function HomeEffects() {
       function onScroll() {
         const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         const p = Math.min(1, window.scrollY / max);
+        document.documentElement.style.setProperty('--journey-progress', p.toFixed(3));
         depthEl!.textContent = String(Math.round(p*4000)).padStart(4,'0') + 'm';
         const z = ZONES.find(z => p <= z.max) || ZONES[ZONES.length-1];
         if (labelEl && z.label !== lastLabel) { lastLabel = z.label; labelEl.textContent = z.label; flicker(); }
@@ -647,11 +701,20 @@ export default function HomeEffects() {
 
   return (
     <>
-      <div id="intro"><canvas id="intro-canvas" /></div>
+      <div id="intro">
+        <canvas id="intro-canvas" />
+        <div className="intro-panel" aria-hidden="false">
+          <div className="intro-status">Connection Established</div>
+          <h2>The Portfolio Below</h2>
+          <p>Take a breath. Press begin and dive from the surface into Lee Sangho&apos;s security research archive.</p>
+          <button type="button" data-begin-descent="">Begin Descent</button>
+        </div>
+      </div>
       <div id="cursor" data-zone="surface" aria-hidden="true"><span className="cursor-glyph" /></div>
       <div id="descent-line" />
       <canvas id="ocean-canvas" />
       <canvas id="bubble-trail" />
+      <div className="current-streams" aria-hidden="true" />
       <div className="overlay-vignette" />
       <div className="overlay-grain" />
       <div className="frame">

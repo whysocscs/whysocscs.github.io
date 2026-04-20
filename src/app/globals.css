@@ -17,6 +17,7 @@
   --ease-depth: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-water: cubic-bezier(0.4, 0, 0.2, 1);
   --breathe-y:  -5px;
+  --journey-progress: 0;
   /* blog extras */
   --midnight:     #03080f;
   --twilight:     #061320;
@@ -92,6 +93,38 @@ a, button { cursor: none; }
 /* ─── CANVAS + OVERLAYS ──────────────────────────────────── */
 #ocean-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 #bubble-trail  { position:fixed; inset:0; z-index:9998; pointer-events:none; }
+.current-streams {
+  position: fixed;
+  inset: -12vh -10vw;
+  z-index: 4;
+  pointer-events: none;
+  opacity: calc(0.08 + var(--journey-progress) * 0.28);
+  transform: translate3d(0, calc(var(--journey-progress) * -9vh), 0);
+  transition: opacity .4s var(--ease-depth);
+}
+.current-streams::before,
+.current-streams::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(105deg, transparent 0 14%, oklch(0.78 0.09 195 / .08) 15%, transparent 16% 36%, oklch(0.78 0.09 195 / .055) 37%, transparent 38% 100%),
+    linear-gradient(82deg, transparent 0 22%, oklch(0.62 0.08 205 / .06) 23%, transparent 24% 56%, oklch(0.62 0.08 205 / .045) 57%, transparent 58% 100%);
+  background-size: 620px 100%, 840px 100%;
+  animation: currentDrift 11s linear infinite;
+  filter: blur(.2px);
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.current-streams::after {
+  animation-duration: 17s;
+  opacity: .48;
+  transform: translateY(16vh) scaleX(-1);
+}
+@keyframes currentDrift {
+  from { transform: translate3d(-12vw, 4vh, 0); }
+  to { transform: translate3d(12vw, -8vh, 0); }
+}
 .overlay-vignette {
   position:fixed; inset:0; z-index:2; pointer-events:none;
   background:
@@ -423,13 +456,10 @@ section.stage {
 #intro {
   position:fixed; inset:0; z-index:1000; background:var(--abyss); overflow:hidden;
 }
-#intro::before,
-#intro::after {
+#intro::before {
   content:"";
   position:absolute;
   pointer-events:none;
-}
-#intro::before {
   background:
     radial-gradient(ellipse at 50% -10%, oklch(0.9 0.08 195 / .20), transparent 54%),
     radial-gradient(ellipse at 50% 120%, oklch(0.02 0.03 240 / .82), transparent 58%);
@@ -438,18 +468,69 @@ section.stage {
   opacity:.72;
   z-index:2;
 }
-#intro::after {
-  border:1px solid oklch(0.76 0.11 190 / .18);
-  border-radius:50%;
-  box-shadow:0 0 80px oklch(0.76 0.11 190 / .08), inset 0 0 80px oklch(0.76 0.11 190 / .08);
-  height:min(64vw,64vh);
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:min(64vw,64vh);
-  z-index:3;
-}
 #intro-canvas { position:absolute; inset:0; width:100%; height:100%; }
+#intro.intro-diving .intro-panel {
+  opacity: 0;
+  transform: translate(-50%, -64%) scale(.92);
+  filter: blur(16px);
+  pointer-events: none;
+}
+.intro-panel {
+  left: 50%;
+  max-width: min(620px, calc(100vw - 40px));
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity .7s var(--ease-depth), transform .9s var(--ease-depth), filter .7s var(--ease-depth);
+  width: 100%;
+  z-index: 5;
+}
+.intro-status {
+  color: oklch(0.88 0.05 190);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .28em;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+.intro-panel h2 {
+  color: white;
+  font-family: var(--font-display);
+  font-size: clamp(54px, 10vw, 118px);
+  font-weight: 900;
+  letter-spacing: -.07em;
+  line-height: .88;
+  margin: 0 0 24px;
+  text-shadow: 0 26px 90px oklch(0.04 0.06 220 / .55);
+}
+.intro-panel p {
+  color: oklch(0.92 0.03 200 / .78);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto 32px;
+  max-width: 48ch;
+}
+.intro-panel button {
+  background: oklch(0.95 0.04 190 / .92);
+  border: 1px solid oklch(0.98 0.02 190 / .52);
+  border-radius: 999px;
+  box-shadow: 0 26px 86px oklch(0.12 0.08 210 / .42), inset 0 1px 0 rgba(255,255,255,.55);
+  color: oklch(0.14 0.06 220);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  min-height: 54px;
+  padding: 0 28px;
+  text-transform: uppercase;
+  transition: transform .45s var(--ease-depth), background .45s var(--ease-depth), box-shadow .45s var(--ease-depth);
+}
+.intro-panel button:hover {
+  background: #fff;
+  box-shadow: 0 32px 96px oklch(0.4 0.12 195 / .36), inset 0 1px 0 rgba(255,255,255,.72);
+  transform: translateY(-2px) scale(1.03);
+}
 #intro.done { pointer-events:none; animation:introFade .9s var(--ease-depth) forwards; }
 @keyframes introFade { to{opacity:0} }
 
