@@ -488,10 +488,24 @@ section.stage {
    BLOG LAYOUT - from blog.html
    ============================================================ */
 .blog-layout {
+  position: relative;
   display: grid;
   grid-template-columns: 264px 1fr;
   min-height: 100vh;
   padding-top: 80px;
+  isolation: isolate;
+}
+
+.blog-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 260px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 100% at 50% 0%, oklch(0.22 0.05 195 / 0.14), transparent 72%),
+    linear-gradient(180deg, oklch(0.15 0.04 200 / 0.08) 0%, transparent 100%);
+  z-index: 0;
 }
 
 .blog-sidebar {
@@ -507,9 +521,10 @@ section.stage {
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
   background:
-    linear-gradient(180deg, oklch(0.03 0.012 230 / 0.82), oklch(0.015 0.005 245 / 0.74)),
-    radial-gradient(circle at top, oklch(0.14 0.04 210 / 0.15), transparent 55%);
+    linear-gradient(180deg, oklch(0.05 0.016 222 / 0.78), oklch(0.028 0.008 240 / 0.72)),
+    radial-gradient(circle at top, oklch(0.20 0.05 198 / 0.16), transparent 58%);
   backdrop-filter: blur(18px);
+  z-index: 1;
 }
 
 .sidebar-header {
@@ -645,6 +660,8 @@ section.stage {
 .blog-content {
   min-height: 100vh;
   padding: 36px 44px 112px;
+  position: relative;
+  z-index: 1;
 }
 
 .archive-shell {
