@@ -158,6 +158,16 @@
     0 0 10px rgba(255, 255, 255, 0.04);
 }
 
+.articleTitleKo {
+  max-width: 100%;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+  word-break: keep-all;
+}
+
 .articleDek {
   position: relative;
   z-index: 1;
@@ -435,6 +445,15 @@
   line-height: 1.02;
 }
 
+.cardTitleKo {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.18;
+  word-break: keep-all;
+}
+
 .navCard p,
 .relatedCard p {
   position: relative;
@@ -547,6 +566,11 @@
   .articleTitle {
     max-width: 100%;
     font-size: clamp(2.7rem, 12vw, 4.3rem);
+  }
+
+  .articleTitleKo {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+    line-height: 1.12;
   }
 
   .articleNav,

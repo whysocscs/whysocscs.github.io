@@ -17,6 +17,10 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+function hasHangul(value: string) {
+  return /[가-힣]/.test(value);
+}
+
 const CATEGORY_COLORS: Record<string, string> = {
   Development: '#4589ff',
   'CTF/Wargame': '#ee5396',
@@ -80,6 +84,7 @@ export default async function PostPage({ params }: Props) {
     const relatedPosts = getRelatedPosts(slug, 3);
     const showDescription = post.desc.trim() && post.desc.trim() !== post.title.trim();
     const getCardAccent = (category: string) => CATEGORY_COLORS[category] ?? CATEGORY_COLORS.Etc;
+    const articleTitleClassName = `${styles.articleTitle}${hasHangul(post.title) ? ` ${styles.articleTitleKo}` : ''}`;
 
     return (
       <>
@@ -134,7 +139,7 @@ export default async function PostPage({ params }: Props) {
             <div className={styles.articleMain}>
               <header className={styles.articleHero}>
                 <div className={styles.articleKicker}>Research Note / {primaryCategory}</div>
-                <h1 className={styles.articleTitle}>{post.title}</h1>
+                <h1 className={articleTitleClassName}>{post.title}</h1>
                 {showDescription ? <p className={styles.articleDek}>{post.desc}</p> : null}
                 <div className={styles.articleMeta}>
                   <time dateTime={post.sortDate}>{post.date}</time>
@@ -163,7 +168,9 @@ export default async function PostPage({ params }: Props) {
                           style={{ '--card-accent': getCardAccent(newer.normalizedCategories[0] ?? 'Etc') } as CSSProperties}
                         >
                           <span className={styles.navLabel}>Newer</span>
-                          <strong>{newer.title}</strong>
+                          <strong className={hasHangul(newer.title) ? styles.cardTitleKo : undefined}>
+                            {newer.title}
+                          </strong>
                           <p>{getPostSummary(newer)}</p>
                         </Link>
                       ) : (
@@ -177,7 +184,9 @@ export default async function PostPage({ params }: Props) {
                           style={{ '--card-accent': getCardAccent(older.normalizedCategories[0] ?? 'Etc') } as CSSProperties}
                         >
                           <span className={styles.navLabel}>Older</span>
-                          <strong>{older.title}</strong>
+                          <strong className={hasHangul(older.title) ? styles.cardTitleKo : undefined}>
+                            {older.title}
+                          </strong>
                           <p>{getPostSummary(older)}</p>
                         </Link>
                       ) : (
@@ -201,7 +210,9 @@ export default async function PostPage({ params }: Props) {
                           <span className={styles.relatedMeta}>
                             {related.date} / {related.normalizedCategories[0] ?? 'Etc'}
                           </span>
-                          <strong>{related.title}</strong>
+                          <strong className={hasHangul(related.title) ? styles.cardTitleKo : undefined}>
+                            {related.title}
+                          </strong>
                           <p>{getPostSummary(related)}</p>
                         </Link>
                       ))}

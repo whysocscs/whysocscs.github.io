@@ -70,6 +70,10 @@ function getCompactSummary(post: Omit<PostData, 'contentHtml'>) {
   return summary.length > 120 ? `${summary.slice(0, 117).trimEnd()}...` : summary;
 }
 
+function hasHangul(value: string) {
+  return /[가-힣]/.test(value);
+}
+
 export default function BlogList({ posts }: Props) {
   const [currentCat, setCurrentCat] = useState<StandardCategory | 'all'>('all');
   const [currentSubTag, setCurrentSubTag] = useState<string | null>(null);
@@ -225,6 +229,7 @@ export default function BlogList({ posts }: Props) {
                       const meta = CAT_META[primaryCategory] ?? CAT_META.Etc;
                       const previewTags = post.tags.slice(0, 2);
                       const remainingTags = post.tags.length - previewTags.length;
+                      const titleClassName = `entry-title${hasHangul(post.title) ? ' entry-title-ko' : ''}`;
 
                       return (
                         <Link
@@ -239,7 +244,7 @@ export default function BlogList({ posts }: Props) {
                           </div>
 
                           <div className="entry-main">
-                            <div className="entry-title">{post.title}</div>
+                            <div className={titleClassName}>{post.title}</div>
                             <div className="entry-summary">{getCompactSummary(post)}</div>
                           </div>
 
