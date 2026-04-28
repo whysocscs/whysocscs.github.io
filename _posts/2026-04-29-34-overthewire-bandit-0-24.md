@@ -52,6 +52,8 @@ icon: fa-flag
 #bwl23:checked~.bw-p23{display:block}
 #bwl24:checked~.bw-p24{display:block}
 #bwl0:checked~.bw-nav label[for=bwl0],#bwl1:checked~.bw-nav label[for=bwl1],#bwl2:checked~.bw-nav label[for=bwl2],#bwl3:checked~.bw-nav label[for=bwl3],#bwl4:checked~.bw-nav label[for=bwl4],#bwl5:checked~.bw-nav label[for=bwl5],#bwl6:checked~.bw-nav label[for=bwl6],#bwl7:checked~.bw-nav label[for=bwl7],#bwl8:checked~.bw-nav label[for=bwl8],#bwl9:checked~.bw-nav label[for=bwl9],#bwl10:checked~.bw-nav label[for=bwl10],#bwl11:checked~.bw-nav label[for=bwl11],#bwl12:checked~.bw-nav label[for=bwl12],#bwl13:checked~.bw-nav label[for=bwl13],#bwl14:checked~.bw-nav label[for=bwl14],#bwl15:checked~.bw-nav label[for=bwl15],#bwl16:checked~.bw-nav label[for=bwl16],#bwl17:checked~.bw-nav label[for=bwl17],#bwl18:checked~.bw-nav label[for=bwl18],#bwl19:checked~.bw-nav label[for=bwl19],#bwl20:checked~.bw-nav label[for=bwl20],#bwl21:checked~.bw-nav label[for=bwl21],#bwl22:checked~.bw-nav label[for=bwl22],#bwl23:checked~.bw-nav label[for=bwl23],#bwl24:checked~.bw-nav label[for=bwl24]{background:oklch(0.76 0.11 190/0.15);border-color:oklch(0.76 0.11 190/0.6);color:oklch(0.76 0.11 190)}
+.bw-imgs{display:flex;flex-wrap:wrap;gap:8px;margin:1.25rem 0}
+.bw-imgs img{max-width:100%;height:auto;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);background:oklch(0.04 0.01 230)}
 </style>
 
 <div class="bw-wrap">
@@ -115,7 +117,12 @@ icon: fa-flag
   <h3>Level 0</h3>
   <p><code>ls</code> 검색 후, <code>cat readme</code>하면 바로 다음 문제가 나옴..!</p>
   <div class="bw-cmd">$ ls
-$ cat readme</div>
+$ cat readme
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/cfn5eE/dJMcadBIJDJ/AAAAAAAAAAAAAAAAAAAAANtrzd_C7yBhjao_5ET0_tazkc3ciF-DzwirbZWyJRh9/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=gvjtIUgqMGsr1cseTnoNjxpr8WQ%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bRLnPb/dJMcahc8hxX/AAAAAAAAAAAAAAAAAAAAAMA75P7_lbbOWeB5hIbsodkeMey4kK3lYyvIsS-Ju8Z1/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=8MD%2FdKAWPMK%2BfqKDG6%2FmpoERT4k%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p1">
@@ -124,14 +131,24 @@ $ cat readme</div>
   <p>파일 이름이 <code>-</code> 라서 뭐 <code>cd</code> 이런거 다 쳐보다가 약간 노가다로 이런거 저런거 다 해보다가 약간 운이 좋게?.. 풀게 됨...</p>
   <p>이걸로 파일을 실제로 만드는 것은 안 좋다고 했고, <code>&lt;</code> 이거나 <code>./</code> 이런걸로 실제로 열수 있다고 함!</p>
   <div class="bw-cmd">$ cat &lt; -
-$ cat ./-</div>
+$ cat ./-
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/OqvZE/dJMcacpmThk/AAAAAAAAAAAAAAAAAAAAAGRVIHqG_7Z5OhAgqDh4aLVzM2b_3xIrL6Q8e_xKJil6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=DbhO799NwYVf0%2BrdO2ZzBoXT9i4%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/vH3Ed/dJMcac3Wl7Q/AAAAAAAAAAAAAAAAAAAAACbukQiRNnHpAR5hzENJI-4G41t1cA9IaCx1yGB-J98g/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=Zw7dDVthG2mkKqLrXWmEfHyNyV4%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p2">
   <span class="bw-done">solved</span>
   <h3>Level 2 → 3</h3>
   <p>파일 이름에 spaces가 있을 때 <code>" "</code> 이거를 사용한다고 알고 있어서 빠르게 품.!!</p>
-  <div class="bw-cmd">$ cat "spaces in this filename"</div>
+  <div class="bw-cmd">$ cat "spaces in this filename"
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bx5A83/dJMcaiC52GD/AAAAAAAAAAAAAAAAAAAAAObkpk5Zl-1ko-43LvwEF1RkYpmgk8RueCKylcD1Y2d9/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=a%2FQMbCaWUUflQQWJ%2FH5D4S7liFk%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bMpbdY/dJMcaf0FcjS/AAAAAAAAAAAAAAAAAAAAAE97gp9MjP6h_JKD2zmxb4L90i4jwa7ihZkFP_88B95k/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=SwAOS%2B%2F0A3WCeWHagF6jiY8JcJo%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p3">
@@ -139,7 +156,12 @@ $ cat ./-</div>
   <h3>Level 3 → 4</h3>
   <p><code>ls -al</code> 치면 숨긴 파일 + 상세 파일 정보명이 뜬다고 알고 있어서, 항상 <code>ls</code>만 안치고 <code>ls -al</code>까지 치는 습관이 있어서 그렇게 했더니 풀린 문제.</p>
   <div class="bw-cmd">$ cd inhere
-$ ls -al</div>
+$ ls -al
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/b3jzbN/dJMcaayksrJ/AAAAAAAAAAAAAAAAAAAAAJ30CUYindi01aToY49BjTvYWjkPZZG-k_B7IhsY5Z2Z/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=XM8rspWCW6y%2FQnQuNmUAmMSSV3c%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/FWyHW/dJMcaaE6LLK/AAAAAAAAAAAAAAAAAAAAAA3fKD9VKIdeSgxkO0fUZvqiNxqM9pCQpKGF-uAQygHr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=OGMKoOf0WknCnBLpb6wasplPJzY%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p4">
@@ -147,14 +169,25 @@ $ ls -al</div>
   <h3>Level 4 → 5</h3>
   <p>무식하게 <code>inhere</code> 디렉토리 안의 파일들을 하나씩 열어봄. 인간이 읽을 수 있는 텍스트 파일만 찾으면 됨 ㅎㅎ.</p>
   <div class="bw-cmd">$ cd inhere
-$ file ./-file0*</div>
+$ file ./-file0*
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bMJHE6/dJMcai37EEZ/AAAAAAAAAAAAAAAAAAAAAJskBcoZxmwh72oqMU4ACe-KUSDdKtmk2IgRIkMZ0Dyi/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=fiv1TmFY%2Fq3cbwH6Dme1nGFo4wY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ylhc2/dJMcageeVHa/AAAAAAAAAAAAAAAAAAAAAEh-_3-2Fx-uKpd0XBqwea7JI7v5xrOFDRYqQM-M-dsp/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=bWZ3wwo7sz5eODkfqcnqpL2jp0g%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p5">
   <span class="bw-done">solved</span>
   <h3>Level 5 → 6</h3>
   <p>무식하게는 못 풀 듯??? <code>find</code> 함수를 쓰라는 것 같은데.. 참고 자료 보고 한번에 풀렸다 ㅎㅎ</p>
-  <div class="bw-cmd">$ find ./inhere -type f -size 1033c ! -executable</div>
+  <div class="bw-cmd">$ find ./inhere -type f -size 1033c ! -executable
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/sFQn3/dJMcabDZxZg/AAAAAAAAAAAAAAAAAAAAAPW0Lzh26ittOTmv44koU-zjahTjm4c69AkxptxBxSuD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=hmOT%2B7hswDa0Xx8Fzq%2BLSD7KpCA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ckuSUr/dJMcahxr733/AAAAAAAAAAAAAAAAAAAAAOQb3k_264R6igmnAO3R18t5ysFZQLGBuVlL8Xs_u1sN/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=%2Fa5yBn5pz43J8jSvfiQ3j5u6M3Y%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/Qa2p3/dJMcajopkNB/AAAAAAAAAAAAAAAAAAAAAAP5n0_sINY84UAE8df247fBrwHJAA2UuXUnOv-sBvZH/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=eV1R91xkUtkQot3FbZkEiV%2Fdfas%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://coding-factory.tistory.com/804" target="_blank" rel="noopener">참고: coding-factory.tistory.com/804</a>
 </div>
 
@@ -162,7 +195,14 @@ $ file ./-file0*</div>
   <span class="bw-done">solved</span>
   <h3>Level 6 → 7</h3>
   <p>뒤에 오류 아무것도 안 뜨는 파일을 찾아서 <code>cat</code>을 해봤더니 풀렸음..</p>
-  <div class="bw-cmd">$ find / -user bandit7 -group bandit6 -size 33c 2&gt;/dev/null</div>
+  <div class="bw-cmd">$ find / -user bandit7 -group bandit6 -size 33c 2&gt;/dev/null
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/O46zR/dJMcabqtB2G/AAAAAAAAAAAAAAAAAAAAAEPvGKiQzLobHqJil2X4FfVtt3x3pO6QZsu_lY5fDQnD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=mJJ%2F9SFoxe787EC6hulSd8gQEcw%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ugRlN/dJMcahRIMRA/AAAAAAAAAAAAAAAAAAAAAEPcPlmg1uIQdtIdtIO-GpZ4CLv_EyLKtW_eNsFafWn7/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=fsugzgzl1h2dAPubESsPHreLius%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/txJvT/dJMcabYiGjr/AAAAAAAAAAAAAAAAAAAAAGTgGfhvK4eaV794QdairiiwNfYeikk3U2zNFRjKS_aR/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=WRQBVmY8%2F4dBVmMt%2FZooo3ttccI%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cDS3pm/dJMcacCUMJ4/AAAAAAAAAAAAAAAAAAAAAFa7xIVPUvH9meBZ1kgceHoz-KdpTqSQM4_Bgy7I3c6L/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=fWe9NJYWGM0W3mc3cUPIpF27jQU%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://server-talk.tistory.com/20" target="_blank" rel="noopener">참고: server-talk.tistory.com/20</a>
 </div>
 
@@ -170,7 +210,11 @@ $ file ./-file0*</div>
   <span class="bw-done">solved</span>
   <h3>Level 7 → 8</h3>
   <p>진짜 문제 제대로 안 읽고 풀다가 <code>uniq</code>, <code>sort</code> 등 이상한거 다 하고 다시 돌아와서 <code>grep</code>으로 써서 풀었다.....</p>
-  <div class="bw-cmd">$ grep "millionth" data.txt</div>
+  <div class="bw-cmd">$ grep "millionth" data.txt
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bUv3HB/dJMcagkYNb6/AAAAAAAAAAAAAAAAAAAAAPkUAxb-qUjDkXLpPmkrgTCbyX0YKwxONq5beMI4lEre/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=luBQJahFWNN7plqc6vPu7I0fUFQ%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://coding-factory.tistory.com/802" target="_blank" rel="noopener">참고: coding-factory.tistory.com/802 (grep 배움)</a>
 </div>
 
@@ -179,7 +223,12 @@ $ file ./-file0*</div>
   <h3>Level 8 → 9</h3>
   <p><code>uniq</code>는 중복되는 값들을 지워주는 건데, 하기에 앞서 <code>sort</code>를 시켜줘야 한다.</p>
   <p><code>-c</code>를 붙여서 몇 번이 나왔는지에 대해서도 뽑아줘야 되었으며, <code>uniq</code>로 하면 중복되는 값들을 지워주는 게 아니라 약간 압축??? 그런거 하는 느낌.</p>
-  <div class="bw-cmd">$ sort data.txt | uniq -u</div>
+  <div class="bw-cmd">$ sort data.txt | uniq -u
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/btSg9N/dJMcagyvroJ/AAAAAAAAAAAAAAAAAAAAAGLG8MOqSxNDRuPhZAcndccj1OWfd3sc-XBFqZMsykM9/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=E0TGdl7TbFi0fXEWGZr2od33LHw%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/sePbp/dJMcagZzGJd/AAAAAAAAAAAAAAAAAAAAAMuMHvu6U8wWkYMPlVUTiMAoZzNmV-QZaazVG46FOfQr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=8GMdtbpwD4AMEGx%2B%2BrxurbfuAnw%3D" loading="lazy" alt="">
+</div>
+</div>
   <div class="bw-tip">uniq -u : 딱 한 번만 등장한 줄만 출력 (중복 없는 줄)</div>
 </div>
 
@@ -188,14 +237,24 @@ $ file ./-file0*</div>
   <h3>Level 9 → 10</h3>
   <p>이게 사람이 읽을 수 있는 문자열이 아닌 것 같은 느낌? (문제에서도..) 그래서 그냥 <code>cat</code> 때리고 <code>====</code> 이거 있는 것을 찾아봤음 히히. 그냥 무지성으로 풀어버리기...</p>
   <p>찾아보니까 <code>strings</code>라고 그냥 파일 안에 포함된 문자열을 뽑아낼 수 있는 기능을 함.! 그래서 그걸 이용해서 <code>grep</code>을 사용하면 끝.</p>
-  <div class="bw-cmd">$ strings data.txt | grep "=="</div>
+  <div class="bw-cmd">$ strings data.txt | grep "=="
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/cU4d2b/dJMcaaryMdF/AAAAAAAAAAAAAAAAAAAAALY0eEx2IeHffvKlZR2MwItm5YT2yP95BiZUVAbqp5vJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=c25wS6LzWff%2BRh%2B28ZpS%2BS6e0Ec%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cvZYcW/dJMcahqGEOy/AAAAAAAAAAAAAAAAAAAAAHW_1gW-E9tsBrq0Hh1k1Y9_D_v-amkiy6f1853z-FkS/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=95SGfn4Lw%2B8OLwsMw67iWGDkmWk%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/wUDOp/dJMcaaLRosp/AAAAAAAAAAAAAAAAAAAAAE8K9kL1Botag0kvsU3xKWw_XhGYzVQKZp26yF_CPZFc/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=7ERwA6JcnOeeB7wv3tt0TJpRusI%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p10">
   <span class="bw-done">solved</span>
   <h3>Level 10 → 11</h3>
   <p>그냥 base64 디코딩만 하면 됨!! (문제만 잘 읽는다면..)</p>
-  <div class="bw-cmd">$ base64 -d data.txt</div>
+  <div class="bw-cmd">$ base64 -d data.txt
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bEIxhr/dJMcaakL0Yp/AAAAAAAAAAAAAAAAAAAAAGPb-HHf5az7Ej0gJjhPjJvOjqt1fxwC07-GawpUJeLr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=lOHFtz44uNOE9QuVru9tYebfuGI%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://happylie.tistory.com/8" target="_blank" rel="noopener">참고: happylie.tistory.com/8</a>
 </div>
 
@@ -203,7 +262,13 @@ $ file ./-file0*</div>
   <span class="bw-done">solved</span>
   <h3>Level 11 → 12</h3>
   <p><code>tr</code> 명령어를 통해서 ROT13 처리. 13 옮기는 거를 일일히 노트에 써가면서 어떻게 옮길지 찾아봤다.</p>
-  <div class="bw-cmd">$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'</div>
+  <div class="bw-cmd">$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/sDUng/dJMcafzDBqY/AAAAAAAAAAAAAAAAAAAAAMF_2QG0B3ekgjbb8gpa0xSe7hPfU8PUcMaRZdbSzGDn/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=duzAH%2Fpss8HCbqiUSGD4Ful%2BRRY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/TsCqy/dJMcahRIOuc/AAAAAAAAAAAAAAAAAAAAAAlznBgE0-Jd7kBT2chJJ2ddMdA1pOsdL6SAJDEou0gJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=YCOrPbacitbJ8lCdVqsqRtv7WYg%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bsGhef/dJMcahqGFex/AAAAAAAAAAAAAAAAAAAAAKtb-J8SLxeyh_XYl2S0MvhnN1PWoVu-gtpS80Sz6Tlm/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=2VqJOMB8t6CwdGxznA%2BfgMkzizY%3D" loading="lazy" alt="">
+</div>
+</div>
   <div class="bw-tip">ROT13 = 알파벳을 13칸씩 밀어서 변환하는 Caesar cipher</div>
   <a class="bw-ref" href="https://zidarn87.tistory.com/137" target="_blank" rel="noopener">참고: zidarn87.tistory.com/137</a>
 </div>
@@ -220,7 +285,22 @@ $ file real          # gzip 확인
 $ mv real real.gz &amp;&amp; gzip -d real.gz
 $ file real          # bzip2 확인
 $ mv real real.bz2 &amp;&amp; bzip2 -d real.bz2
-# ... 반복 ...</div>
+# ... 반복 ...
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/cqnOcx/dJMcagyvvXn/AAAAAAAAAAAAAAAAAAAAACvrHS9--3aiMatz6Yqvks0mHerrtDL4k6vC2k6RYIgR/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=fQ36IfchZrKT4pObSkwdsBbKYT0%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bOPkOE/dJMcahKZkCA/AAAAAAAAAAAAAAAAAAAAADlnQICR4cmG0HAlK5wKQgM46uTL5Qey5MVh54PBVPTq/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=ehe7m9h%2B694OUeKADcGIkHEMBQU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/5Tawm/dJMcabKO9qB/AAAAAAAAAAAAAAAAAAAAAONYK_wGYgf95G2zq0niZ7U-fhVgFSzFSRCkvMfHye4F/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=Y%2B9RavqMl%2FzDDtkg8m0ipSsILUk%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bK9P7s/dJMcabcUHjy/AAAAAAAAAAAAAAAAAAAAAD3wm88NDXuBw7ewGUVIZpPy5d9P-P9z1nsJX8lHA0M1/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=rONxrpRIXO5qIrZS1%2FmaWkHoThc%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/9dvAj/dJMcad2QEhU/AAAAAAAAAAAAAAAAAAAAACBCnUuaDgE_QwVX0UsL9gWBvm9QTFjNVmUB9v7CoPY7/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=hgZctl5RdKP5URgnSrqrFCp%2BhI0%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/wGR5x/dJMcafl7SbB/AAAAAAAAAAAAAAAAAAAAAP_8K6feO11jcI4_8c9WIWIDv72ajbBsc8TzTrfEjAvI/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=h%2Fo1bKnIm7wA84boZ2oNW9nu2HY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ZSvzI/dJMcadhwQLk/AAAAAAAAAAAAAAAAAAAAABodAEqwAJ2hUl7Iqpg07VAlYs8O4tvRp1lrB_h7tdez/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=7fFtKjx09ZDQTP1cw3NtAnAjM1Q%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bmVaib/dJMcaiiPhRJ/AAAAAAAAAAAAAAAAAAAAAJk7ZxPUIWLut-yHw5BEzsI6XGgap0EnBdmGAiFKAeik/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=999CQqgMsFfnsBRZayB7qcfH91E%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/czJYV6/dJMcajoq0hM/AAAAAAAAAAAAAAAAAAAAAL9Zzt_xV3XQJTgClJ4IFnmy24Fp1tbx7WXyRpOOqgxo/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=p0KMyLHvftVpZcO6%2BQRGMvDLTTI%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/MogiP/dJMcaduZQrr/AAAAAAAAAAAAAAAAAAAAAIrQOS6g42L-JBhhQev4ootZdLRvr-9busC4CCugZp5_/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=cU96ub2MoaglI0Qlbem6xilH63g%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/rucHJ/dJMcaa6bSHs/AAAAAAAAAAAAAAAAAAAAAEwHrGaR8zhpEjyWq6IHdKUgdBGPb-LRjOknnPioCps2/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=YoGp1VHVBDXCO%2BWpZUrv0D6pF1Q%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bNDXcY/dJMcagk0tsA/AAAAAAAAAAAAAAAAAAAAAG6GVVo9dzi_o8TwIibXU4_GkD2T7RBN0tYapEOAQ0z0/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=odWCNRMTZF3EKIqO%2FBoBLTzdAp0%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://zidarn87.tistory.com/177" target="_blank" rel="noopener">참고: zidarn87.tistory.com/177</a>
 </div>
 
@@ -231,7 +311,13 @@ $ mv real real.bz2 &amp;&amp; bzip2 -d real.bz2
   <p>찾아보니까 <code>/mnt</code>는 윈도우에서 관할하는 파일이고, <code>~</code> 홈 디렉으로 가서 WSL 내부 리눅스 파일로 가야지만 <code>chmod</code>가 먹힌다는 것을 알게 됨. 그래서 실제로 <code>~</code> 여기로 옮기고 ssh를 치면 14로 이동!!</p>
   <div class="bw-cmd">$ cp sshkey.private ~/ &amp;&amp; cd ~
 $ chmod 600 sshkey.private
-$ ssh bandit14@localhost -i sshkey.private -p 2220</div>
+$ ssh bandit14@localhost -i sshkey.private -p 2220
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/RnMUd/dJMcaf0GRNX/AAAAAAAAAAAAAAAAAAAAALxgnjAquB4wIwg-RsrlH7CCONw_N13hOnaLEKRkI8Yd/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=KejAA7fmkaevX9xZVPJ51aGetXQ%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/dGR4BY/dJMcaiwlu0s/AAAAAAAAAAAAAAAAAAAAAA5b2shknt6haTG-YMYmivjyPAf5S3Y3X6wY_394kq69/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=l2NIdQuz%2FjQuvkp9M4LoZ5tgmlI%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bwZLme/dJMcajoq06n/AAAAAAAAAAAAAAAAAAAAADyh4ozH33onVfNkhs4HVL7NkMtKUfaVjt-6ga1Mnbbw/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=0IRPdjc3sZnMw0zNWP6H8a8Y4V4%3D" loading="lazy" alt="">
+</div>
+</div>
   <div class="bw-tip"><code>-i</code> 를 이용하면 나의 개인키로 접속을 수행할 수 있게 된다.</div>
 </div>
 
@@ -242,7 +328,13 @@ $ ssh bandit14@localhost -i sshkey.private -p 2220</div>
   <p><code>nc</code> 명령어를 활용하면, 실제로 tcp/ip 통신을 통한 데이터 전송이 가능하다고 해서. 어 이거다! 싶었다. bandit14의 비밀번호를 <code>cat</code>으로 알아내고, <code>nc</code> 명령어를 통해서 해당 명령어를 보내면! 15의 정답을 얻을 수 있게 된다.</p>
   <div class="bw-cmd">$ cat /etc/bandit_pass/bandit14
 $ nc localhost 30000
-&gt; (bandit14 password 입력)</div>
+&gt; (bandit14 password 입력)
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bhkXww/dJMb99MVUrO/AAAAAAAAAAAAAAAAAAAAAKOmXvocmc3ZqmQn45lk8xT3YGw8e0Fy-smbknESabar/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=4KdKM%2FaXiAcc2%2FzBwHwGrVmk91I%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ch1QCC/dJMcafsRU2W/AAAAAAAAAAAAAAAAAAAAADZGzLvB_NJ0D2g2cNYzzsQ5AChgFLSirkHkuQidNVoS/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=q%2F6CDnuDomTLiKcJmz%2Fepf4s3eQ%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/dItXOP/dJMcaaE8wKH/AAAAAAAAAAAAAAAAAAAAACbRr1WOtEHXMq4ABXMN-IgxOE0sCHjcSOAmTmR5VCmT/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=QjexocIF6%2FUaA4jPqz5u3lqz98Y%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p15">
@@ -251,7 +343,15 @@ $ nc localhost 30000
   <p><code>openssl</code> 명령어가 추가되어있길래, 먼저 이거를 찾아보았더니 SSL/TLS와 관련된 일을 하는 명령어. GPT에게 물어보고 SSL/TLS 암호화로 접속해보라는 건가?? 싶어서 일단 저렇게 해서 접속을 시도하니까 접속은.. 가능하네?? 그래서 정답을 넣으니까 해결!</p>
   <p><code>openssl s_client</code>를 사용하면 자동적으로 ssl/tls 암호화가 되면서 통신이 되나보다.</p>
   <div class="bw-cmd">$ openssl s_client -connect localhost:30001
-&gt; (bandit15 password 입력)</div>
+&gt; (bandit15 password 입력)
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/b71WJw/dJMcaipB0Jo/AAAAAAAAAAAAAAAAAAAAADF6XrhlKca6bU1am6VpcD_qTGMPsWggMqIfR-IygYcE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=kXr3CXnQszDL9Eg1k%2FMB5%2B%2FoPZA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/nNLVg/dJMcajoq1rg/AAAAAAAAAAAAAAAAAAAAAN2hmcERXeM3Yeifb9rTYsXHDH9_DuxKPOUAG6KBRd_k/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=LDcbZJ7ltFBbFUXct3ieJbKevu4%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/OzwFh/dJMcadhwRXO/AAAAAAAAAAAAAAAAAAAAAGIzub3KIXXdqm-zLiBWlidlLcSw7EaSSTv72QQGJ0_k/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=SGa%2B4bcEFNU2lDT8QqFnUZS2olY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ckfGgh/dJMcacpoCX5/AAAAAAAAAAAAAAAAAAAAAHtNl46Rc4i4P9dx1G-U7IzuyH1Lxomg0gBzdU5CzotF/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=v9mRWp6UPjDQ9HWoKGeKaJ7dd6g%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cSrQxX/dJMcabqvkyZ/AAAAAAAAAAAAAAAAAAAAAKLlTsllWc5G38YgqTfrHJzqFfeVSJ5a9TJ1vPUb1FFP/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=OSyz026Wz0iHS69xi2hiM848COo%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p16">
@@ -262,7 +362,15 @@ $ nc localhost 30000
   <div class="bw-cmd">$ nmap -p 31000-32000 localhost
 $ openssl s_client -connect localhost:31790
 &gt; (bandit16 password 입력)
-# 응답으로 RSA 개인키 획득 → 저장 후 ssh 접속</div>
+# 응답으로 RSA 개인키 획득 → 저장 후 ssh 접속
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/dCAyDS/dJMcabRxz2Q/AAAAAAAAAAAAAAAAAAAAAIlg3bO6GVPOwb7cOVZLM0Aj8Ge2FmwdqENozPGapwGD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=6JH3hRyWhWT6cQIKX3GuuYT0gSM%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bJhf2z/dJMcahEcVkV/AAAAAAAAAAAAAAAAAAAAAAT-JaXrxXinsrZbV8e2C36EC-G7lGYK7MM6lRQ64l40/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=YAxIRe%2F3WmWPsV2f%2BAhj4bjhrek%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/UTqp1/dJMcahEcVkZ/AAAAAAAAAAAAAAAAAAAAAG998X-TH-Rf0wYycFslXqgXavqmiIxPKA8x9eJv6pFN/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=ekGkYD1ztWqqxDd1E%2B6H0Car3Zo%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/byhjO4/dJMcaa6bYOo/AAAAAAAAAAAAAAAAAAAAAHfTT0ZR2GR_YyIjoT7iKDUrMY27VcfZZ519b7mnw5ox/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=7LVvMItapUJy%2FDc3hPUHr6wg%2B5o%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/ng8Ot/dJMcafGqPo0/AAAAAAAAAAAAAAAAAAAAAKlCaDwoRbl8gCuvZSfcfyCMRtfIi8XmMDOjY2uKuVkj/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=BqqdeLlh1ADgayHytAPg2JRH6yY%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://halinstudy.tistory.com/46" target="_blank" rel="noopener">참고: halinstudy.tistory.com/46</a>
 </div>
 
@@ -270,7 +378,11 @@ $ openssl s_client -connect localhost:31790
   <span class="bw-done">solved</span>
   <h3>Level 17 → 18</h3>
   <p><code>diff</code> 명령어가 추가되었길래 찾아보고, 문제에서는 한 줄의 명령어만이 바뀌었다고 하니까 diff가 해결책일 것 같다!! <code>diff</code>를 이용하면, 무슨 코드가 상세하게 바뀌었는지 확인할 수 있다!!!!</p>
-  <div class="bw-cmd">$ diff passwords.old passwords.new</div>
+  <div class="bw-cmd">$ diff passwords.old passwords.new
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bkxbxt/dJMcaduZVTF/AAAAAAAAAAAAAAAAAAAAAK4hqZaWxV2KeEE5h28Eu0WZFCM5mtO-HPIpSZuDaO-2/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=2Q3n9A7Qo6vBQQ7woEFsJz3AiLo%3D" loading="lazy" alt="">
+</div>
+</div>
   <a class="bw-ref" href="https://blog.naver.com/ncloud24/221255978037" target="_blank" rel="noopener">참고: blog.naver.com/ncloud24/221255978037</a>
 </div>
 
@@ -281,14 +393,29 @@ $ openssl s_client -connect localhost:31790
   <p><code>ssh bandit18@... cat .bashrc</code> 를 쳐보니까 <code>exit 0</code> 해당 코드가 실행되는 것을 확인. cat은 가능 → ls도 됨 → <code>readme</code>가 있는 것을 확인 → <code>cat readme</code> 하니까 바로 나옴!!!!</p>
   <p>원래 ssh 자체가, host 뒤에 command를 붙여서 활용할 수 있다는 것! 막으려면 <code>ForceCommand</code>를 활용해서 config 파일을 수정해야 한다고 함.</p>
   <div class="bw-cmd">$ ssh bandit18@bandit.labs.overthewire.org -p 2220 ls
-$ ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme</div>
+$ ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/vbzsw/dJMcacQr9Oi/AAAAAAAAAAAAAAAAAAAAAC9BwzAR0cZleGRdZ76rlo5-q-6lMPBkcbI20Yd5zbEm/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=3xfR73P9%2FSd2DSV%2BnmPD9ZmEjvU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bKGjZJ/dJMcaf7sXWh/AAAAAAAAAAAAAAAAAAAAAH_MFXYvs1jRcojuSxvn_oB-G4SEQfRO7ac9dbt_bCYb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=nq%2BxOk0WJpvQHTYl1VOJNVlkcVA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/Cio9J/dJMcaf7sXWj/AAAAAAAAAAAAAAAAAAAAAPc6hUBgwR0strGUJcDvzYd68PLcj5QHv7s4dEQhz1jg/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=isLelx3AWgcM2EvKbpr49DV6%2BxU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cgG5jX/dJMcah5jT9a/AAAAAAAAAAAAAAAAAAAAADADQJrbz_mhwH19xn2glr0gzTLmye3UtiYbdymx5VQu/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=1KjGXKeH%2BmTEMDjonpZFd4ZafEY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/oW1sA/dJMcaiQDKjo/AAAAAAAAAAAAAAAAAAAAAOwRxS99Jo8LyjbdBMolbXsfLpNNw16sNLLhOfhbbMdY/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=%2BS1Md9VELR2%2B83eNyLza9OQLwl4%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p19">
   <span class="bw-done">solved</span>
   <h3>Level 19 → 20</h3>
   <p>이게 제대로 된 풀이인지는 모르겠으나 일단 <code>ls</code>도 해보고, <code>chmod</code>도 해보고 <code>cat</code>도 해봤다. 근데 문제에서 "이거 실행해서 해보셈!!" 뭔가 이런 느낌이라서 실행했더니 되네?? 그래서 실제 실행을 통해서 값을 알아냄.</p>
-  <div class="bw-tip"><strong>setuid</strong>는 set user id의 약자로 한 파일이나 디렉토리를 사용할 때 그 파일의 소유자 권한으로 실행이 되는 것을 말한다. <code>rws</code> 권한이 있으면, 추가적인 권한이 없어도 소유자의 권한으로 실행할 수 있다는 것! 그래서 내가 bandit20-do에 관한 권한이 없어도 소유자의 권한으로 실행할 수 있다!!</div>
+  <div class="bw-tip"><strong>setuid</strong>는 set user id의 약자로 한 파일이나 디렉토리를 사용할 때 그 파일의 소유자 권한으로 실행이 되는 것을 말한다. <code>rws</code> 권한이 있으면, 추가적인 권한이 없어도 소유자의 권한으로 실행할 수 있다는 것! 그래서 내가 bandit20-do에 관한 권한이 없어도 소유자의 권한으로 실행할 수 있다!!
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/otjoK/dJMcabRxFgh/AAAAAAAAAAAAAAAAAAAAAF36ymVi0ROEt3OmRjdpgNtAVVwA-8eySAPNh2X_Y98I/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=rnL2IvOY4R2lSsvWbFCIWyVZZbk%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/vT0sO/dJMcajaWySi/AAAAAAAAAAAAAAAAAAAAADz8uf5H7MGGuRL-ALW0CJIvfa9Khk3RXxhhNboeh9ip/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=wnYIj5LcF5RPYZ0dqR1fOGL5FWY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cQLep2/dJMcagL7kmS/AAAAAAAAAAAAAAAAAAAAAGvShmu2dWqmzQeYEeOkk2hKUzBZDS-i6tJ5j0hV_Z0T/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=gMWGuJw%2BQWGoMjoRflUB4rBTRJ8%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bhQBsF/dJMcacJIIX5/AAAAAAAAAAAAAAAAAAAAACdaymn9eKgmmBgJyD9Fnk7IPG_7lENS6PpyDw-Rqh7t/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=LVmPmrr9Gx%2BvzBhKJR28GutLCWI%3D" loading="lazy" alt="">
+</div>
+</div>
   <div class="bw-cmd">$ ls -al
 $ ./bandit20-do cat /etc/bandit_pass/bandit20</div>
 </div>
@@ -302,7 +429,14 @@ $ ./bandit20-do cat /etc/bandit_pass/bandit20</div>
   <div class="bw-cmd"># 터미널 1 (백그라운드)
 $ echo "bandit20_password" | nc -lp 12345 &amp;
 # 터미널 1 (포어그라운드)
-$ ./suconnect 12345</div>
+$ ./suconnect 12345
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/csGCkt/dJMcaiXoCZ9/AAAAAAAAAAAAAAAAAAAAAMiWs2IWeWGpGvsM6_fK6qyNTOk0sK_WnkNSH_lm-NCm/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=L2lMHpPBOvrh6rLkWmgsWp35Tds%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cpXtHv/dJMcab445jD/AAAAAAAAAAAAAAAAAAAAALmLYV934OycBJcUeSCkLcUxwpkrRUW1MHyqwxeVpcO8/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=j6CyI7hKUrg5C5jyfNv5AwAFQn0%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/cI4tbo/dJMcadogE00/AAAAAAAAAAAAAAAAAAAAADjy0rGCX37bEiV6Gvw2l6b9p_8GcMZTEyGGCZ3hQ1BZ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=thRPO8USbm7UPFlr47aoEfNZQwo%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/b8Uwne/dJMcaib6cnb/AAAAAAAAAAAAAAAAAAAAAJVydZvDfEUHtIK_TncR9BpanzXYn6XXo-NLc28KE38Y/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=L2NideijG3v2fiaVwyDaO7eElto%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p21">
@@ -312,7 +446,13 @@ $ ./suconnect 12345</div>
   <p>그래서 <code>/usr/bin/cronjob_bandit22.sh</code>을 실제로 cat을 해봤더니, <code>/etc/bandit_pass/bandit22</code>에 대한 cat 응답 값을 <code>/tmp/t~</code>에 저장하고 있는 것을 확인. 그래서 해당 파일을 cat 했더니 실제로 답이 나왔다!!!!</p>
   <div class="bw-cmd">$ cat /etc/cron.d/cronjob_bandit22
 $ cat /usr/bin/cronjob_bandit22.sh
-$ cat /tmp/$(cronjob이 가리키는 파일명)</div>
+$ cat /tmp/$(cronjob이 가리키는 파일명)
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/DPYIj/dJMcacpoIzb/AAAAAAAAAAAAAAAAAAAAAKfPbIfpx_9vm0uzl02CLnIbMcOrRb0oNPRKN9cArpyJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=T%2FTPtEO9Z%2BrVeszLIdAExGs32jA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/czkbbD/dJMcaarAAQt/AAAAAAAAAAAAAAAAAAAAAOhwEwnyk7QuUHFXAkew-UZXk7OPcLoipRPc15xE9hRe/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=%2FVzx5l%2BognQKDwgeewO81PK15dU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/pJUSZ/dJMcagL7kzD/AAAAAAAAAAAAAAAAAAAAAOhqZEQOP2Ld7NEgwAwOqO-F6wBcX4_83g6N-TWN8iuA/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=ZieT0h8WWGlj6lhJP9gFLe53P5I%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p22">
@@ -323,7 +463,13 @@ $ cat /tmp/$(cronjob이 가리키는 파일명)</div>
 $ cat /usr/bin/cronjob_bandit23.sh
 # 스크립트에서 myname=bandit23 으로 바꾸면:
 $ echo "I am user bandit23" | md5sum | cut -d " " -f 1
-$ cat /tmp/(위 해쉬값)</div>
+$ cat /tmp/(위 해쉬값)
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/mkrFh/dJMcacCWEnF/AAAAAAAAAAAAAAAAAAAAAMbsgk8VQMiSfYhkG2f2xdpni85rE_okKJljwv78kGpa/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=wsdKmjeSD8S1FF7uI635GtY%2BIwA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/E95y0/dJMcaiC7RSX/AAAAAAAAAAAAAAAAAAAAAKE2IvIHUPgoV_LXfmBr6cnoj48Qt4GezAqmKUxkIZf6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=I%2Fu9SE4NcIr8s9VH27G1d0yL%2F88%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/kVSU4/dJMcabRxFyL/AAAAAAAAAAAAAAAAAAAAAOt3odaqNgtYaAmeRXHP01KTPOb-YYMEkzcT5yxOdstm/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=kkhjWl0%2Fu0Iu7i5UC5Kq8DxRo2M%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p23">
@@ -340,7 +486,14 @@ EOF
 $ chmod 777 exploit.sh
 $ cp exploit.sh /var/spool/bandit24/foo/
 # 1분 대기 후:
-$ cat /tmp/mydir24/pass.txt</div>
+$ cat /tmp/mydir24/pass.txt
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/bKahs1/dJMcaaSFbSH/AAAAAAAAAAAAAAAAAAAAAC2RtqUkzoHBjVCoSRYCBY-R-GQyFaynGdfdNLJ3b_pS/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=F%2FjMT8UhqIbC8myBD3lQKzRqyNY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/egLhIX/dJMcaaLTdOO/AAAAAAAAAAAAAAAAAAAAACPu-1-BJ4a55yGi6khvOSpgfblabIeMsSU7UIa0cl05/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=V9mG3U8yZf%2FT%2BdRk35ASHl40LOU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/bpfymR/dJMcadIyyB5/AAAAAAAAAAAAAAAAAAAAACqdpfdcXUy-OsIuhPPvSN4DL3DRDwc8W5RRPXe0G3mf/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=2ptlnzmsZsPNDMDZLYEDqpKVknY%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/b6MPFT/dJMcagL7kQX/AAAAAAAAAAAAAAAAAAAAAI8nL9n-MDWuJWUZ1k3LT-8rrIfm1Cz8Ytzg_vQ0bF7V/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=pXnxH8dYYqL890u4ALBvQdinSwY%3D" loading="lazy" alt="">
+</div>
+</div>
 </div>
 
 <div class="bw-panel bw-p24">
@@ -353,8 +506,16 @@ for i in $(seq -w 0000 9999); do
   echo "(bandit24_password) $i"
 done | nc localhost 30002
 EOF
-$ chmod +x brute.sh &amp;&amp; ./brute.sh</div>
+$ chmod +x brute.sh &amp;&amp; ./brute.sh
+<div class="bw-imgs">
+  <img src="https://blog.kakaocdn.net/dna/botNTG/dJMcaaZoMQE/AAAAAAAAAAAAAAAAAAAAACr_315jO91fa7UvPgE53f0aa8j1lEPSuix_raRS5ne4/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=rpIpy9P4MUhQZzCelaeH%2B%2FfYqaA%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/Oru9D/dJMcahK009f/AAAAAAAAAAAAAAAAAAAAAAj-qoe55xDbK3W6Zl0nlk5INvk5y5YMNCmE73OWaaTe/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=J0HvYg4XXYVViOFAIa7SD%2Fuzrko%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/6dJEq/dJMcadBKxrf/AAAAAAAAAAAAAAAAAAAAAIvdtL3BoCqW-TaITeZcIeoCJGQ_zq3v6Aip_iA_Zg2i/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=HlxK3G5T1aY6s3RkWJGFxv412iU%3D" loading="lazy" alt="">
+  <img src="https://blog.kakaocdn.net/dna/b7TwRk/dJMcafTXTWq/AAAAAAAAAAAAAAAAAAAAAM2xuq9WPWgP3kY_hoij6WcsUAlB0Xx7YImxGPp4V892/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=VWw%2FX4qpbS7v6Ye1rv97iGL0PEg%3D" loading="lazy" alt="">
+</div>
+</div>
   <div class="bw-tip">4자리 PIN(0000~9999) 전수 조사 — nc로 한 번에 몰아 보내면 빠르게 끝남.</div>
 </div>
 
 </div>
+
