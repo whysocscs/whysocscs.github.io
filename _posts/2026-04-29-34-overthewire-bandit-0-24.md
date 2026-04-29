@@ -50,7 +50,8 @@ icon: fa-flag
 #bwl21:checked~.bw-p21{display:block}
 #bwl22:checked~.bw-p22{display:block}
 #bwl23:checked~.bw-p23{display:block}
-#bwl0:checked~.bw-nav label[for=bwl0],#bwl1:checked~.bw-nav label[for=bwl1],#bwl2:checked~.bw-nav label[for=bwl2],#bwl3:checked~.bw-nav label[for=bwl3],#bwl4:checked~.bw-nav label[for=bwl4],#bwl5:checked~.bw-nav label[for=bwl5],#bwl6:checked~.bw-nav label[for=bwl6],#bwl7:checked~.bw-nav label[for=bwl7],#bwl8:checked~.bw-nav label[for=bwl8],#bwl9:checked~.bw-nav label[for=bwl9],#bwl10:checked~.bw-nav label[for=bwl10],#bwl11:checked~.bw-nav label[for=bwl11],#bwl12:checked~.bw-nav label[for=bwl12],#bwl13:checked~.bw-nav label[for=bwl13],#bwl14:checked~.bw-nav label[for=bwl14],#bwl15:checked~.bw-nav label[for=bwl15],#bwl16:checked~.bw-nav label[for=bwl16],#bwl17:checked~.bw-nav label[for=bwl17],#bwl18:checked~.bw-nav label[for=bwl18],#bwl19:checked~.bw-nav label[for=bwl19],#bwl20:checked~.bw-nav label[for=bwl20],#bwl21:checked~.bw-nav label[for=bwl21],#bwl22:checked~.bw-nav label[for=bwl22],#bwl23:checked~.bw-nav label[for=bwl23]{background:oklch(0.76 0.11 190/0.15);border-color:oklch(0.76 0.11 190/0.6);color:oklch(0.76 0.11 190)}
+#bwl24:checked~.bw-p24{display:block}
+#bwl0:checked~.bw-nav label[for=bwl0],#bwl1:checked~.bw-nav label[for=bwl1],#bwl2:checked~.bw-nav label[for=bwl2],#bwl3:checked~.bw-nav label[for=bwl3],#bwl4:checked~.bw-nav label[for=bwl4],#bwl5:checked~.bw-nav label[for=bwl5],#bwl6:checked~.bw-nav label[for=bwl6],#bwl7:checked~.bw-nav label[for=bwl7],#bwl8:checked~.bw-nav label[for=bwl8],#bwl9:checked~.bw-nav label[for=bwl9],#bwl10:checked~.bw-nav label[for=bwl10],#bwl11:checked~.bw-nav label[for=bwl11],#bwl12:checked~.bw-nav label[for=bwl12],#bwl13:checked~.bw-nav label[for=bwl13],#bwl14:checked~.bw-nav label[for=bwl14],#bwl15:checked~.bw-nav label[for=bwl15],#bwl16:checked~.bw-nav label[for=bwl16],#bwl17:checked~.bw-nav label[for=bwl17],#bwl18:checked~.bw-nav label[for=bwl18],#bwl19:checked~.bw-nav label[for=bwl19],#bwl20:checked~.bw-nav label[for=bwl20],#bwl21:checked~.bw-nav label[for=bwl21],#bwl22:checked~.bw-nav label[for=bwl22],#bwl23:checked~.bw-nav label[for=bwl23],#bwl24:checked~.bw-nav label[for=bwl24]{background:oklch(0.76 0.11 190/0.15);border-color:oklch(0.76 0.11 190/0.6);color:oklch(0.76 0.11 190)}
 .bw-imgs{display:flex;flex-wrap:wrap;gap:8px;margin:1.25rem 0}
 .bw-imgs img{max-width:100%;height:auto;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);background:oklch(0.04 0.01 230)}
 </style>
@@ -81,6 +82,7 @@ icon: fa-flag
 <input type="radio" name="bwlv" id="bwl21" class="bw-radio">
 <input type="radio" name="bwlv" id="bwl22" class="bw-radio">
 <input type="radio" name="bwlv" id="bwl23" class="bw-radio">
+<input type="radio" name="bwlv" id="bwl24" class="bw-radio">
 
 <nav class="bw-nav">
   <label for="bwl0"  class="bw-btn">Level 0</label>
@@ -107,6 +109,7 @@ icon: fa-flag
   <label for="bwl21" class="bw-btn">Level 21→22</label>
   <label for="bwl22" class="bw-btn">Level 22→23</label>
   <label for="bwl23" class="bw-btn">Level 23→24</label>
+  <label for="bwl24" class="bw-btn">Level 24→25</label>
 </nav>
 <div class="bw-panel bw-p0">
   <span class="bw-done">solved</span>
@@ -473,6 +476,23 @@ icon: fa-flag
   <img src="https://blog.kakaocdn.net/dna/bpfymR/dJMcadIyyB5/AAAAAAAAAAAAAAAAAAAAACqdpfdcXUy-OsIuhPPvSN4DL3DRDwc8W5RRPXe0G3mf/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=2ptlnzmsZsPNDMDZLYEDqpKVknY%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
   <p>보통 이것처럼, /etc/bandit_pass에 bandit의 비밀번호가 있는 것을 알 수 있음.</p>
   <p>그래서 .sh 파일에 cat /etc/bandit_pass/bandit23 &gt; /tmp/test.txt로 하면, 저 .sh 커맨드가 알아서 해당 .sh를 실행해줌!</p>
+</div>
+
+<div class="bw-panel bw-p24">
+  <span class="bw-done">solved</span>
+  <h3>Level 24 → 25</h3>
+  <img src="https://blog.kakaocdn.net/dna/botNTG/dJMcaaZoMQE/AAAAAAAAAAAAAAAAAAAAACr_315jO91fa7UvPgE53f0aa8j1lEPSuix_raRS5ne4/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=rpIpy9P4MUhQZzCelaeH%2B%2FfYqaA%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
+  <img src="https://blog.kakaocdn.net/dna/Oru9D/dJMcahK009f/AAAAAAAAAAAAAAAAAAAAAAj-qoe55xDbK3W6Zl0nlk5INvk5y5YMNCmE73OWaaTe/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=J0HvYg4XXYVViOFAIa7SD%2Fuzrko%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
+  <p>그냥 전사 공격하는 쉘을 만들고, 해당 쉘을 통해서 실제 공격을 하는 것.. 그래서 코드로 저렇게 정답셋을 만들고 이제 공격 시작!!!</p>
+  <img src="https://blog.kakaocdn.net/dna/6dJEq/dJMcadBKxrf/AAAAAAAAAAAAAAAAAAAAAIvdtL3BoCqW-TaITeZcIeoCJGQ_zq3v6Aip_iA_Zg2i/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=HlxK3G5T1aY6s3RkWJGFxv412iU%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
+  <p>히히 성공</p>
+  <img src="https://blog.kakaocdn.net/dna/b7TwRk/dJMcafTXTWq/AAAAAAAAAAAAAAAAAAAAAM2xuq9WPWgP3kY_hoij6WcsUAlB0Xx7YImxGPp4V892/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=VWw%2FX4qpbS7v6Ye1rv97iGL0PEg%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
+  <p>이렇게 응답 시작햇음!!</p>
+  <p>정리를 하자면</p>
+  <p>1. Bandit 24 → 25는 현재 비밀번호 + 4자리 PIN code를 localhost:30002에 보내야 하는 문제다.</p>
+  <p>2. 그래서 4자리 PIN code를 1~9999까지 내가 다..하기에는 너무 그러니까 첫 번째 사진과 같이 PIN 번호 셋을 만들어줌</p>
+  <p>3. cat을 활용해서 wjdeka(정답).txt의 출력값을 nc localhost 30002로 보내면서 문제 해결!</p>
+  <p>후.. 이제 다 끝났ㅏ..</p>
 </div>
 
 </div>
