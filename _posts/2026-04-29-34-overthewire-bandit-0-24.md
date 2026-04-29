@@ -114,6 +114,12 @@ icon: fa-flag
 <div class="bw-panel bw-p0">
   <span class="bw-done">solved</span>
   <h3>Level 0</h3>
+  <div class="bw-cmd">해당 문제에서 쓴 리눅스 명령어:
+ls : 디렉토리의 내용을 출력한다.
+  -l : 상세 내용을 출력 
+  -a : 숨긴 파일도 출력
+ 
+cat : 파일을 읽어서 쉘에 출력할 때 사용한다</div>
   <img src="https://blog.kakaocdn.net/dna/cfn5eE/dJMcadBIJDJ/AAAAAAAAAAAAAAAAAAAAANtrzd_C7yBhjao_5ET0_tazkc3ciF-DzwirbZWyJRh9/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=gvjtIUgqMGsr1cseTnoNjxpr8WQ%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
   <p>ls 검색 후, cat readme하면 바로 다음 문제가 나옴..!</p>
   <img src="https://blog.kakaocdn.net/dna/bRLnPb/dJMcahc8hxX/AAAAAAAAAAAAAAAAAAAAAMA75P7_lbbOWeB5hIbsodkeMey4kK3lYyvIsS-Ju8Z1/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=8MD%2FdKAWPMK%2BfqKDG6%2FmpoERT4k%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
@@ -170,8 +176,20 @@ icon: fa-flag
   <p>여기에 있는 거를 참고..했다.</p>
   <p>find . -size 1033c.</p>
   <p>풀어서 써보면, 현재 dir에 있는 파일 중에 size가 1033 bytes 를 찾아줘라. 이런 뜻이다. 다른 3개의 조건들이 있었지만 가장 간단한 조건 같아서 1033c를 적용하였다.</p>
+  <div class="bw-cmd">find [옵션] [경로] [표현식]
+
+[옵션]
+
+-P : 심볼릭 링크 따라가지 않음. 자체 정보 사용
+-L : 심볼릭 링크에 연결된 파일 정보 사용
+
+[표현식]
+
+-name : 지정된 문자열 패턴에 해당하는 파일 검색
+-empty : 빈 dir, 크기 0 파일 검색.
+-path : 지정된 문자열 패터에 해당하는 경로에서 검색.
+-size : 파일 크기를 사용하여 파일 검색</div>
   <img src="https://blog.kakaocdn.net/dna/Qa2p3/dJMcajopkNB/AAAAAAAAAAAAAAAAAAAAAAP5n0_sINY84UAE8df247fBrwHJAA2UuXUnOv-sBvZH/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=eV1R91xkUtkQot3FbZkEiV%2Fdfas%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
-  <a class="bw-ref" href="https://coding-factory.tistory.com/804" target="_blank" rel="noopener">참고: coding-factory.tistory.com/804</a>
 </div>
 
 <div class="bw-panel bw-p6">
@@ -188,7 +206,6 @@ icon: fa-flag
   <p>근데 또 그 중에서도 -size 33c : 파일 크기가 정확히 33바이트 인 것만 찾아라.</p>
   <p>딱 문제에 있는 조건을 다 find 안에 녹이면서 구현한 것 이다.</p>
   <img src="https://blog.kakaocdn.net/dna/txJvT/dJMcabYiGjr/AAAAAAAAAAAAAAAAAAAAAGTgGfhvK4eaV794QdairiiwNfYeikk3U2zNFRjKS_aR/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=WRQBVmY8%2F4dBVmMt%2FZooo3ttccI%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
-  <a class="bw-ref" href="https://server-talk.tistory.com/20" target="_blank" rel="noopener">참고: server-talk.tistory.com/20</a>
 </div>
 
 <div class="bw-panel bw-p7">
@@ -200,8 +217,8 @@ icon: fa-flag
   <p>이 번에는 해당 grep으로 배웠다. 해당 정답이 가려져있긴 한데,</p>
   <p>문제에서 millinoth으로 시작하는~ 이라고 했길래 리눅스 grep 명령어를 사용하면</p>
   <p>딱 그런 문자열로 시작하는 해당 줄만 뽑아올 수 있다.</p>
-  <p>grep [옵션][패턴][파일명] 여기서 사용한거는 grep millionth으로 실제millionth로 시작하는 줄을 다 가져오는 것 이다.</p>
-  <a class="bw-ref" href="https://coding-factory.tistory.com/802" target="_blank" rel="noopener">참고: coding-factory.tistory.com/802 (grep 배움)</a>
+  <div class="bw-cmd">grep [옵션][패턴][파일명]</div>
+  <p>여기서 사용한거는 grep millionth으로 실제millionth로 시작하는 줄을 다 가져오는 것 이다.</p>
 </div>
 
 <div class="bw-panel bw-p8">
@@ -231,6 +248,13 @@ icon: fa-flag
   <p>찾아보니까 strings라고 그냥 파일 안에 포함된 문자열을 뽑아낼 수 있는 기능을 함.! 그래서 그걸 이용해서 grep을 사용하면 끝이다</p>
   <p>strings는 바이너리 파일에서 텍스트를 추출할 때 쓰는데, 이 명령어를 활용하면 바이너리 파일 안에 있는 읽을 수 있는 ASCII를 출력해준다.</p>
   <p>그래서 strings data.txt로 출력을 해주고 grep으로 해당 문자열을 가져온다.</p>
+  <div class="bw-cmd">strings [옵션] [파일]
+
+--
+[옵션]
+
+-f : 파일 이름을 같이 출력
+-n : 문자열의 최소 길이를 정함</div>
 </div>
 
 <div class="bw-panel bw-p10">
@@ -243,7 +267,13 @@ icon: fa-flag
   <p>여담으로 암호화가 필요할 때 base64로 암호화할게요! 라고 하는건 아래와 같은 사진이랑 똑같다. Base64는 암호화가 아니라 인코딩, 디코딩 개념이다.</p>
   <p>인코딩: 데이터를 숨기는 것이 목적이 아니라, 바이너리 데이터나 특수 문자를 텍스트 형태로 전달하려고 바꾸는 것.</p>
   <img src="https://blog.kakaocdn.net/dna/wj66I/dJMcahK1Pzc/AAAAAAAAAAAAAAAAAAAAAHl6ltFFzbetCM83OG4nWA2637qr_ofZe03Y3QHoVlwC/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=%2FrU1hmdE0YBlaV%2Ftll%2Bo7pZpOnk%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
-  <a class="bw-ref" href="https://happylie.tistory.com/8" target="_blank" rel="noopener">참고: happylie.tistory.com/8</a>
+  <div class="bw-cmd">base64 [옵션][파일명]
+
+--
+[옵션]
+-d : base64 디코드
+-i : 알파벳 아닌 문자 무시
+-w : 줄 바꿈</div>
 </div>
 
 <div class="bw-panel bw-p11">
@@ -258,7 +288,6 @@ icon: fa-flag
   <p>tr 'A-Za-z' 'N-ZA-Mn-za-m'은</p>
   <p>A B C D ... M N O ... Z a b c ... m n o ... z&amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr; &amp;darr;N O P Q ... Z A B ... M n o p ... z a b ... m</p>
   <p>이렇게 rot13을 직접 해주는걸 명시해줌으로써 문제가 풀리는 것!!</p>
-  <a class="bw-ref" href="https://zidarn87.tistory.com/137" target="_blank" rel="noopener">참고: zidarn87.tistory.com/137</a>
 </div>
 
 <div class="bw-panel bw-p12">
@@ -285,9 +314,28 @@ icon: fa-flag
   <img src="https://blog.kakaocdn.net/dna/MogiP/dJMcaduZQrr/AAAAAAAAAAAAAAAAAAAAAIrQOS6g42L-JBhhQev4ootZdLRvr-9busC4CCugZp5_/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=cU96ub2MoaglI0Qlbem6xilH63g%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
   <p>그 후 해당 과정을 무한 반복해서 얻은 password값. 중간에 ^C는 , 갑자기 렉걸려서 아무 입력도 안되길래 너무 무서워서 가만히 있다가 혹시나 ^C를 하면 풀리나? 싶었는데 그냥 저러고 한 1분 동안 멈춰있다가 튕기는 줄 알았다.. 그래도 다행</p>
   <p>명령어 모음</p>
-  <p>xxd [옵션] [파일명] -- [옵션] -r : hexdump를 원래 바이너리 파일로 복원</p>
-  <p>gzip [옵션] [파일명] -- [옵션] -d : gzip 압축 해제 ================================== bzip2 [옵션] [파일명] -- [옵션] -d : bzip2 압축 해제 tar [옵션] [파일명] [옵션] -x : tar 파일 풀기 -v : 진행 과정 출력 -f : 사용할 tar 파일 지정</p>
-  <a class="bw-ref" href="https://zidarn87.tistory.com/177" target="_blank" rel="noopener">참고: zidarn87.tistory.com/177</a>
+  <div class="bw-cmd">xxd [옵션] [파일명]
+
+--
+[옵션]
+-r : hexdump를 원래 바이너리 파일로 복원</div>
+  <div class="bw-cmd">gzip [옵션] [파일명]
+
+--
+[옵션]
+-d : gzip 압축 해제
+==================================
+bzip2 [옵션] [파일명]
+
+--
+[옵션]
+-d : bzip2 압축 해제</div>
+  <div class="bw-cmd">tar [옵션] [파일명]
+
+[옵션]
+-x : tar 파일 풀기
+-v : 진행 과정 출력
+-f : 사용할 tar 파일 지정</div>
 </div>
 
 <div class="bw-panel bw-p13">
@@ -300,6 +348,11 @@ icon: fa-flag
   <img src="https://blog.kakaocdn.net/dna/bwZLme/dJMcajoq06n/AAAAAAAAAAAAAAAAAAAAADyh4ozH33onVfNkhs4HVL7NkMtKUfaVjt-6ga1Mnbbw/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=0IRPdjc3sZnMw0zNWP6H8a8Y4V4%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
   <p>그래서 실제로 ~ 여기로 옳기고 저렇게 ssh 를 치면 14로 이동!!</p>
   <p>&lt; -i 를 이용하면 나의 개인키로 접속을 수행할 수 있게 된다. .&gt;</p>
+  <div class="bw-cmd">ssh [옵션] [계정]@[ip]
+
+[옵션]
+-p ( ) : ( )의 값으로 포트 지정
+-i ( ) : ( )을 사용해서 ssh key 사용을 통한 접속.</div>
 </div>
 
 <div class="bw-panel bw-p14">
@@ -357,7 +410,6 @@ icon: fa-flag
   <p>2. 해당 포트 중에서 SSL/TLS 통신을 사용하는 포트를 찾음</p>
   <p>3. 그래서 해당 포트에 openssl s_clinet 활용하여 통신.</p>
   <p>4. 통신 후 답(Private Key)가 나오면 저장 후에 ssh -i를 활용하여 다음 단계로.</p>
-  <a class="bw-ref" href="https://halinstudy.tistory.com/46" target="_blank" rel="noopener">참고: halinstudy.tistory.com/46</a>
 </div>
 
 <div class="bw-panel bw-p17">
@@ -369,8 +421,14 @@ icon: fa-flag
   <p>diff -d를 이용하면, 무슨 코드가 상세하게 바뀌었는지 확인할 수 있다!!!!</p>
   <p>x2gLTTjFwMOhQ8oWNbMN362QKxfRqGlO</p>
   <p>그래서 아래에 있는 diff 명령어를 파악 후 사용하면 쉽게 풀리는 문제이다.</p>
-  <p>diff [옵션][파일1][파일2] diff3 [옵션][파일1][파일2][파일3] [옵션] -c : 두 파일간의 차이점 출력 -d : 두 파일간의 차이점을 상세하게 출력 -r : 두 디렉토리간의 차이점 출력 -u : 두 파일의 변경되는 부분과 변경되는 부분의 근처의 내용도 출력.</p>
-  <a class="bw-ref" href="https://blog.naver.com/ncloud24/221255978037" target="_blank" rel="noopener">참고: blog.naver.com/ncloud24/221255978037</a>
+  <div class="bw-cmd">diff [옵션][파일1][파일2]
+diff3 [옵션][파일1][파일2][파일3]
+
+[옵션]
+-c : 두 파일간의 차이점 출력
+-d : 두 파일간의 차이점을 상세하게 출력
+-r : 두 디렉토리간의 차이점 출력
+-u : 두 파일의 변경되는 부분과 변경되는 부분의 근처의 내용도 출력.</div>
 </div>
 
 <div class="bw-panel bw-p18">
@@ -476,6 +534,8 @@ icon: fa-flag
   <img src="https://blog.kakaocdn.net/dna/bpfymR/dJMcadIyyB5/AAAAAAAAAAAAAAAAAAAAACqdpfdcXUy-OsIuhPPvSN4DL3DRDwc8W5RRPXe0G3mf/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=2ptlnzmsZsPNDMDZLYEDqpKVknY%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
   <p>보통 이것처럼, /etc/bandit_pass에 bandit의 비밀번호가 있는 것을 알 수 있음.</p>
   <p>그래서 .sh 파일에 cat /etc/bandit_pass/bandit23 &gt; /tmp/test.txt로 하면, 저 .sh 커맨드가 알아서 해당 .sh를 실행해줌!</p>
+  <img src="https://blog.kakaocdn.net/dna/b6MPFT/dJMcagL7kQX/AAAAAAAAAAAAAAAAAAAAAI8nL9n-MDWuJWUZ1k3LT-8rrIfm1Cz8Ytzg_vQ0bF7V/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1777561199&allow_ip=&allow_referer=&signature=pXnxH8dYYqL890u4ALBvQdinSwY%3D" loading="lazy" alt="" style="max-width:100%;border-radius:6px;border:1px solid oklch(0.28 0.04 225/0.45);margin:.75rem 0;display:block">
+  <p>짜란</p>
 </div>
 
 <div class="bw-panel bw-p24">
