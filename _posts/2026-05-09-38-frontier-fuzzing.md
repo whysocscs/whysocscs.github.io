@@ -424,3 +424,265 @@ basic block / edge 실행 여부 수집
 그래서 Tinylnst는 수집한 coverage를 바탕으로 새로운 코드 경로를 여는지 판단하고 그 해당 새로운 코드 경로의 basic block이나 edge에 도달한 입력들은 또 corpus에 저장하고~ 이후 그거를 활용해서 변형하고,. 이것에 반복.
 
 AFL처럼 coverage-guided이지만 AFL은 컴파일 시점에 계측을 삽입하지만 이 친구는 black-box를 기반으로 하여 실행 중에 계속 동적으로 계측한다는 점에서 차별점이 있다.
+
+<h2 data-end="516" data-start="495" data-ke-size="size26">퍼저는 크래시를 어떻게 판단할까?</h2>
+<p data-end="539" data-start="518" data-ke-size="size16">자.. 그러면 퍼저가 입력을 막 넣다가</p>
+<p data-end="552" data-start="541" data-ke-size="size16">어? 이거 크래시네?</p>
+<p data-end="568" data-start="554" data-ke-size="size16">이거를 어떻게 아는 걸까?</p>
+<p data-end="580" data-start="570" data-ke-size="size16">생각보다 단순하다.</p>
+<p data-end="660" data-start="582" data-ke-size="size16">퍼저는 target program을 실행한 다음에, 그 프로그램이 정상적으로 끝났는지, 아니면 비정상적으로 죽었는지를 본다.</p>
+<p data-end="685" data-start="662" data-ke-size="size16">예를 들어 일반 프로그램을 퍼징한다고 하면</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="fortran"><code>입력 생성
+    &darr;
+target program 실행
+    &darr;
+종료 상태 확인
+    &darr;
+정상 종료 / crash / hang 판단</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="783" data-start="775" data-ke-size="size16">이런 느낌이다.</p>
+<p data-end="815" data-start="785" data-ke-size="size16">프로그램이 그냥 정상적으로 끝나면 일반 실행으로 본다.</p>
+<p data-end="902" data-start="817" data-ke-size="size16">근데 입력을 넣었더니 프로그램이 갑자기 SIGSEGV, SIGABRT, SIGBUS, SIGILL, SIGFPE 같은 시그널로 죽으면?</p>
+<p data-end="917" data-start="904" data-ke-size="size16">그건 이제 퍼저 입장에서 아 이 입력은 프로그램을 비정상 종료시키는구나? 하면서 확인할 수 있게 된다.</p>
+<p data-end="979" data-start="959" data-ke-size="size16">&nbsp;</p>
+<p data-end="986" data-start="981" data-ke-size="size16">예를 들면</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="properties"><code>SIGSEGV &rarr; 잘못된 메모리 접근
+SIGABRT &rarr; abort() 호출
+SIGFPE  &rarr; 0으로 나누기 같은 산술 오류
+SIGILL  &rarr; 잘못된 명령어 실행</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="1099" data-start="1091" data-ke-size="size16">뭐 이런 느낌.</p>
+<p data-end="1169" data-start="1101" data-ke-size="size16">그러니까 AFL++ 같은 퍼저가 이건 use-after-free다! 이런 식으로 처음부터 정확히 분석하는 것은 아니다.</p>
+<p data-end="1174" data-start="1171" data-ke-size="size16">일단은</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="erlang"><code>이 입력을 넣었더니 target binary가 죽었다.
+&rarr; crash input으로 저장.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="1251" data-start="1240" data-ke-size="size16">이렇게 보는 것이다.</p>
+<p data-end="1297" data-start="1253" data-ke-size="size16">그리고 ASan, UBSan 같은 sanitizer를 같이 쓰면 더 잘 잡힌다.</p>
+<p data-end="1359" data-start="1299" data-ke-size="size16">예를 들어 버퍼 오버플로우나 use-after-free 같은 버그는 그냥 실행하면 바로 안 죽을 수도 있다.</p>
+<p data-end="1423" data-start="1361" data-ke-size="size16">근데 ASan을 켜고 빌드하면 이런 메모리 오류가 발생했을 때 ASan이 잡아내고 프로그램을 강제로 종료시킨다.</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="arduino"><code>heap-buffer-overflow 발생
+    &darr;
+ASan이 감지
+    &darr;
+프로그램 abort
+    &darr;
+퍼저가 crash로 판단</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="1521" data-start="1514" data-ke-size="size16">이런 식이다.</p>
+<p data-end="1537" data-start="1523" data-ke-size="size16">커널 퍼징은 조금 다르다.</p>
+<p data-end="1635" data-start="1539" data-ke-size="size16">syzkaller 같은 커널 퍼저는 일반 프로그램처럼 단순히 프로세스가 SIGSEGV로 죽는지만 보는 게 아니라, VM 안에서 커널을 실행해놓고 커널 로그를 계속 확인한다.</p>
+<p data-end="1669" data-start="1637" data-ke-size="size16">커널 쪽에서는 이런 것들이 crash 신호가 될 수 있다.</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="vhdl"><code>kernel panic
+KASAN report
+BUG()
+WARNING
+general protection fault
+use-after-free
+out-of-bounds access
+deadlock</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="1875" data-start="1794" data-ke-size="size16">그래서 syzkaller는 syscall sequence를 실행하다가 커널 로그에서 KASAN report나 kernel panic 같은 게 뜨면 어 해당 syscall 조합이 커널을 떠뜨렸네?&nbsp;하고 crash로 저장한다.</p>
+<p data-end="1964" data-start="1934" data-ke-size="size16">정리하면 퍼저가 크래시를 판단하는 기준은 대충 이렇다.</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="bash" data-ke-language="bash"><code>일반 프로그램 퍼징
+&rarr; 프로그램 종료 코드 / signal 확인
+
+Sanitizer 사용 시
+&rarr; ASan, UBSan 등이 오류를 감지하고 abort하면 crash로 판단
+
+커널 퍼징
+&rarr; kernel panic, KASAN report, BUG, WARNING 같은 커널 로그 확인</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="2193" data-start="2137" data-ke-size="size16">결국 퍼저는 입력을 넣고 끝나는 게 아니라, 입력을 넣은 뒤에 target이 어떻게 끝났는지를 본다.</p>
+<p data-end="2275" data-start="2195" data-ke-size="size16">정상적으로 끝났으면 그냥 넘어가고, 새로운 coverage가 있으면 corpus에 저장하고, 비정상 종료가 발생하면 crash로 따로 저장한다.</p>
+<p data-end="2275" data-start="2195" data-ke-size="size16">&nbsp;</p>
+<h3 data-end="2275" data-start="2195" data-ke-size="size23">그러면 crash를 어떻게 재현할까?</h3>
+<p data-end="128" data-start="88" data-ke-size="size16">crash가 발생했을 때, 이것을 어떻게 다시 확인할 수 있을까?</p>
+<p data-end="216" data-start="130" data-ke-size="size16">퍼저가 crash를 발견하면 보통 그때 사용했던 입력 파일을 따로 저장한다.<br />이 입력을 넣었더니 프로그램이 죽었다!! 라고 남겨놓는 것.&nbsp;</p>
+<p data-end="342" data-start="218" data-ke-size="size16">예를 들어 AFL++에서는 crash를 유발한 입력이 crashes/ 디렉터리에 저장된다.<br />이후 해당 입력 파일을 다시 target program에 넣어보면, 같은 지점에서 다시 crash가 나는지 확인할 수 있다.</p>
+<p data-end="361" data-start="344" data-ke-size="size16">간단하게 말하면 이런 흐름이다.</p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div id="code-block-viewer">
+<div>
+<pre class="fortran"><code>퍼저가 입력 생성
+    &darr;
+target program 실행
+    &darr;
+비정상 종료 발생
+    &darr;
+crash 입력 저장
+    &darr;
+저장된 입력으로 다시 실행
+    &darr;
+같은 crash가 재현되는지 확인</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+<p data-end="610" data-start="490" data-ke-size="size16">여기서 중요한 점은 한 번 crash가 났다고 해서 바로 의미 있는 버그라고 판단하면 안 된다는 것이다.<br />환경 문제일 수도 있고, 타이밍 문제일 수도 있고, 우연히 한 번만 발생한 crash일 수도 있다.&nbsp;</p>
+<p data-end="786" data-start="612" data-ke-size="size16">그래서 퍼징에서는 crash가 발생한 입력을 다시 실행해보면서, 정말 같은 문제가 반복되는지 확인한다.<br />같은 입력을 넣었을 때 계속 segmentation fault가 발생하거나, 같은 sanitizer report가 나오거나, 같은 kernel panic이 발생하면 재현 가능한 crash라고 볼 수 있다.</p>
+<p data-end="855" data-start="788" data-ke-size="size16">즉, 퍼징에서 중요한 것은 단순히 crash를 많이 찾는 것이 아니라,<br />재현 가능한 crash를 찾는 것이다.</p>
+<p data-end="949" data-start="857" data-ke-size="size16">또한 crash가 여러 개 저장되어 있다고 해서, 그 수만큼 버그가 있다는 뜻은 아니다.<br />같은 버그가 입력만 조금 다른 형태로 여러 번 터질 수도 있기 때문이다.</p>
+<p data-end="1036" data-start="951" data-ke-size="size16">그래서 실제 분석 단계에서는 저장된 crash 입력들을 다시 실행해보고,<br />비슷한 crash는 하나로 묶고, 재현되지 않는 crash는 따로 분류한다.</p>
