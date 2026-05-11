@@ -36,6 +36,7 @@
     "33": { "category": "Etc", "tags": ["회고록"] },
     "34": { "category": "CTF/Wargame", "tags": ["Wargame", "Bandit", "OverTheWire", "Linux"] },
     "35": { "category": "Development", "tags": ["git"] },
-    "38": { "category": "TechnicalDocument", "tags": ["퍼징", "프론티어"] }
+    "38": { "category": "TechnicalDocument", "tags": ["퍼징", "프론티어"] },
+    "39": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] }
   }
 }
