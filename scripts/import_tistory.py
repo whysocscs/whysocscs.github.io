@@ -22,6 +22,14 @@ except ImportError as exc:  # pragma: no cover
         "`python3 -m pip install beautifulsoup4`."
     ) from exc
 
+try:
+    from markdownify import markdownify as _markdownify
+except ImportError as exc:  # pragma: no cover
+    raise SystemExit(
+        "Missing dependency: markdownify. Install it with "
+        "`python3 -m pip install markdownify`."
+    ) from exc
+
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "_posts"
@@ -176,23 +184,36 @@ def build_front_matter(meta: dict[str, object], category: str, tags: list[str]) 
     )
 
 
-def escape_liquid_markup(content: str) -> str:
-    return (
-        content.replace("{{", "&#123;&#123;")
-        .replace("}}", "&#125;&#125;")
-        .replace("{%", "&#123;%")
-        .replace("%}", "%&#125;")
-    )
+def html_to_markdown(content_html: str) -> str:
+    soup = BeautifulSoup(content_html, "html.parser")
+
+    # Remove tistory-specific data-* attributes that add noise
+    for tag in soup.find_all(True):
+        for attr in list(tag.attrs.keys()):
+            if attr.startswith("data-"):
+                del tag.attrs[attr]
+
+    # Remove empty paragraphs that only contain &nbsp;
+    for p in soup.find_all("p"):
+        if p.get_text(strip=True) in ("", "\xa0"):
+            p.decompose()
+
+    result = _markdownify(str(soup), heading_style="ATX", bullets="-", newline_style="backslash")
+
+    # Collapse runs of 3+ blank lines down to 2
+    result = re.sub(r"\n{3,}", "\n\n", result)
+    return result.strip()
 
 
 def write_post(meta: dict[str, object], rule: dict[str, object], default_tags: list[str]) -> Path:
     category = str(rule["category"])
     tags = list(dict.fromkeys([*rule.get("tags", []), *default_tags]))
     front_matter = build_front_matter(meta, category, tags)
+    markdown_body = html_to_markdown(str(meta["content_html"]))
     body = (
         front_matter
         + f"> Source: [{meta['url']}]({meta['url']})\n\n"
-        + escape_liquid_markup(str(meta["content_html"]).strip())
+        + markdown_body
         + "\n"
     )
     filename = (

@@ -8,19 +8,65 @@ categories: [Development]
 tags: ["프론티어", "보안", "Gemini CLI", "Google", "RCE"]
 icon: fa-terminal
 ---
-
 > Source: [https://sanghole.tistory.com/37](https://sanghole.tistory.com/37)
 
-<h1 style="background-color: #ffffff; color: #000000; text-align: start;">Critical Gemini CLI Flaw Enabled Host Code Execution, Supply Chain Attacks</h1><p data-ke-size="size16"><a href="https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/">https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/</a></p><figure contenteditable="false" data-ke-align="alignCenter" data-ke-type="opengraph" data-og-description="A critical remote code execution and supply chain vulnerability was recently discovered by researchers in Gemini CLI." data-og-host="www.securityweek.com" data-og-image="https://blog.kakaocdn.net/dna/o4P3K/dJMb9kT6XKm/AAAAAAAAAAAAAAAAAAAAAJ11-R1_CFOhMWI8sb-ypNfzLZGXd4JEfGjW8kqUaBEt/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1780239599&amp;allow_ip=&amp;allow_referer=&amp;signature=tS7Cgdf%2BYObJbcSsOUn2nyRzxHo%3D" data-og-source-url="https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/" data-og-title="Critical Gemini CLI Flaw Enabled Host Code Execution, Supply Chain Attacks" data-og-type="article" data-og-url="https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/" id="og_1778083569325"><a data-source-url="https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/" href="https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/" rel="noopener" target="_blank">
-<div class="og-image" style="background-image: url('https://blog.kakaocdn.net/dna/o4P3K/dJMb9kT6XKm/AAAAAAAAAAAAAAAAAAAAAJ11-R1_CFOhMWI8sb-ypNfzLZGXd4JEfGjW8kqUaBEt/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1780239599&amp;allow_ip=&amp;allow_referer=&amp;signature=tS7Cgdf%2BYObJbcSsOUn2nyRzxHo%3D');"> </div>
-<div class="og-text">
-<p class="og-title" data-ke-size="size16">Critical Gemini CLI Flaw Enabled Host Code Execution, Supply Chain Attacks</p>
-<p class="og-desc" data-ke-size="size16">A critical remote code execution and supply chain vulnerability was recently discovered by researchers in Gemini CLI.</p>
-<p class="og-host" data-ke-size="size16">www.securityweek.com</p>
-</div>
-</a></figure><p data-ke-size="size16"> </p><p data-ke-size="size16">이번에는 codex가 아니라 Gemini CLI 버전.</p><p data-ke-size="size16"> </p><p data-ke-size="size16">Gemini CLI가 CI/CD같은 자동 실행 환경에서 작업 폴더를 무한 신뢰하면서 PR이나 repo안에 심우던 악성 .gemini 설정이 로드 --&gt; 샌드박스 켜지기 -&gt; host에서 명령어가 실행될 수 있었던 취약점이다. 심지어 이걸로 RCE도 가능함.</p><p data-ke-size="size16"> </p><div data-ke-type="moreLess" data-text-less="닫기" data-text-more="더보기"><a class="btn-toggle-moreless">더보기</a>
-<div class="moreless-content">
-<p data-ke-size="size16">RCE</p>
-<p data-ke-size="size16">공격자가 네트워크를 통해 원격에서 대상 시스템(서버, PC 등)의 제어권을 탈취하여 악성 코드를 실행하는 치명적인 보안 취약점입니다. 입력값 검증 미흡, 안전하지 않은 역직렬화, 버퍼 오버플로우 등이 원인이며, 시스템 제어, 데이터 유출, 랜섬웨어 감염을 유발할 수 있습니다.</p>
-</div>
-</div><p data-ke-size="size16"> </p><p data-ke-size="size16">근데 뭐 설명이 거의 똑같아서 시나리오를 기반으로 설명을 해본다고 한다면..</p><p data-ke-size="size16"> </p><p data-ke-size="size16">다시금 나타난 룰루랄라 개발팀..</p><p data-ke-size="size16"> </p><p data-ke-size="size16">GitHub Actions를 활용 -&gt; Github CLI를 계속 쓰면서 PR리뷰, 이슈 분석, 코드 설명, 자동 수정 같은 걸 딸-깍 중</p><p data-ke-size="size16"> </p><p data-ke-size="size16">공격자가 외부 contributor처럼 PR을 날리는데, 해당 PR에는 Gemini CLI가 읽을 수 있는 악성 .gemini/ 설정 파일이나 환경 설정이 같이 들어 있다..</p><p data-ke-size="size16"> </p><p data-ke-size="size16">이제 여기서 문제!</p><p data-ke-size="size16">Gemini CLi가 CI/headless 환경에서 현재 workspace는 믿을 만하네~~ 라고 생각하는 것.</p><p data-ke-size="size16">그래서 agent 설정으로 그걸 받아들이고 해당 host runner에서 명령 실행까지 한다는 것 이다.</p><p data-ke-size="size16"> </p><p data-ke-size="size16">그래서 host runner에서 명령 실행까지 이어질 수 있다. -&gt; </p><p data-ke-size="size16">https://novee.security/blog/google-gemini-cli-rce-vulnerability-cvss-10-critical-security-advisory/</p><p data-ke-size="size16">여기서 보면 prompt injection도 아니고 모델 판단도 아니라, AI가 추론하기 전에 발생하는 infrastructure-level execution 문제라라고 한다</p><p data-ke-size="size16"> </p><p data-ke-size="size16">전체적인 흐름-&gt;</p><p data-ke-size="size16">공격자 PR 제출<br/>→ PR 안에 악성 .gemini 설정 포함<br/>→ GitHub Actions에서 Gemini CLI 자동 실행<br/>→ Gemini CLI가 workspace를 자동 신뢰<br/>→ 악성 설정 로드<br/>→ sandbox 초기화 전 host에서 명령 실행<br/>→ CI secret, token, source code 접근 가능<br/>→ supply chain attack으로 확장 가능</p><p data-ke-size="size16"> </p><p data-ke-size="size16">그래서 패치는??</p><p data-ke-size="size16">Google은 headless mode, 즉 모든 권한을 주는 모드에서 더 이상 workspace를 자동 신뢰하지 않도록 바꿨고 설정 파일을 읽기 전에 명시적인 trust 결정이 필요하도록 수정했다. </p><p data-ke-size="size16"> </p><p data-ke-size="size16">공식 패치 버전은 -&gt; advisory 기준 @google/gemini-cli 0.39.1, 0.40.0-preview.3, run-gemini-cli 0.1.22</p><p data-ke-size="size16"> </p><p data-ke-size="size16">흠. 까보니까 별거 없네</p><p data-ke-size="size16"> </p><p data-ke-size="size16">그냥 진짜 AI 딸-깍을 해놓으니까 공격자들이 이것 저것 하기 시작했다.. </p><p data-ke-size="size16"> </p><p data-ke-size="size16"> </p>
+# Critical Gemini CLI Flaw Enabled Host Code Execution, Supply Chain Attacks
+
+<https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/>
+
+[Critical Gemini CLI Flaw Enabled Host Code Execution, Supply Chain Attacks
+
+A critical remote code execution and supply chain vulnerability was recently discovered by researchers in Gemini CLI.
+
+www.securityweek.com](https://www.securityweek.com/critical-gemini-cli-flaw-enabled-host-code-execution-supply-chain-attacks/)
+
+이번에는 codex가 아니라 Gemini CLI 버전.
+
+Gemini CLI가 CI/CD같은 자동 실행 환경에서 작업 폴더를 무한 신뢰하면서 PR이나 repo안에 심우던 악성 .gemini 설정이 로드 --> 샌드박스 켜지기 -> host에서 명령어가 실행될 수 있었던 취약점이다. 심지어 이걸로 RCE도 가능함.
+
+더보기
+
+RCE
+
+공격자가 네트워크를 통해 원격에서 대상 시스템(서버, PC 등)의 제어권을 탈취하여 악성 코드를 실행하는 치명적인 보안 취약점입니다. 입력값 검증 미흡, 안전하지 않은 역직렬화, 버퍼 오버플로우 등이 원인이며, 시스템 제어, 데이터 유출, 랜섬웨어 감염을 유발할 수 있습니다.
+
+근데 뭐 설명이 거의 똑같아서 시나리오를 기반으로 설명을 해본다고 한다면..
+
+다시금 나타난 룰루랄라 개발팀..
+
+GitHub Actions를 활용 -> Github CLI를 계속 쓰면서 PR리뷰, 이슈 분석, 코드 설명, 자동 수정 같은 걸 딸-깍 중
+
+공격자가 외부 contributor처럼 PR을 날리는데, 해당 PR에는 Gemini CLI가 읽을 수 있는 악성 .gemini/ 설정 파일이나 환경 설정이 같이 들어 있다..
+
+이제 여기서 문제!
+
+Gemini CLi가 CI/headless 환경에서 현재 workspace는 믿을 만하네~~ 라고 생각하는 것.
+
+그래서 agent 설정으로 그걸 받아들이고 해당 host runner에서 명령 실행까지 한다는 것 이다.
+
+그래서 host runner에서 명령 실행까지 이어질 수 있다. ->
+
+https://novee.security/blog/google-gemini-cli-rce-vulnerability-cvss-10-critical-security-advisory/
+
+여기서 보면 prompt injection도 아니고 모델 판단도 아니라, AI가 추론하기 전에 발생하는 infrastructure-level execution 문제라라고 한다
+
+전체적인 흐름->
+
+공격자 PR 제출\
+→ PR 안에 악성 .gemini 설정 포함\
+→ GitHub Actions에서 Gemini CLI 자동 실행\
+→ Gemini CLI가 workspace를 자동 신뢰\
+→ 악성 설정 로드\
+→ sandbox 초기화 전 host에서 명령 실행\
+→ CI secret, token, source code 접근 가능\
+→ supply chain attack으로 확장 가능
+
+그래서 패치는??
+
+Google은 headless mode, 즉 모든 권한을 주는 모드에서 더 이상 workspace를 자동 신뢰하지 않도록 바꿨고 설정 파일을 읽기 전에 명시적인 trust 결정이 필요하도록 수정했다.
+
+공식 패치 버전은 -> advisory 기준 @google/gemini-cli 0.39.1, 0.40.0-preview.3, run-gemini-cli 0.1.22
+
+흠. 까보니까 별거 없네
+
+그냥 진짜 AI 딸-깍을 해놓으니까 공격자들이 이것 저것 하기 시작했다..
