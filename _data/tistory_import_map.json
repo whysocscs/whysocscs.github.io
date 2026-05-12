@@ -38,6 +38,7 @@
     "35": { "category": "Development", "tags": ["git"] },
     "38": { "category": "TechnicalDocument", "tags": ["퍼징", "프론티어"] },
     "39": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
-    "40": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] }
+    "40": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
+    "41": { "category": "Paper-Conference", "tags": ["프론티어", "AI 보안", "음성보안"] }
   }
 }
