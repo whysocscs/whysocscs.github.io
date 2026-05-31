@@ -56,8 +56,8 @@ export const PROJECT_ITEMS = [
     description: 'Applied security architecture for OT environments with an SLM-centered defensive workflow.',
   },
   {
-    title: 'SyzDirect',
-    description: 'Directed greybox fuzzing work focused on Linux kernel efficiency and path discovery.',
+    title: 'SyzAgent',
+    description: 'SyzDirect-based Linux kernel fuzzing with an LLM agent loop for stalled target discovery.',
   },
   {
     title: 'Honeypot',

@@ -140,18 +140,20 @@ export default function HomePage() {
               </span>
             </div>
             <h3 className="le-title">
-              Syz<em>Direct</em>
+              <a href="/projects/syzdirect">
+                Syz<em>Agent</em>
+              </a>
             </h3>
             <p className="le-body">
-              Directed greybox fuzzing for the Linux kernel. Path-aware seed steering to surface
-              bugs in targeted syscall regions faster than syzkaller&apos;s scatter approach.
+              SyzDirect-based Linux kernel fuzzing with an LLM agent loop that diagnoses stalled
+              runs and repairs syscall templates or seeds.
             </p>
             <div className="le-tags">
               Kernel
               <br />
               Fuzzing
               <br />
-              Ongoing
+              2026
             </div>
           </div>
 
@@ -379,7 +381,7 @@ export default function HomePage() {
 
             <div data-reveal="" data-delay="3">
               <span className="fg-label">Building</span>
-              SyzDirect
+              SyzAgent
               <br />
               Honeypot telemetry
             </div>

@@ -92,6 +92,90 @@ function SlimeProjectDiagrams() {
   );
 }
 
+function SyzAgentProjectDiagrams() {
+  return (
+    <section className="project-wide-section project-diagrams" aria-label="SyzAgent diagrams">
+      <h3>Pipeline / Agent Loop</h3>
+
+      <div className="diagram-panel">
+        <div className="diagram-caption">
+          <span>01</span>
+          <strong>Directed Fuzzing Pipeline</strong>
+        </div>
+        <div className="architecture-grid">
+          <div className="diagram-node">
+            <span>Target</span>
+            <strong>CVE / Function / File</strong>
+            <p>타겟 함수, 파일, 커널 커밋, CVE 정보를 실행 단위로 정리한다.</p>
+          </div>
+          <div className="diagram-arrow" aria-hidden="true">
+            →
+          </div>
+          <div className="diagram-node">
+            <span>Static Analysis</span>
+            <strong>Interface + Distance</strong>
+            <p>LLVM bitcode, syscall interface, target distance를 계산한다.</p>
+          </div>
+          <div className="diagram-arrow" aria-hidden="true">
+            →
+          </div>
+          <div className="diagram-node is-core">
+            <span>Fuzzing</span>
+            <strong>SyzDirect / syz-manager</strong>
+            <p>거리 기반 에너지 할당으로 목표 코드에 가까운 입력을 우선 탐색한다.</p>
+          </div>
+          <div className="diagram-arrow" aria-hidden="true">
+            →
+          </div>
+          <div className="diagram-node">
+            <span>Monitor</span>
+            <strong>Coverage / Distance</strong>
+            <p>exec/s, cover/s, crash, distance 변화량으로 정체 여부를 판단한다.</p>
+          </div>
+          <div className="diagram-arrow" aria-hidden="true">
+            →
+          </div>
+          <div className="diagram-node">
+            <span>Agent Loop</span>
+            <strong>Template / Seed Repair</strong>
+            <p>실패 원인에 맞춰 callfile, syscall chain, seed corpus를 보강한다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="diagram-panel">
+        <div className="diagram-caption">
+          <span>02</span>
+          <strong>Failure Triage</strong>
+        </div>
+        <div className="flow-chart">
+          {[
+            ['R1', 'syscall entry 식별 실패'],
+            ['R2', 'argument/object 생성 실패'],
+            ['R3', 'dependency syscall chain 부족'],
+            ['R4', 'distance/coverage stall'],
+            ['Enhance', 'LLM seed/callfile 보강'],
+            ['Re-fuzz', '개선 입력으로 재실행'],
+          ].map(([label, detail], index, items) => (
+            <div className="flow-step-wrap" key={label}>
+              <div className="flow-step">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{label}</strong>
+                <p>{detail}</p>
+              </div>
+              {index < items.length - 1 ? (
+                <div className="flow-arrow" aria-hidden="true">
+                  →
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function generateStaticParams() {
   return PORTFOLIO_PROJECTS.map((project) => ({
     slug: project.slug,
@@ -184,6 +268,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </section>
                   {project.slug === 'slime' && section.title.startsWith('2.') ? (
                     <SlimeProjectDiagrams />
+                  ) : null}
+                  {project.slug === 'syzdirect' && section.title.startsWith('2.') ? (
+                    <SyzAgentProjectDiagrams />
                   ) : null}
                 </Fragment>
               ))}
