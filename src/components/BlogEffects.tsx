@@ -1,7 +1,29 @@
 'use client';
 import { useEffect } from 'react';
 
-export default function BlogEffects() {
+interface FrameLink {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+interface BlogEffectsProps {
+  sectionLabel?: string;
+  frameMeta?: string;
+  navLinks?: FrameLink[];
+}
+
+const DEFAULT_NAV_LINKS: FrameLink[] = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: 'https://github.com/whysocscs', label: 'GitHub', external: true },
+];
+
+export default function BlogEffects({
+  sectionLabel = 'Archive',
+  frameMeta = 'Archive vol. 01',
+  navLinks = DEFAULT_NAV_LINKS,
+}: BlogEffectsProps) {
   useEffect(() => {
     document.body.style.cursor = 'none';
     sessionStorage.setItem('introSeen', '1');
@@ -306,16 +328,24 @@ export default function BlogEffects() {
       <div className="frame frame-blog">
         <div className="fr-logo">
           Lee Sangho<br />
-          <span style={{ color: 'var(--muted)' }}>/ Archive</span>
+          <span style={{ color: 'var(--muted)' }}>/ {sectionLabel}</span>
         </div>
         <nav className="fr-nav">
-          <a href="/">Home</a>
-          <a href="https://github.com/whysocscs" target="_blank" rel="noopener">GitHub</a>
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              key={`${link.href}-${link.label}`}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
         <div className="fr-coord">
           N 36 21 22<br />
           E 127 23 46<br />
-          <span style={{ color: 'var(--muted)' }}>Archive vol. 01</span>
+          <span style={{ color: 'var(--muted)' }}>{frameMeta}</span>
         </div>
         <div className="fr-depth">
           <span>Depth</span>

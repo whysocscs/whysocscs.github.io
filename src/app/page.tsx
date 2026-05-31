@@ -116,6 +116,9 @@ export default function HomePage() {
               <br />
               or already surfaced.
             </h2>
+            <a className="archive-link" href="/projects">
+              Open project record
+            </a>
           </div>
 
           <div className="log-group active" data-reveal="" data-delay="1">
@@ -196,7 +199,9 @@ export default function HomePage() {
               <span className="le-depth">~1000m</span>
             </div>
             <h3 className="le-title">
-              SLM-based <em>OT</em>
+              <a href="/projects#slime">
+                SLM-based <em>OT</em>
+              </a>
             </h3>
             <p className="le-body">
               Applied security architecture for OT environments with a small-language-model

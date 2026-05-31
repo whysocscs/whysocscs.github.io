@@ -598,7 +598,7 @@ export default function HomeEffects() {
         </div>
         <nav className="fr-nav">
           <a href="#about">01 About</a>
-          <a href="#projects">02 Projects</a>
+          <a href="/projects">02 Projects</a>
           <a href="#topics">03 Archive</a>
           <a href="/blog">04 Blog ↗</a>
         </nav>
