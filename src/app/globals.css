@@ -622,6 +622,9 @@ section.stage {
 .project-body section:first-child {
   grid-column:1 / -1;
 }
+.project-body .project-wide-section {
+  grid-column:1 / -1;
+}
 .project-body section {
   min-width:0;
 }

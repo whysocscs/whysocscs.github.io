@@ -82,6 +82,25 @@ export default async function ProjectDetailPage({ params }: Props) {
                 ))}
               </section>
 
+              {project.detailSections?.map((section) => (
+                <section
+                  className={section.wide ? 'project-wide-section' : undefined}
+                  key={section.title}
+                >
+                  <h3>{section.title}</h3>
+                  {section.paragraphs?.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                  {section.items ? (
+                    <ul>
+                      {section.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </section>
+              ))}
+
               <section>
                 <h3>What I did</h3>
                 <ul>
