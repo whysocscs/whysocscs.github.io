@@ -661,42 +661,6 @@ section.stage {
   text-transform:uppercase;
   background:oklch(0.08 0.02 225 / .32);
 }
-.project-visuals {
-  margin-top:46px;
-}
-.project-visuals h3 {
-  color:var(--plankton);
-  font-family:var(--font-mono);
-  font-size:10px;
-  letter-spacing:.18em;
-  margin-bottom:16px;
-  text-transform:uppercase;
-}
-.project-media-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px;
-}
-.project-media {
-  border:1px solid var(--line-soft);
-  background:oklch(0.035 0.009 230 / .72);
-  overflow:hidden;
-}
-.project-media img {
-  display:block;
-  width:100%;
-  aspect-ratio:16 / 9;
-  object-fit:cover;
-  background:oklch(0.012 0.003 250);
-}
-.project-media figcaption {
-  border-top:1px solid var(--line-soft);
-  color:var(--foam-muted);
-  font-size:13px;
-  line-height:1.62;
-  padding:14px 16px 16px;
-}
-
 @media(max-width:900px) {
   .projects-page{padding:112px 6vw 76px}
   .projects-hero{grid-template-columns:1fr;gap:28px;min-height:auto}
@@ -705,7 +669,6 @@ section.stage {
   .project-role{text-align:left}
   .project-body{grid-template-columns:1fr}
   .project-body section:first-child{grid-column:auto}
-  .project-media-grid{grid-template-columns:1fr}
 }
 
 @media(pointer: coarse) {

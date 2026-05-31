@@ -99,20 +99,6 @@ export default function ProjectsPage() {
                     </section>
                   ) : null}
                 </div>
-
-                {project.media ? (
-                  <section className="project-visuals" aria-label={`${project.title} visual references`}>
-                    <h3>Visual References</h3>
-                    <div className="project-media-grid">
-                      {project.media.map((item) => (
-                        <figure className="project-media" key={item.src}>
-                          <img src={item.src} alt={item.alt} loading="lazy" />
-                          <figcaption>{item.caption}</figcaption>
-                        </figure>
-                      ))}
-                    </div>
-                  </section>
-                ) : null}
               </div>
             </article>
           ))}

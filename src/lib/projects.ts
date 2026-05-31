@@ -9,11 +9,6 @@ export interface PortfolioProject {
   achievements?: string[];
   stack: string[];
   result: string;
-  media?: {
-    src: string;
-    alt: string;
-    caption: string;
-  }[];
 }
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
@@ -36,12 +31,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       'Docker 기반 가상 테스트베드 구축을 실험했다. OpenPLC, SCADA-LTS, pymodbus, SMOD를 사용해 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송을 검증했다.',
       '개발팀에서 시스템 인프라 및 테스트베드 구축 역할을 맡았고, 후반부에는 대시보드 프론트엔드 UI/UX 구현 담당으로 React/Vite 기반 관제 화면 구조를 학습하고 구현 흐름을 정리했다.',
       'DL 기반 이상 탐지 흐름에서 window sliding, 중첩 윈도우 문제, SLM이 생성한 패턴 데이터와 DL 학습 데이터 연결 방식, XAI 입력에 필요한 feature/context/evidence 구조를 정리했다.',
-      '최종보고서 작성 과정에서는 내가 조사한 OT 보안 솔루션 리서치, SLM 차별점, 테스트베드 및 데이터 분석 내용을 프로젝트 문서에 반영했다.',
     ],
     achievements: [
       '공동저자 논문: 최은지, 김혜민, 남보현, 류기현, 이상호, 전도현, 강대명, 김관영, 노용훈, "변전소 운영자용 위협 모델: Modbus 기반 기만·물리조작 시나리오," 2025년 한국정보보호학회 동계학술대회, 2025.',
       '2025 대한민국 물산업 혁신창업 대전 우수상, 2025.12.',
-      'BoB 14기 프로젝트로 ML/DL/SLM 기반 하이브리드 탐지 프로토타입과 관제 대시보드 시연을 완료했다.',
     ],
     stack: [
       'OT/ICS Security',
@@ -63,27 +56,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       'XAI',
     ],
     result:
-      'OT 보안, 산업 프로토콜 분석, 테스트베드 구축, 데이터 전처리, AI 기반 이상 탐지, 관제 대시보드 개발을 하나의 시스템으로 연결해 본 프로젝트였다. 특히 AI 모델 자체보다 좋은 탐지를 만들기 위한 데이터 구조와 전처리, 그리고 운영자가 이해할 수 있는 설명의 중요성을 체감했다.',
-    media: [
-      {
-        src: '/projects/slime/system-architecture.webp',
-        alt: 'SLiMe system architecture data flow diagram',
-        caption:
-          'SLiMe 시스템 아키텍처. 분석 단계에서 파서와 데이터 구조를 만들고, 시뮬레이션 단계에서 SLM이 정상 패턴을 라벨링하며, 운영 단계에서 ML/DL 탐지 결과를 SLM XAI 보고서로 연결한다.',
-      },
-      {
-        src: '/projects/slime/attack-scenario.webp',
-        alt: 'Semantic attack scenario for smart factory testbed',
-        caption:
-          'KISA 스마트보안 리빙랩 음료 공정 테스트베드 기반 의미론적 공격 시나리오. 내부망 침투, PLC 로직 변조, 정상 명령 위장, 공정 방해 및 은폐 흐름으로 구성했다.',
-      },
-      {
-        src: '/projects/slime/dashboard-prototype.webp',
-        alt: 'SLiMe dashboard prototype',
-        caption:
-          '대시보드 프로토타입. 위협 점수, 알림, 자산 상태, 트래픽 흐름, SLM 분석 결과를 관제 화면에서 확인하도록 설계했다.',
-      },
-    ],
+      'BoB 글들을 돌아보면 이 프로젝트의 핵심 성과는 단순히 데모를 만든 것이 아니라, OT 보안 문제를 실제 데이터와 시스템 흐름으로 쪼개서 이해한 경험이었다. 팀빌딩 이후 주제를 여러 번 재검토했고, 1차 발표 전에는 아키텍처를 다시 잡으면서 SLM이 어디에서 의미 있는 역할을 해야 하는지 정리했다. 이후 CIC Dataset과 Modbus/TCP 패킷을 분석하며 TID, function code, register, request/response 시간, 502 포트 ACK 처리처럼 탐지 성능에 직접 영향을 주는 필드를 확인했다. 특히 2차 발표 직전에는 전처리 데이터와 SLM 쪽 데이터가 맞지 않는 문제를 추적하다가 TCP ACK가 Modbus 패킷처럼 잡히는 파서 문제를 발견했고, 이 경험을 통해 AI 모델보다 앞단의 파싱과 데이터 검증이 훨씬 중요하다는 점을 체감했다. 발표와 공모전 IR 피칭을 거치면서는 같은 기술이라도 보안 담당자, 개발자, 심사위원에게 다르게 설명해야 한다는 점을 배웠고, 프로젝트 막판에는 ML/DL 결과, SLM 분석, 대시보드 연동이 맞물릴 때 생기는 일정과 통합 리스크까지 경험했다.',
   },
   {
     title: 'SyzDirect',
