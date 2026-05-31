@@ -22,7 +22,7 @@ function SlimeProjectDiagrams() {
           <div className="diagram-node">
             <span>OT Traffic</span>
             <strong>Modbus / XGT / S7comm</strong>
-            <p>테스트베드와 OT 네트워크에서 산업 프로토콜 트래픽을 수집한다.</p>
+            <p>OT 네트워크에서 산업 프로토콜 트래픽을 수집한다.</p>
           </div>
           <div className="diagram-arrow" aria-hidden="true">
             →

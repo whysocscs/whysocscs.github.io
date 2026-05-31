@@ -27,13 +27,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     title: 'SLiMe',
     period: '2025.08 - 2025.12',
     status: 'Completed',
-    role: 'Development team / testbed, packet analysis, dashboard UI',
+    role: 'Development team / packet analysis, dashboard UI',
     summary:
       '산업 프로토콜 대상 SLM 기반 공격 탐지 시스템. OT/ICS 환경의 네트워크 트래픽을 ML/DL로 탐지하고, SLM 기반 XAI 보고서로 위협의 의미와 대응 근거를 설명하는 보안 관제 프로젝트다.',
     overview: [
       'SLiMe는 Modbus, XGT FEnet, S7comm 등 산업 프로토콜 트래픽을 분석해 OT 환경의 이상 행위를 탐지하는 BoB 14기 팀 프로젝트다. 기존 OT 보안 솔루션이 시그니처, 룰, 통계적 임계값 중심으로 이상 여부를 알려주는 데 그치는 문제를 줄이고, 운영자가 이해할 수 있는 분석 근거까지 제공하는 것을 목표로 했다.',
       '시스템은 분석 단계, 시뮬레이션 단계, 운영 단계로 나뉜다. 분석 단계에서는 트래픽을 저장하고 프로토콜 구조를 분석해 파서를 개발한다. 시뮬레이션 단계에서는 SLM이 정상 패턴을 분석하고 라벨을 생성해 ML/DL 학습 데이터로 연결한다. 운영 단계에서는 실시간 트래픽을 수신해 ML/DL이 이상 탐지를 수행하고, 탐지 결과를 SLM 기반 XAI 분석으로 넘겨 보고서를 생성한다.',
-      '검증 시나리오는 단순 장애 유발보다 정상 제어 명령처럼 보이는 의미론적 공격에 초점을 맞췄다. 예를 들어 KISA 스마트보안 리빙랩 음료 공정 테스트베드에서는 내부망 침투, PLC 로직 변조, HMI를 통한 정상 제어 명령 위장, 공정 방해 및 은폐 흐름을 MITRE ATT&CK for ICS 관점으로 구성했다.',
+      '검증 시나리오는 단순 장애 유발보다 정상 제어 명령처럼 보이는 의미론적 공격에 초점을 맞췄다. 예를 들어 KISA 스마트보안 리빙랩 음료 공정 환경에서는 내부망 침투, PLC 로직 변조, HMI를 통한 정상 제어 명령 위장, 공정 방해 및 은폐 흐름을 MITRE ATT&CK for ICS 관점으로 구성했다.',
     ],
     detailSections: [
       {
@@ -48,7 +48,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       {
         title: '2. System Architecture',
         items: [
-          '데이터 수집 계층은 OT 네트워크 트래픽을 미러링하거나 테스트베드에서 수집하고, Modbus/TCP, XGT FEnet, S7comm 등 프로토콜별 필드를 구조화한다.',
+          '데이터 수집 계층은 OT 네트워크 트래픽을 미러링하거나 실험 환경에서 수집하고, Modbus/TCP, XGT FEnet, S7comm 등 프로토콜별 필드를 구조화한다.',
           '전처리 계층은 원시 패킷을 그대로 모델에 넣지 않고 timestamp, 송수신지, function code, register/coil, request-response 관계를 추출한 뒤 Protocol Log Sequence(PLS) 형태로 변환한다.',
           '탐지 계층은 통계 기반 1차 필터링과 시계열/문맥 기반 2차 분석을 결합한 하이브리드 구조를 따른다. HBOS 기반 통계 탐지와 Bi-LSTM 기반 문맥 분석을 조합해 개별 패킷 이상과 시퀀스 이상을 나누어 판단하는 구조를 제안했다.',
           '해석 계층은 탐지 결과, 원본 패킷 필드, 정상 문맥, evidence를 SLM 입력으로 묶어 위협 유형, 규격 위반, 물리적 영향, 대응 근거를 자연어 보고서와 JSON 스키마로 생성한다.',
@@ -62,7 +62,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
           '기존 OT 보안 솔루션 9종과 OT/ICS 보안, 산업 프로토콜 취약점, SLM 적용 동향을 조사해 프로젝트의 문제 정의와 기존 ML/DL 탐지 대비 차별점을 정리했다.',
           'CIC/Modbus 데이터와 KISA 스마트보안 리빙랩 트래픽을 보면서 Modbus/TCP의 MBAP 헤더, function code, register, request-response 흐름, 공격 패킷 특성을 분석했다.',
           'Modbus/TCP packet parser와 전처리 흐름을 검증하면서 502 포트 TCP ACK가 Modbus 패킷처럼 잡히는 문제를 확인했고, 모델 이전 단계에서 데이터 정합성이 깨질 수 있는 지점을 추적했다.',
-          'OpenPLC, SCADA-LTS, pymodbus, SMOD 기반 Docker 테스트베드 실험을 통해 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송 흐름을 확인했다.',
+          'OpenPLC, SCADA-LTS, pymodbus, SMOD 기반 Docker 실험 환경에서 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송 흐름을 확인했다.',
           'DL 기반 이상 탐지 흐름에서 window sliding, 중첩 윈도우 문제, SLM이 생성한 패턴 데이터와 DL 학습 데이터 연결 방식, XAI 입력에 필요한 feature/context/evidence 구조를 정리했다.',
           '후반부에는 관제 대시보드에서 ML/DL 탐지 결과와 SLM 분석 보고서를 운영자가 확인할 수 있도록 화면 구조와 UI/UX 흐름을 정리했다.',
         ],
@@ -84,8 +84,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       '기존 OT 보안 솔루션 9종을 조사해 베이스라인 학습, 임계값 기반 이상 탐지, 알림 중심 관제의 한계를 정리하고, SLiMe가 SLM을 통해 공격 의도와 대응 근거를 설명한다는 차별점을 도출했다.',
       'CIC/Modbus 계열 데이터와 KISA 스마트보안 리빙랩 트래픽을 확인하며 Modbus/TCP 패킷 구조, function code, query/response 흐름, 공격 패킷 특성을 분석했다.',
       'Modbus/TCP packet parser 코드를 작성하고, 학습 데이터로 사용할 필드와 프로토콜별 처리 지점을 정리했다.',
-      'Docker 기반 가상 테스트베드 구축을 실험했다. OpenPLC, SCADA-LTS, pymodbus, SMOD를 사용해 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송을 검증했다.',
-      '개발팀에서 시스템 인프라 및 테스트베드 구축 역할을 맡았고, 후반부에는 대시보드 프론트엔드 UI/UX 구현 담당으로 React/Vite 기반 관제 화면 구조를 학습하고 구현 흐름을 정리했다.',
+      'Docker 기반 가상 실험 환경 구축을 실험했다. OpenPLC, SCADA-LTS, pymodbus, SMOD를 사용해 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송을 검증했다.',
+      '개발팀에서 시스템 인프라 및 실험 환경 구축 역할을 맡았고, 후반부에는 대시보드 프론트엔드 UI/UX 구현 담당으로 React/Vite 기반 관제 화면 구조를 학습하고 구현 흐름을 정리했다.',
       'DL 기반 이상 탐지 흐름에서 window sliding, 중첩 윈도우 문제, SLM이 생성한 패턴 데이터와 DL 학습 데이터 연결 방식, XAI 입력에 필요한 feature/context/evidence 구조를 정리했다.',
     ],
     achievements: [
