@@ -121,7 +121,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     status: 'Completed',
     role: 'Research / implementation, agent loop, experiment pipeline',
     summary:
-      'SyzDirect 기반 Linux kernel directed fuzzing에 LLM agent loop를 결합한 연구 프로젝트. 퍼징이 정체될 때 실패 원인을 R1-R4로 분류하고, syscall template, callfile, seed를 보강해 목표 코드 도달을 개선하는 것을 목표로 했다.',
+      'Linux kernel directed fuzzing에서 목표 코드 도달이 정체되는 원인을 자동 진단하고, LLM 기반 agent loop로 syscall template, callfile, seed를 보강한 연구형 구현이다.',
     overview: [
       'SyzAgent는 SyzDirect(CCS 2023)의 directed kernel fuzzing 파이프라인에 LLM 기반 agent loop를 붙인 프로젝트다. 기존 SyzDirect는 정적 분석으로 타겟 코드까지의 syscall entry와 distance를 계산하고 syzkaller 계열 fuzzer로 목표 지점에 가까운 입력을 우선 탐색한다.',
       '프로젝트의 핵심 문제는 퍼징이 멈췄을 때 단순히 더 오래 실행하는 것이 아니라 왜 목표 지점에 도달하지 못하는지 분류하는 것이었다. 이를 위해 syscall entry 식별 실패, 복잡한 인자 생성 실패, syscall 의존 체인 부족, distance/coverage 정체를 R1/R2/R3/R4로 나누고 각 유형에 맞는 보강 루프를 설계했다.',

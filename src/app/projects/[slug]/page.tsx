@@ -245,7 +245,6 @@ export default async function ProjectDetailPage({ params }: Props) {
             <div className="project-body">
               <section>
                 <h3>What it is</h3>
-                <p>{project.summary}</p>
                 {project.overview?.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
