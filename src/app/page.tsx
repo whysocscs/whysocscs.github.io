@@ -199,7 +199,7 @@ export default function HomePage() {
               <span className="le-depth">~1000m</span>
             </div>
             <h3 className="le-title">
-              <a href="/projects#slime">
+              <a href="/projects/slime">
                 SLM-based <em>OT</em>
               </a>
             </h3>

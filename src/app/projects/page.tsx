@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import BlogEffects from '@/components/BlogEffects';
-import { PORTFOLIO_PROJECTS } from '@/lib/projects';
+import { getProjectPath, PORTFOLIO_PROJECTS } from '@/lib/projects';
 
 export const metadata: Metadata = {
   title: 'Projects | Lee Sangho',
@@ -33,12 +33,12 @@ export default function ProjectsPage() {
           </p>
         </section>
 
-        <section className="project-records" aria-label="Project records">
+        <section className="project-records project-list" aria-label="Project records">
           {PORTFOLIO_PROJECTS.map((project, index) => (
             <article
-              className="project-record"
+              className="project-record project-summary-record"
               key={project.title}
-              id={project.title.toLowerCase().replaceAll(' ', '-')}
+              id={project.slug}
               data-reveal=""
               data-delay={String(Math.min(index + 1, 6))}
             >
@@ -51,53 +51,31 @@ export default function ProjectsPage() {
                 <div className="project-heading">
                   <div>
                     <p className="project-period">{project.period}</p>
-                    <h2>{project.title}</h2>
+                    <h2>
+                      <a href={getProjectPath(project)}>{project.title}</a>
+                    </h2>
                   </div>
                   <p className="project-role">{project.role}</p>
                 </div>
 
-                <div className="project-body">
-                  <section>
-                    <h3>What it is</h3>
+                <div className="project-list-body">
+                  <section className="project-list-summary">
+                    <h3>Summary</h3>
                     <p>{project.summary}</p>
-                    {project.overview?.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
                   </section>
 
-                  <section>
-                    <h3>What I did</h3>
-                    <ul>
-                      {project.contributions.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </section>
-
-                  <section>
-                    <h3>Stack / Keywords</h3>
+                  <section className="project-list-stack">
+                    <h3>Keywords</h3>
                     <div className="project-tags">
-                      {project.stack.map((item) => (
+                      {project.stack.slice(0, 7).map((item) => (
                         <span key={item}>{item}</span>
                       ))}
                     </div>
                   </section>
 
-                  <section>
-                    <h3>Result</h3>
-                    <p>{project.result}</p>
-                  </section>
-
-                  {project.achievements ? (
-                    <section>
-                      <h3>Achievements</h3>
-                      <ul>
-                        {project.achievements.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                  ) : null}
+                  <a className="project-detail-link" href={getProjectPath(project)}>
+                    Open detail
+                  </a>
                 </div>
               </div>
             </article>

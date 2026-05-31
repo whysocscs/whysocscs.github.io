@@ -1,4 +1,5 @@
 export interface PortfolioProject {
+  slug: string;
   title: string;
   period: string;
   status: string;
@@ -13,6 +14,7 @@ export interface PortfolioProject {
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
+    slug: 'slime',
     title: 'SLiMe',
     period: '2025.08 - 2025.12',
     status: 'Completed',
@@ -59,6 +61,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       'BoB 글들을 돌아보면 이 프로젝트의 핵심 성과는 단순히 데모를 만든 것이 아니라, OT 보안 문제를 실제 데이터와 시스템 흐름으로 쪼개서 이해한 경험이었다. 팀빌딩 이후 주제를 여러 번 재검토했고, 1차 발표 전에는 아키텍처를 다시 잡으면서 SLM이 어디에서 의미 있는 역할을 해야 하는지 정리했다. 이후 CIC Dataset과 Modbus/TCP 패킷을 분석하며 TID, function code, register, request/response 시간, 502 포트 ACK 처리처럼 탐지 성능에 직접 영향을 주는 필드를 확인했다. 특히 2차 발표 직전에는 전처리 데이터와 SLM 쪽 데이터가 맞지 않는 문제를 추적하다가 TCP ACK가 Modbus 패킷처럼 잡히는 파서 문제를 발견했고, 이 경험을 통해 AI 모델보다 앞단의 파싱과 데이터 검증이 훨씬 중요하다는 점을 체감했다. 발표와 공모전 IR 피칭을 거치면서는 같은 기술이라도 보안 담당자, 개발자, 심사위원에게 다르게 설명해야 한다는 점을 배웠고, 프로젝트 막판에는 ML/DL 결과, SLM 분석, 대시보드 연동이 맞물릴 때 생기는 일정과 통합 리스크까지 경험했다.',
   },
   {
+    slug: 'syzdirect',
     title: 'SyzDirect',
     period: '2026.01 - Present',
     status: 'Ongoing',
@@ -76,6 +79,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       '현재 연구와 구현을 병행 중. 다음 단계는 재현 가능한 실험 환경과 baseline 측정 기준을 명확히 정리하는 것이다.',
   },
   {
+    slug: 'honeypot-telemetry',
     title: 'Honeypot Telemetry',
     period: '2026 - Present',
     status: 'Ongoing',
@@ -93,3 +97,11 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       '설계와 실험을 진행 중. 이후 공개 가능한 architecture diagram, sample log, 분석 기준을 추가할 계획.',
   },
 ];
+
+export function getProjectBySlug(slug: string) {
+  return PORTFOLIO_PROJECTS.find((project) => project.slug === slug);
+}
+
+export function getProjectPath(project: PortfolioProject) {
+  return `/projects/${project.slug}`;
+}

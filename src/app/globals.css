@@ -595,10 +595,24 @@ section.stage {
   line-height:.98;
   color:var(--foam);
 }
+.project-heading h2 a {
+  display:inline-block;
+  transition:color .35s var(--ease-depth), transform .35s var(--ease-depth);
+}
+.project-heading h2 a:hover {
+  color:var(--plankton);
+  transform:translateX(6px);
+}
 .project-role {
   color:var(--foam-muted);
   line-height:1.6;
   text-align:right;
+}
+.project-list-body {
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr) auto;
+  gap:30px;
+  align-items:start;
 }
 .project-body {
   display:grid;
@@ -611,12 +625,18 @@ section.stage {
 .project-body section {
   min-width:0;
 }
-.project-body h3 {
+.project-body h3,
+.project-list-body h3 {
   color:var(--plankton);
   margin-bottom:14px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
 }
 .project-body p,
-.project-body li {
+.project-body li,
+.project-list-body p {
   color:var(--foam-dim);
   font-size:15px;
   line-height:1.72;
@@ -661,14 +681,54 @@ section.stage {
   text-transform:uppercase;
   background:oklch(0.08 0.02 225 / .32);
 }
+.project-detail-link,
+.project-back-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  border:1px solid var(--line);
+  border-radius:2px;
+  color:var(--foam);
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.16em;
+  padding:11px 14px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transition:background .35s var(--ease-depth), border-color .35s var(--ease-depth), color .35s var(--ease-depth);
+}
+.project-detail-link:hover,
+.project-back-link:hover {
+  background:oklch(0.15 0.06 205 / .34);
+  border-color:var(--plankton);
+  color:var(--plankton);
+}
+.project-detail-page {
+  padding-top:118px;
+}
+.project-detail-hero {
+  min-height:42vh;
+}
+.project-record-detail {
+  border-bottom:0;
+}
+.project-record-detail::before {
+  display:none;
+}
+.project-back-link {
+  margin-top:44px;
+}
 @media(max-width:900px) {
   .projects-page{padding:112px 6vw 76px}
   .projects-hero{grid-template-columns:1fr;gap:28px;min-height:auto}
   .project-record{grid-template-columns:1fr;gap:22px;padding:46px 0}
   .project-heading{grid-template-columns:1fr;gap:18px}
   .project-role{text-align:left}
+  .project-list-body{grid-template-columns:1fr}
   .project-body{grid-template-columns:1fr}
   .project-body section:first-child{grid-column:auto}
+  .project-detail-link{justify-self:start}
 }
 
 @media(pointer: coarse) {
