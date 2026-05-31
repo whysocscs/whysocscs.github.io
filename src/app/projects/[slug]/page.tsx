@@ -101,14 +101,16 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </section>
               ))}
 
-              <section>
-                <h3>What I did</h3>
-                <ul>
-                  {project.contributions.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </section>
+              {project.showContributions !== false ? (
+                <section>
+                  <h3>What I did</h3>
+                  <ul>
+                    {project.contributions.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
 
               <section>
                 <h3>Stack / Keywords</h3>

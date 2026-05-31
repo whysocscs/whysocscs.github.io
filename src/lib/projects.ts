@@ -14,6 +14,7 @@ export interface PortfolioProject {
   summary: string;
   overview?: string[];
   detailSections?: ProjectDetailSection[];
+  showContributions?: boolean;
   contributions: string[];
   achievements?: string[];
   stack: string[];
@@ -56,12 +57,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         wide: true,
       },
       {
-        title: '3. My Role',
+        title: '3. My Role & Contributions',
         items: [
-          'OT/ICS 보안, 산업 프로토콜 취약점, SLM 적용 동향을 조사해 프로젝트의 문제 정의와 기존 ML/DL 탐지 대비 차별점을 정리했다.',
-          'CIC/Modbus 데이터와 테스트베드 트래픽을 보면서 Modbus/TCP의 MBAP 헤더, function code, register, request-response 흐름, 공격 패킷 특성을 분석했다.',
+          '기존 OT 보안 솔루션 9종과 OT/ICS 보안, 산업 프로토콜 취약점, SLM 적용 동향을 조사해 프로젝트의 문제 정의와 기존 ML/DL 탐지 대비 차별점을 정리했다.',
+          'CIC/Modbus 데이터와 KISA 스마트보안 리빙랩 트래픽을 보면서 Modbus/TCP의 MBAP 헤더, function code, register, request-response 흐름, 공격 패킷 특성을 분석했다.',
           'Modbus/TCP packet parser와 전처리 흐름을 검증하면서 502 포트 TCP ACK가 Modbus 패킷처럼 잡히는 문제를 확인했고, 모델 이전 단계에서 데이터 정합성이 깨질 수 있는 지점을 추적했다.',
           'OpenPLC, SCADA-LTS, pymodbus, SMOD 기반 Docker 테스트베드 실험을 통해 PLC 연결, coil read/write, 상태 토글, 공격성 write 명령 전송 흐름을 확인했다.',
+          'DL 기반 이상 탐지 흐름에서 window sliding, 중첩 윈도우 문제, SLM이 생성한 패턴 데이터와 DL 학습 데이터 연결 방식, XAI 입력에 필요한 feature/context/evidence 구조를 정리했다.',
           '후반부에는 관제 대시보드에서 ML/DL 탐지 결과와 SLM 분석 보고서를 운영자가 확인할 수 있도록 화면 구조와 UI/UX 흐름을 정리했다.',
         ],
       },
@@ -77,6 +79,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         ],
       },
     ],
+    showContributions: false,
     contributions: [
       '기존 OT 보안 솔루션 9종을 조사해 베이스라인 학습, 임계값 기반 이상 탐지, 알림 중심 관제의 한계를 정리하고, SLiMe가 SLM을 통해 공격 의도와 대응 근거를 설명한다는 차별점을 도출했다.',
       'CIC/Modbus 계열 데이터와 KISA 스마트보안 리빙랩 트래픽을 확인하며 Modbus/TCP 패킷 구조, function code, query/response 흐름, 공격 패킷 특성을 분석했다.',
