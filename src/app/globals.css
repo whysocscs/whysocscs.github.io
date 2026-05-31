@@ -684,6 +684,101 @@ section.stage {
   text-transform:uppercase;
   background:oklch(0.08 0.02 225 / .32);
 }
+.project-diagrams {
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.diagram-panel {
+  border:1px solid var(--line-soft);
+  border-radius:6px;
+  background:linear-gradient(180deg,oklch(0.08 0.025 225 / .52),oklch(0.04 0.015 235 / .34));
+  padding:18px;
+  overflow:hidden;
+}
+.diagram-caption {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px;
+  color:var(--foam);
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.diagram-caption span {
+  color:var(--plankton);
+}
+.architecture-grid {
+  display:grid;
+  grid-template-columns:minmax(150px,1fr) 22px minmax(150px,1fr) 22px minmax(150px,1fr) 22px minmax(150px,1fr) 22px minmax(150px,1fr);
+  gap:10px;
+  align-items:stretch;
+}
+.diagram-node,
+.flow-step {
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:oklch(0.075 0.025 225 / .7);
+  padding:14px;
+}
+.diagram-node.is-core,
+.flow-step-wrap:nth-child(4) .flow-step,
+.flow-step-wrap:nth-child(5) .flow-step {
+  border-color:oklch(0.76 0.11 190 / .62);
+  background:oklch(0.12 0.045 210 / .62);
+  box-shadow:0 0 22px oklch(0.76 0.11 190 / .10);
+}
+.diagram-node span,
+.flow-step span {
+  display:block;
+  margin-bottom:8px;
+  color:var(--plankton);
+  font-family:var(--font-mono);
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.diagram-node strong,
+.flow-step strong {
+  display:block;
+  color:var(--foam);
+  font-size:14px;
+  font-weight:500;
+  line-height:1.35;
+}
+.diagram-node p,
+.flow-step p {
+  margin-top:9px;
+  color:var(--foam-muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.diagram-arrow,
+.flow-arrow {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--plankton);
+  font-family:var(--font-mono);
+  font-size:18px;
+  opacity:.72;
+}
+.flow-chart {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+}
+.flow-step-wrap {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 18px;
+  gap:8px;
+}
+.flow-step-wrap:last-child {
+  grid-template-columns:minmax(0,1fr);
+}
 .project-detail-link,
 .project-back-link {
   display:inline-flex;
@@ -732,6 +827,12 @@ section.stage {
   .project-body{grid-template-columns:1fr}
   .project-body section:first-child{grid-column:auto}
   .project-detail-link{justify-self:start}
+  .architecture-grid,
+  .flow-chart{grid-template-columns:1fr}
+  .diagram-arrow,
+  .flow-arrow{min-height:22px;transform:rotate(90deg)}
+  .flow-step-wrap,
+  .flow-step-wrap:last-child{grid-template-columns:1fr}
 }
 
 @media(pointer: coarse) {
