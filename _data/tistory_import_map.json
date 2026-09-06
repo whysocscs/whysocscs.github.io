@@ -42,6 +42,7 @@
     "41": { "category": "Paper-Conference", "tags": ["프론티어", "AI 보안", "음성보안"] },
     "42": { "category": "TechnicalDocument", "tags": ["프론티어", "IDS", "IPS", "네트워크보안"] },
     "49": { "category": "TechnicalDocument", "tags": ["자료구조", "프론티어", "알고리즘"] },
-    "50": { "category": "TechnicalDocument", "tags": ["AFL", "퍼징", "프론티어", "코드분석"] }
+    "50": { "category": "TechnicalDocument", "tags": ["AFL", "퍼징", "프론티어", "코드분석"] },
+    "55": { "category": "TechnicalDocument", "tags": ["EDR", "Elastic", "프론티어", "엔드포인트보안"] }
   }
 }
