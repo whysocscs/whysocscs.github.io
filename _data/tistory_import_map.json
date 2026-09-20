@@ -49,6 +49,7 @@
     "59": { "category": "Development", "tags": ["SyzAgent", "SyzDirect", "Fuzzing", "Linux Kernel", "NTFS", "CVE-2026-72185"] },
     "60": { "category": "TechnicalDocument", "tags": ["ISMS-P", "프론티어", "개인정보보호"] },
     "61": { "category": "TechnicalDocument", "tags": ["EIP", "이더리움", "블록체인"] },
-    "62": { "category": "TechnicalDocument", "tags": ["EIP", "이더리움", "블록체인"] }
+    "62": { "category": "TechnicalDocument", "tags": ["EIP", "이더리움", "블록체인"] },
+    "63": { "category": "TechnicalDocument", "tags": ["Threat Intelligence", "APT", "프론티어"] }
   }
 }
