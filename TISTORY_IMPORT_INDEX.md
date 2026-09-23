@@ -1,8 +1,8 @@
 # Tistory Import Index
 
 - Source: https://sanghole.tistory.com/
-- Collected on: 2026-09-09
-- Total posts found: 59
+- Collected on: 2026-09-23
+- Total posts found: 64
 
 ## Categories
 
@@ -16,36 +16,19 @@
 - 백준 (3)
 - 퍼징 (3)
 - 회고록 (4)
-- 프론티어 (13)
-- WEB (2)
-- ELP (2)
+- 프론티어 (16)
+- WEB (4)
+- ELP (4)
 - CVE 분석 (1)
 - 카테고리 없음 (8)
 
 ## Posts By Category
 
-### CVE 분석
-
-- [CVE-2026-72185](https://sanghole.tistory.com/59) => Development | tags: SyzAgent, SyzDirect, Fuzzing, Linux Kernel, NTFS, CVE-2026-72185
-
-### WEB/ELP
-
-- [EIP-1559](https://sanghole.tistory.com/58)
-- [ELP](https://sanghole.tistory.com/56)
-
-### AI 보안/security for ai
-
-- [LLMForge(2)](https://sanghole.tistory.com/57)
-- [SasanLabs/LLMForge.git](https://sanghole.tistory.com/54)
-- [promptfoo](https://sanghole.tistory.com/53)
-- [Guidance AI & LMQL](https://sanghole.tistory.com/31) => TechnicalDocument | tags: AI 보안, security for ai
-- [TruLens](https://sanghole.tistory.com/30) => TechnicalDocument | tags: AI 보안, security for ai
-- [Llama Guard, PAIR](https://sanghole.tistory.com/23) => Paper-Conference | tags: AI 보안, security for ai
-- [Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations 후속 연구](https://sanghole.tistory.com/16) => Paper-Conference | tags: AI 보안, security for ai
-- [Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations](https://sanghole.tistory.com/14) => Paper-Conference | tags: AI 보안, security for ai
-
 ### 프론티어
 
+- [개인정보보호법 판례 분석](https://sanghole.tistory.com/64) => TechnicalDocument | tags: 개인정보보호법, 판례분석, 프론티어
+- [Threat Intelligence](https://sanghole.tistory.com/63) => TechnicalDocument | tags: Threat Intelligence, APT, 프론티어
+- [프론티어_처분사례 기반 ISMS-P 보고서 작성](https://sanghole.tistory.com/60) => TechnicalDocument | tags: ISMS-P, 프론티어, 개인정보보호
 - [프론티어_EDR 환경을 직접 구축 후 실습](https://sanghole.tistory.com/55) => TechnicalDocument | tags: EDR, Elastic, 프론티어, 엔드포인트보안
 - [프론티어_AFL 코드 분석](https://sanghole.tistory.com/50) => TechnicalDocument | tags: AFL, 퍼징, 프론티어, 코드분석
 - [프론티어_자료구조](https://sanghole.tistory.com/49) => TechnicalDocument | tags: 자료구조, 프론티어, 알고리즘
@@ -59,6 +42,28 @@
 - [프론티어_최신 보안 사고 사례 분석](https://sanghole.tistory.com/37)
 - [프론티어_git](https://sanghole.tistory.com/35) => Development | tags: git
 - [프론티어_리눅스 기반 시스템 탐색 및 데이터 분석](https://sanghole.tistory.com/34) => CTF/Wargame | tags: Wargame, Bandit, OverTheWire, Linux
+
+### WEB/ELP
+
+- [EIP-1193](https://sanghole.tistory.com/62) => TechnicalDocument | tags: EIP, 이더리움, 블록체인
+- [EIP-778](https://sanghole.tistory.com/61) => TechnicalDocument | tags: EIP, 이더리움, 블록체인
+- [EIP-1559](https://sanghole.tistory.com/58) => TechnicalDocument | tags: EIP, 이더리움, 블록체인
+- [EIP](https://sanghole.tistory.com/56) => TechnicalDocument | tags: EIP, 이더리움, 블록체인
+
+### CVE 분석
+
+- [CVE-2026-72185](https://sanghole.tistory.com/59) => Development | tags: SyzAgent, SyzDirect, Fuzzing, Linux Kernel, NTFS, CVE-2026-72185
+
+### AI 보안/security for ai
+
+- [LLMForge(2)](https://sanghole.tistory.com/57)
+- [SasanLabs/LLMForge.git](https://sanghole.tistory.com/54)
+- [promptfoo](https://sanghole.tistory.com/53)
+- [Guidance AI & LMQL](https://sanghole.tistory.com/31) => TechnicalDocument | tags: AI 보안, security for ai
+- [TruLens](https://sanghole.tistory.com/30) => TechnicalDocument | tags: AI 보안, security for ai
+- [Llama Guard, PAIR](https://sanghole.tistory.com/23) => Paper-Conference | tags: AI 보안, security for ai
+- [Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations 후속 연구](https://sanghole.tistory.com/16) => Paper-Conference | tags: AI 보안, security for ai
+- [Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations](https://sanghole.tistory.com/14) => Paper-Conference | tags: AI 보안, security for ai
 
 ### 회고록
 
