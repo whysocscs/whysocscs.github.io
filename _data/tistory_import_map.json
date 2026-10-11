@@ -51,6 +51,7 @@
     "61": { "category": "TechnicalDocument", "tags": ["EIP", "이더리움", "블록체인"] },
     "62": { "category": "TechnicalDocument", "tags": ["EIP", "이더리움", "블록체인"] },
     "63": { "category": "TechnicalDocument", "tags": ["Threat Intelligence", "APT", "프론티어"] },
-    "64": { "category": "TechnicalDocument", "tags": ["개인정보보호법", "판례분석", "프론티어"] }
+    "64": { "category": "TechnicalDocument", "tags": ["개인정보보호법", "판례분석", "프론티어"] },
+    "67": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] }
   }
 }
