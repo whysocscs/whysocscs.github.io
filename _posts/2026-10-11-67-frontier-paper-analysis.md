@@ -713,3 +713,12 @@ icon: fa-book
 <p data-ke-size="size16"><span>추가적으로 기존 방어 기법인 BERT Detector, Delimiter, Sandwich, AGrail, G-Safeguard의 효과를 비교하였다. 일부 방어 기법은 공격 성공률을 낮추었지만 정상 작업 수행 능력도 감소시켰으며, 특정 상황에서는 오히려 공격을 강화하는 현상이 관찰되었다.</span></p>
 <p data-ke-size="size16"><span>이에 연구진은 작업에 필요한 정보만 Agent의 문맥에 남기는 </span><span>ACI-SENTINEL</span><span> 방어 방식을 추가로 제안하였다. 실험에서 AutoGen의 코드 생성 환경에 대한 Exfiltration 공격 성공률은 54.00%에서 0.22%로 감소하였다.</span></p>
 <p data-ke-size="size16"><span>결과적으로 ACIArena는 </span><span>개별 Agent의 취약성이나 앱 실행 격리를 넘어, Multi-Agent의 역할과 통신 구조에 따른 공격 전파 및 방어 효과를 종합적으로 평가하는 연구</span><span>로 보안 연구 범위를 확장하였다.</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"> </p>
+<h2 data-ke-size="size26">연구에 대한 생각</h2>
+<p data-ke-size="size16">사실 저렇게 Agent 팀을 직접 물려서 사용하는 경우를 주변에서는 잘.... 본 적 없는 것 같다. LLM Agent의 활용이 빠르게 확대되고 있고 묻고 답하는 것을 넘어서 gmail 등의 다양한 외부 도구를 활용하면서 편하긴 하지만 그만큼 보안 취약점이 늘어나고 있는 것 같고, 이런 Agent 팀에 대한 연구에 대해서 Codex 나 Claude code와 같은 실제 코딩 Agent에 대한 연구도 빠르게 늘어날 필요가 있어 보인다.</p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16">하지만 코딩 AGent와 같은 경우에 빠르게 발전해나가며 언제 업데이트가 될 줄 모르고, 언제 새기능이 추가 될지 모르기에 "보안"이라는 항목을 완벽하게 충족시키긴 어려울 것 같다. </p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"> </p>
