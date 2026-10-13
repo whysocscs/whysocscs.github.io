@@ -207,10 +207,41 @@ export function getPostSummary(post: Omit<PostData, 'contentHtml'> | PostData) {
   return 'Field note entry from the archive.';
 }
 
+// Imported Tistory bodies hardcode light-theme text colors (#333, #666, #000)
+// on some elements and leave others bare, so on this dark theme an article
+// renders as a patchwork of near-black and theme-colored text. Drop those
+// inline colors and let every element inherit the theme. An element that also
+// sets its own background keeps its color, since that pairing is a deliberate
+// highlight rather than a leftover default.
+function stripInlineTextColors(html: string) {
+  return html.replace(/\sstyle="([^"]*)"/gi, (full, style: string) => {
+    if (/background(-color)?\s*:/i.test(style)) {
+      return full;
+    }
+
+    // Entity references carry their own ';' (font-family: &#x27;Noto Serif
+    // KR&#x27;), so shield them before splitting the declaration list.
+    const entities: string[] = [];
+    const shielded = style.replace(/&[a-zA-Z0-9#]+;/g, (entity) => {
+      entities.push(entity);
+      return `\u0000${entities.length - 1}\u0000`;
+    });
+
+    const kept = shielded
+      .split(';')
+      .map((declaration) => declaration.trim())
+      .filter((declaration) => declaration && !/^color\s*:/i.test(declaration))
+      .join('; ')
+      .replace(/\u0000(\d+)\u0000/g, (_, index: string) => entities[Number(index)]);
+
+    return kept ? ` style="${kept}"` : '';
+  });
+}
+
 export function decoratePostHtml(contentHtml: string) {
   const seenIds = new Map<string, number>();
   const headings: PostHeading[] = [];
-  const withoutSourceBlock = contentHtml.replace(
+  const withoutSourceBlock = stripInlineTextColors(contentHtml).replace(
     /^\s*<blockquote>\s*<p>\s*Source:\s*<a[\s\S]*?<\/a>\s*<\/p>\s*<\/blockquote>\s*/i,
     '',
   );
