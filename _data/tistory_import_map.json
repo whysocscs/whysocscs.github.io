@@ -53,6 +53,7 @@
     "63": { "category": "TechnicalDocument", "tags": ["Threat Intelligence", "APT", "프론티어"] },
     "64": { "category": "TechnicalDocument", "tags": ["개인정보보호법", "판례분석", "프론티어"] },
     "67": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
-    "70": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] }
+    "70": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
+    "72": { "category": "TechnicalDocument", "tags": ["프론티어", "모의침투", "금융보안", "ASM"] }
   }
 }
