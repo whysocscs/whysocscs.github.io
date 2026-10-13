@@ -75,3 +75,72 @@
     max-width: 75%;
   }
 }
+
+/*
+ * Tistory keditor styles for imported posts.
+ * Imported bodies keep their original data-ke-style / data-ke-size
+ * attributes, but the blog had no rules for them, so quote blocks and
+ * dividers lost their colors and heading sizes fell back to the theme.
+ * Values mirror Tistory's own content.css and pg_Poster skin.
+ */
+.article .ibox-content {
+  h1[data-ke-size] { font-size: 2em; }
+  h2[data-ke-size] { font-size: 1.62em; font-weight: normal; line-height: 1.46; }
+  h3[data-ke-size] { font-size: 1.44em; font-weight: normal; line-height: 1.48; }
+  h4[data-ke-size] { font-size: 1.25em; font-weight: normal; line-height: 1.55; }
+  p[data-ke-size="size18"] { font-size: 1.12em; line-height: 1.67; }
+  p[data-ke-size="size16"] { line-height: 1.75; }
+  p[data-ke-size="size14"] { font-size: 0.87em; line-height: 1.71; }
+
+  blockquote {
+    display: block;
+    margin: 20px auto 0;
+    padding: 16px 20px;
+    border-left: 4px solid #e6e6e6;
+    color: #666;
+    font-size: 1em;
+    line-height: 1.75;
+    letter-spacing: 0;
+  }
+
+  blockquote[data-ke-style="style1"] {
+    border: 0 none;
+    padding: 34px 0 0;
+    background: url(https://t1.daumcdn.net/axz_keditor/dist/latest/image/blockquote-style1.svg) no-repeat 50% 0;
+    text-align: center;
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.12em;
+    color: #333;
+    line-height: 1.67;
+  }
+
+  blockquote[data-ke-style="style2"] {
+    border: solid #d0d0d0;
+    border-width: 0 0 0 4px;
+    padding: 1px 0 0 12px;
+    text-align: left;
+  }
+
+  blockquote[data-ke-style="style3"],
+  blockquote[data-ke-style="box"] {
+    border: 1px solid #dddddd;
+    background-color: #fcfcfc;
+    padding: 21px 25px 20px;
+    text-align: left;
+  }
+
+  hr[data-ke-style] {
+    border: none;
+    font-size: 0;
+    line-height: 0;
+    margin: 20px auto;
+    background: url(https://t1.daumcdn.net/axz_keditor/dist/latest/image/divider-line.svg);
+    background-size: 200px 420px;
+  }
+
+  hr[data-ke-style="style1"] { background-position: center 0; width: 64px; height: 4px; padding: 20px; }
+  hr[data-ke-style="style2"] { background-position: center -48px; width: 64px; height: 3px; padding: 20px; }
+  hr[data-ke-style="style3"] { background-position: center -96px; width: 64px; height: 8px; padding: 18px 20px; }
+  hr[data-ke-style="style5"] { background-position: center -208px; background-repeat: repeat-x; height: 2px; padding: 21px 0; }
+  hr[data-ke-style="style6"] { background-position: center -256px; background-repeat: repeat-x; height: 2px; padding: 21px 0; }
+}
