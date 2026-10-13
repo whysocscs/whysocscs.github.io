@@ -84,6 +84,16 @@
  * Values mirror Tistory's own content.css and pg_Poster skin.
  */
 .article .ibox-content {
+  /*
+   * Tistory colors its whole article container (#article-view { color: #333 }
+   * with #000 headings), so only some elements carry an inline color. Without
+   * the same container color the uncolored ones fell back to the theme's
+   * lighter #676a6c, leaving the body text a patchwork of two grays.
+   */
+  color: #333;
+
+  h2, h3, h4 { color: #000; }
+
   h1[data-ke-size] { font-size: 2em; }
   h2[data-ke-size] { font-size: 1.62em; font-weight: normal; line-height: 1.46; }
   h3[data-ke-size] { font-size: 1.44em; font-weight: normal; line-height: 1.48; }
