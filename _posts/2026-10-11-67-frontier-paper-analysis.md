@@ -11,6 +11,7 @@ icon: fa-book
 > Source: [https://sanghole.tistory.com/67](https://sanghole.tistory.com/67)
 
 <p data-ke-size="size16"> </p>
+<p data-ke-size="size16"> </p>
 <p data-ke-size="size16">중심 논문 하나, 해당 중심 논문에 대한 선행 연구 2개, 중심 논문에 대한 추후 논문 2개를 골라서 분석하기 위해 중심 논문은 IsolateGPT이다.</p>
 <p data-ke-size="size16"> </p>
 <h3 data-ke-size="size23">중심 논문 요약</h3>
@@ -23,7 +24,7 @@ icon: fa-book
 <p data-ke-size="size16"> </p>
 <p data-ke-size="size16"><span>이후 이러한 보안 위협을 시스템 수준에서 해결하려는 IsolateGPT의 핵심 아이디어와 실행 격리 아키텍처를 분석하고, 기존 연구의 한계를 어떻게 보완했는지 확인한다.</span></p>
 <p data-ke-size="size16"><span>마지막으로 후속 연구인 ACE와 연관 연구인 ACIArena를 살펴본다. ACE를 통해 IsolateGPT의 실행 격리 구조에도 남아 있는 보안 취약점과 개선 방안을 분석하고, ACIArena를 통해 연구 범위를 Multi-Agent System(MAS)으로 확장하여 에이전트 간 협업 과정에서 발생하는 연쇄적 공격과 보안 평가 문제를 살펴보고자 한다.</span></p>
-<p data-ke-size="size16"><span>이를 바탕으로 </span><span>LLM Agent 보안 연구가 개별 Agent의 취약성 분석에서 시스템 수준의 실행 격리와 MAS의 상호작용 보안으로 어떻게 확장되고 있는지</span><span> 연구 흐름을 정리하고, 향후 필요한 보안 기술과 연구 방향을 고찰하고자 한다.</span></p>
+<p data-ke-size="size16"><span>이를 바탕으로 </span><span>LLM Agent 보안 연구가 개별 Agent의 취약성 분석에서 시스템 수준의 실행 격리와 MAS의 상호작용 보안으로 어떻게 확장되고 있는지</span><span> 연구 흐름을 정리하고, 향후 필요한 보안 기술과 연구 방향을 생각해보자 한다.</span></p>
 <p data-ke-size="size16"> </p>
 <h4 data-ke-size="size20">5장의 논문을 하나의 페이지로 요약하기 위해서는</h4>
 <p data-ke-size="size16">요약을 하기 위한 틀이 명확해야 한다. 일단 선행 연구에 대해서는 기존 연구에서는 원래 어떤 것들을 연구 했고, 그리고 해당 연구에서 부족한 점이 뭔지 파악하고 선행 연구에서는 해당 문제점을 어떻게 해쳐나갔으며 어떤 한계점을 가졌는지 본다</p>
@@ -426,7 +427,28 @@ icon: fa-book
 <p data-ke-size="size16"> </p>
 <p data-ke-size="size16"><span>특히 LLM Agent가 외부 데이터와 다른 애플리케이션을 신뢰 경계 없이 처리하는 구조에서는 악성 명령이 다른 구성 요소에 영향을 주거나 민감한 데이터에 접근할 위험이 존재한다. 따라서 개별 악성 프롬프트를 탐지하거나 거부하는 방식에서 나아가, 신뢰할 수 없는 구성 요소의 실행 환경을 분리하고 상호작용을 통제하는 시스템 수준의 보안 설계가 필요하다. 이러한 관점에서 IsolateGPT는 애플리케이션별 실행 격리와 접근 통제를 통해 공격의 영향 범위를 제한하는 보안 아키텍처를 제안한다.</span></p>
 <div>
-<h2 data-ke-size="size26"><span> </span><span>중심 </span><span>논문 </span><span>— </span><span>IsolateGPT</span></h2>
+<h2 data-ke-size="size26"><span> 선행 연구에서 IsolateGPT까지</span><span></span></h2>
+<p data-ke-size="size16">선행 연구들의 흐름을 먼저 확인해보면 INJECTAGENT -&gt; Agent SMith의 방향성은 악성 외부 콘텐츠가 Agent의 행동을 어떻게 조작하는가? 에서 악성 콘텐츠로 인한 영향이 여러 Agent 사이에서 어떻게 확산되는가? 이다.</p>
+<p data-ke-size="size16">행동 조작의 위험성에서 다중 Agent 환경의 공격 전파까지 연결된 것 이다. </p>
+<p data-ke-size="size16"> </p>
+<h4 data-ke-size="size20">IsolateGPT</h4>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"><span>INJECAGENT는 외부 도구의 응답에 삽입된 악성 명령어 LLM Agent의 의사결정에 영향을 미쳐, 사용자가 의도하지 않은 도구 호출이나 민감정보 유출로 이어질 수 있음을 실험적으로 입증했으며 1054개의 공격 사례를 통해 도구 통합형 LLM Agent가 IPI에 취약하다는 사실을 정량적으로 보여주었다.</span></p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"> </p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"><span>-&gt; 그러면 IsolateGPT는 이러한 결과를 어떻게 받아들였을까?</span></p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"> </p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"><span>INJECAGENT는 공격의 성공 여부를 평가하는 데 초점을 맞추었지만 Agent가 악성 명령을 따르게 되었을 때 그 영향이 다른 애플리케이션이나 시스템 자원으로 확산되는 것을 어떻게 제한할 것인지에 대한 구조적 방어 방안은 제시하지 않았다.</span></p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"><span>그리고 실험적 측면에서도 IsolateGPT는 INJECAGENT에서 제안한 1054개의 공격 사례를 활용하며 자신들의 공격 사례인 544개를 추가하였다. </span></p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"> </p>
+<h4 data-ke-size="size20" data-pm-slice="1 1 []">Agent Smith</h4>
+<p data-ke-size="size16"><span>Agent Smith는 하나의 MLLM Agent에 주입된 악성 이미지가 Agent 간 상호작용과 메모리 공유를 통해 다른 Agent로 전파되는 Infectious Jailbreak 공격을 제시하였다. 특히 최대 100만 개의 Agent를 대상으로 한 시뮬레이션에서 최초 하나의 Agent에 주입된 악성 이미지가 추가적인 공격자의 개입 없이 다른 Agent로 빠르게 확산될 수 있음을 실험적으로 보여주었다.</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>→ 그렇다면 IsolateGPT는 이러한 공격의 확산 문제와 어떻게 연결될 수 있을까?</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>Agent Smith는 Multi-Agent 환경에서 공격이 전파되는 메커니즘을 분석하고 전파를 억제하기 위한 이론적 조건을 제시했지만, 실제 시스템에 적용할 수 있는 구체적인 방어 아키텍처는 제안하지 않았다. 반면 IsolateGPT는 각 애플리케이션을 독립된 실행 환경인 Spoke로 격리하고, Hub와 ISC 프로토콜을 통해 애플리케이션 간 통신을 통제함으로써 악성 콘텐츠의 영향이 다른 애플리케이션으로 확산되는 것을 제한하고자 하였다.</span></p>
+<p data-ke-size="size16" data-pm-slice="1 1 []"> </p>
+<p data-ke-size="size16" data-pm-slice="1 1 []">앞서 이야기했듯, 행동 조작의 위험성에서 다중 Agent 환경의 공격 전파로 확장되었는데 IsolateGPT는 이를 실행 격리의 필요성이라는 문제의식으로 연결한 것 이다.</p>
+<h2 data-ke-size="size26"><span>중심 </span><span>논문 </span><span>— </span><span>IsolateGPT</span></h2>
 <p data-ke-size="size16"><span><span>논문명:</span></span> <span><span>IsolateGPT: </span><span>An </span><span>Execution </span><span>Isolation </span><span>Architecture </span><span>for </span><span>LLM-Based </span><span>Agentic </span><span>Systems</span></span></p>
 <p data-ke-size="size16"><span><span>학회:</span></span> <span>NDSS </span><span>2025</span></p>
 <p data-ke-size="size16"><span><span>저자:</span></span> <span>Yuhao </span><span>Wu, </span><span>Franziska </span><span>Roesner, </span><span>Tadayoshi </span><span>Kohno, </span><span>Ning </span><span>Zhang, </span><span>Umar </span><span>Iqbal</span><span></span></p>
@@ -608,10 +630,38 @@ icon: fa-book
 </div>
 <div>
 <div> </div>
+<div> </div>
 </div>
 </div>
 <div>
+<h3 data-ke-size="size23">IsolateGPT에서,, 후속 연구까지</h3>
+<p data-ke-size="size16">                 격리만??</p>
+<p data-ke-size="size16">IsolateGPt -----&gt;      ACE</p>
+<p data-ke-size="size16">                   다양한 MAS?</p>
+<p data-ke-size="size16">IsolateGPT ---------&gt;  ACIArena</p>
 <p data-ke-size="size16"> </p>
+<p data-ke-size="size16">로 보면 편할 것 같다. ACE로의 확장은 방어 아키텍처 고도화이고, ACIArena는 보안 평가 범위 확장이다.</p>
+<p data-ke-size="size16"> </p>
+<h4 data-ke-size="size20">구체적으로</h4>
+<p data-ke-size="size16"><span>IsolateGPT는 애플리케이션별 실행 환경을 격리하고 앱 간 통신을 통제하여 악성 애플리케이션의 영향이 다른 구성 요소로 확산되는 것을 제한하고자 하였다. </span><span>그렇다면 이러한 실행 격리만으로 LLM Agent 시스템의 모든 보안 문제를 해결할 수 있을까?</span></p>
+<p data-ke-size="size16"><span>이후의 연구를 살펴보면 두 가지 관점에서 추가적인 문제를 생각해 볼 수 있다. 하나는 격리된 환경에서도 작업 계획과 실행 흐름이 조작될 수 있다는 문제이며, 다른 하나는 여러 Agent가 협업하는 환경에서 발생하는 보안 위협을 어떻게 평가할 것인가에 대한 문제이다.</span></p>
+<h3 data-ke-size="size23"><span>ACE</span></h3>
+<p data-ke-size="size16"><span>IsolateGPT는 Hub-and-Spoke 구조를 통해 애플리케이션을 격리했지만, 중앙 Hub에서 작업 계획을 생성할 때 애플리케이션의 설명을 참고하고, 실행 과정에서는 애플리케이션의 출력을 Execution Manager LLM에 전달한다는 한계가 존재하였다.</span></p>
+<p data-ke-size="size16"><span>ACE는 이러한 구조에 주목하여 실제 IsolateGPT를 대상으로 Planner Manipulation, Execution Flow Disruption, Execution Manager Hijack이라는 세 가지 공격을 수행하였으며, 실행 격리가 적용된 환경에서도 작업 계획이나 실행 흐름이 조작될 수 있음을 확인하였다.</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>→ 그렇다면 ACE는 IsolateGPT에서 발견된 이러한 문제를 어떻게 해결하고자 했을까?</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>ACE는 기존의 실행 격리 구조에서 더 나아가 작업 계획의 생성과 실행을 분리하는 Abstract-Concrete-Execute 아키텍처를 제안하였다. 신뢰할 수 있는 사용자 요청만으로 추상적인 계획을 생성하고, 실제 애플리케이션을 연결하는 과정에서 정보 흐름 정책을 검증한 후, 사전에 결정된 계획에 따라 실행하도록 구성하였다.</span></p>
+<p data-ke-size="size16"><span>즉, IsolateGPT가 애플리케이션 사이의 실행 격리를 통해 피해 범위를 제한했다면, ACE는 악성 애플리케이션이 시스템의 작업 계획과 실행 흐름 자체를 조작하지 못하도록 방어 범위를 확장한 것이다.</span></p>
+<h3 data-ke-size="size23"><span>ACIArena</span></h3>
+<p data-ke-size="size16"><span>앞선 IsolateGPT와 ACE는 LLM 기반 애플리케이션 시스템에서 발생하는 보안 문제를 시스템 아키텍처 수준에서 해결하고자 하였다. </span><span>그러나 여러 Agent가 역할을 나누어 협업하는 Multi-Agent System에서는 개별 구성 요소의 격리뿐 아니라 Agent 간에 전달되는 메시지와 상호작용 구조가 전체 시스템의 보안성에 어떤 영향을 미치는지도 중요한 문제이다.</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>→ 그렇다면 다양한 Multi-Agent 환경에서 이러한 공격의 전파와 방어 효과를 어떻게 일관되게 평가할 수 있을까?</span></p>
+<p data-ke-size="size16"> </p>
+<p data-ke-size="size16"><span>ACIArena는 이러한 문제를 평가하기 위해 Agent Cascading Injection(ACI)을 대상으로 통합적인 보안 평가 프레임워크를 제안하였다. 특히 6개의 MAS 구현을 대상으로 28가지 공격 방식과 1,356개의 테스트 케이스를 구성하여, 공격 위치와 목표뿐 아니라 Agent의 역할과 통신 구조에 따른 취약성 차이를 분석하였다. </span><span>이 연구는 IsolateGPT의 실행 격리 구조를 직접 개선한 것은 아니지만, 신뢰할 수 없는 구성 요소 사이의 상호작용을 어떻게 통제하고 평가할 것인지라는 공통적인 보안 문제를 다룬다. 또한 앞서 살펴본 Agent Smith의 공격 전파 연구와도 연결되며, 다양한 MAS 환경에서 연쇄적인 공격을 정량적으로 비교할 수 있는 평가 체계를 제시한다.</span></p>
+<h3 data-ke-size="size23"><span>정리</span></h3>
+<p data-ke-size="size16"><span>결과적으로 IsolateGPT 이후의 연구를 두 가지 방향에서 해석할 수 있다. ACE는 실행 격리 이후에도 남아 있는 작업 계획과 실행 과정의 취약점을 보완하여 방어 아키텍처를 고도화하였고, ACIArena는 연구 대상을 다양한 MAS 환경으로 넓혀 Agent 간 상호작용과 공격 전파에 대한 체계적인 보안 평가의 필요성을 보여주었다.</span></p>
+<p data-ke-size="size16"><span>따라서 두 논문은 직접적인 기술 계승 관계라기보다는, LLM Agent 시스템에서 신뢰 경계를 어떻게 보호하고 그 보안성을 어떻게 검증할 것인지라는 문제를 서로 다른 관점에서 다루는 연구로 이해할 수 있다.</span></p>
 <h2 data-ke-size="size26"><span>후속 연구 2편</span></h2>
 <p data-ke-size="size16"> </p>
 <h3 data-ke-size="size23"><span>1. 연구 배경 및 핵심 문제</span></h3>
@@ -646,7 +696,6 @@ icon: fa-book
 <p data-ke-size="size16"><span>ACE는 이러한 문제를 해결하기 위해 </span><span>Abstract-Concrete-Execute 아키텍처</span><span>를 제안하였다.</span></p>
 <p data-ke-size="size16"><span>기존 IsolateGPT에서는 계획과 실행이 반복적으로 이루어졌지만, ACE는 작업 계획을 실행 전에 생성하고 검증한 뒤 정해진 계획에 따라 실행하도록 구조를 변경하였다.</span></p>
 <p data-ke-size="size16"> </p>
-<figure class="imageblock alignCenter" data-ke-mobilestyle="widthOrigin" data-origin-height="254" data-origin-width="758"><span data-phocus="https://blog.kakaocdn.net/dna/bqhfL5/dJMcab659eL/AAAAAAAAAAAAAAAAAAAAAPUfc44Zkjrva35LjW2M3JuPv3NdYVR0j0J66iC-7o09/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1793458799&amp;allow_ip=&amp;allow_referer=&amp;signature=On1siqLb%2BpR67ER9yOz%2F6JXN510%3D" data-url="https://blog.kakaocdn.net/dna/bqhfL5/dJMcab659eL/AAAAAAAAAAAAAAAAAAAAAPUfc44Zkjrva35LjW2M3JuPv3NdYVR0j0J66iC-7o09/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1793458799&amp;allow_ip=&amp;allow_referer=&amp;signature=On1siqLb%2BpR67ER9yOz%2F6JXN510%3D"><img data-origin-height="254" data-origin-width="758" height="254" loading="lazy" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" src="https://blog.kakaocdn.net/dna/bqhfL5/dJMcab659eL/AAAAAAAAAAAAAAAAAAAAAPUfc44Zkjrva35LjW2M3JuPv3NdYVR0j0J66iC-7o09/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1793458799&amp;allow_ip=&amp;allow_referer=&amp;signature=On1siqLb%2BpR67ER9yOz%2F6JXN510%3D" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbqhfL5%2FdJMcab659eL%2FAAAAAAAAAAAAAAAAAAAAAPUfc44Zkjrva35LjW2M3JuPv3NdYVR0j0J66iC-7o09%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1793458799%26allow_ip%3D%26allow_referer%3D%26signature%3DOn1siqLb%252BpR67ER9yOz%252F6JXN510%253D" width="758"/></span></figure>
 <p data-ke-size="size18"><span> Abstract Planning — 추상 계획 생성</span></p>
 <p data-ke-size="size18"> </p>
 <p data-ke-size="size16"><span>신뢰할 수 있는 사용자 요청만을 이용하여 추상적인 작업 계획을 생성한다. </span><span>이때 실제 설치된 앱의 설명이나 출력은 참조하지 않으므로, 악성 앱이 자신의 설명을 조작하더라도 최초 작업 계획에 영향을 주기 어렵다.</span></p>
