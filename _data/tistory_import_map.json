@@ -55,6 +55,7 @@
     "67": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
     "70": { "category": "Paper-Conference", "tags": ["논문", "프론티어", "AI 보안"] },
     "72": { "category": "TechnicalDocument", "tags": ["프론티어", "모의침투", "금융보안", "ASM"] },
-    "73": { "category": "BugBounty", "tags": ["프론티어", "Obsidian", "리버싱", "취약점분석"] }
+    "73": { "category": "BugBounty", "tags": ["프론티어", "Obsidian", "리버싱", "취약점분석"] },
+    "74": { "category": "TechnicalDocument", "tags": ["프론티어", "CVE", "Linux Kernel", "커널취약점"] }
   }
 }
