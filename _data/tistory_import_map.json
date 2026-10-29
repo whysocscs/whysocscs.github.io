@@ -59,6 +59,7 @@
     "73": { "category": "BugBounty", "tags": ["프론티어", "Obsidian", "리버싱", "취약점분석"] },
     "74": { "category": "TechnicalDocument", "tags": ["프론티어", "CVE", "Linux Kernel", "커널취약점"] },
     "75": { "category": "CTF-Wargame", "tags": ["Kubernetes", "Wargame", "컨테이너보안"] },
-    "76": { "category": "TechnicalDocument", "tags": ["프론티어", "WebAssembly", "WASM"] }
+    "76": { "category": "TechnicalDocument", "tags": ["프론티어", "WebAssembly", "WASM"] },
+    "77": { "category": "TechnicalDocument", "tags": ["패킷분석", "pcap", "네트워크보안", "악성코드분석"] }
   }
 }
